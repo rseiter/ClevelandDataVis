@@ -1,0 +1,19 @@
+---
+title: "More Visualization Insights Based on Cleveland's Work"
+author: "Rich Seiter"
+date: "Sunday, July 27, 2014"
+output: html_document
+---
+
+Solomon Messing's Blog
+----------------------
+
+[Visualization series: Insight from Cleveland and Tufte on plotting numeric data by groups](http://solomonmessing.wordpress.com/2012/03/04/visualization-series-insight-from-cleveland-and-tufte-on-plotting-numeric-data-by-groups/)
+
+[Visualization Series: Using Scatterplots and Models to Understand the Diamond Market](http://solomonmessing.wordpress.com/2014/01/19/visualization-series-the-scatterplot-or-how-to-use-data-so-you-dont-get-ripped-off/)
+
+
+Misc
+----
+
+[Most underused data visualization](http://stackoverflow.com/questions/2076370/most-underused-data-visualization) - not directly from Cleveland, but lots of neat plot types.

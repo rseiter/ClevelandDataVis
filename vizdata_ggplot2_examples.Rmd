@@ -1,0 +1,42 @@
+R Examples from Visualizing Data by William Cleveland
+=====================================================
+
+GGplot2 graphics examples from [Visualizing Data](http://www.stat.purdue.edu/~wsc/visualizing.html) [Amazon](http://www.amazon.com/Visualizing-Data-William-S-Cleveland/dp/0963488406) by William Cleveland.
+
+Based on Splus data from http://www.ats.ucla.edu/stat/examples/vizdata/ and R code from 
+[Graph Examples from Visualizing Data by William Cleveland](http://www.wekaleamstudios.co.uk/posts/graph-examples-from-visualizing-data-by-william-cleveland/)
+
+```{r setup}
+# Read the data
+load("visualizing_data.Rdata")
+
+# Use Ggplot2 graphics
+library(ggplot2)
+```
+
+```{r chapter1}
+# Figure 1.1
+
+# Figure 1.2
+
+qplot(height, data = singer, xlab = "Height (inches)") +
+  geom_histogram() + facet_wrap( ~ voice.part, ncol = 2)
+
+# Figure 1.3
+
+# Figure 1.4
+
+qplot(E, NOx, data = ethanol, xlab = "E",
+  ylab= "Oxides of Nitrogenn(micrograms/J)")
+
+# Figure 1.5
+
+qplot(C, NOx, data = ethanol, xlab = "C",
+  ylab= "Oxides of Nitrogenn(micrograms/J)")
+
+# Figure 1.6
+
+qplot(yield, variety, data = barley, xlab = "Barley Yield (bushels/acre)") +
+  geom_point() + facet_grid(site ~ year)
+
+```

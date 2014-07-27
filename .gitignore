@@ -1,3 +1,7 @@
 .Rproj.user
 .Rhistory
 .RData
+
+# Derived files, not sure if I want to save
+*.html
+
