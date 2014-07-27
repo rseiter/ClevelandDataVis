@@ -1,7 +1,7 @@
 R Examples from Visualizing Data by William Cleveland
 =====================================================
 
-Trellis (Lattice in R) graphics examples from [Visualizing Data](http://www.stat.purdue.edu/~wsc/visualizing.html) [Amazon](http://www.amazon.com/Visualizing-Data-William-S-Cleveland/dp/0963488406) by William Cleveland.
+Trellis (Lattice in R) graphics examples from [Visualizing Data](http://www.stat.purdue.edu/~wsc/visualizing.html) by William Cleveland.  [Amazon](http://www.amazon.com/Visualizing-Data-William-S-Cleveland/dp/0963488406) 
 
 Based on Splus data from http://www.ats.ucla.edu/stat/examples/vizdata/ and R code from 
 [Visualizing Data](http://www.stat.purdue.edu/~wsc/visualizing.html)
@@ -144,9 +144,6 @@ function()
 		ylab = "Tenor 1 Height (inches)")
 book.2.2()
 
-```
-
-```{r notImplemented1, eval=FALSE, echo=FALSE}
 book.2.3 <-
 function()
 {
@@ -161,12 +158,11 @@ function()
 		ylab = "Base 2 Height (inches)")
 }
 book.2.3()
-export.graph(Name = "GSD2",FileName = "G:\\currdata\\vizfigs\\vizdata_2_03.gif")
 
 book.2.4 <-
 function()
 {
-	voice.part <- ordered(singer$voice.part,
+  voice.part <- ordered(singer$voice.part,
 		c("Soprano 1", "Soprano 2", "Alto 1", "Alto 2",
 			"Tenor 1", "Tenor 2", "Bass 1", "Bass 2"))
 	bass.tenor.qq <- qq(voice.part ~ singer$height,
@@ -178,9 +174,11 @@ function()
 		xlab = "Mean (inches)")
 }
 book.2.4()
-export.graph(Name = "GSD2",FileName = "G:\\currdata\\vizfigs\\vizdata_2_04.gif")
 
 # 2.5 missing ;	
+```
+
+```{r notImplemented1, eval=FALSE, echo=FALSE}
 
 book.2.6 <-
 function()
@@ -211,7 +209,6 @@ function()
 	invisible()
 }
 book.2.6()
-export.graph(Name = "GSD2",FileName = "G:\\currdata\\vizfigs\\vizdata_2_06.gif")
 
 book.2.7 <-
 function()
@@ -258,7 +255,6 @@ function()
 		ylab = "Data")
 }
 book.2.7()
-export.graph(Name = "GSD2",FileName = "G:\\currdata\\vizfigs\\vizdata_2_07.gif")
 
 book.2.8 <-
 function()
@@ -268,7 +264,6 @@ function()
 		sub = list("Figure 2.8",cex=.8),
 		xlab="Height (inches)")
 book.2.8()
-export.graph(Name = "GSD2",FileName = "G:\\currdata\\vizfigs\\vizdata_2_08.gif")
 		
 book.2.9 <-
 function()
@@ -289,7 +284,6 @@ function()
 		ylab = "Alto 1 Height (inches)")
 }
 book.2.9()
-export.graph(Name = "GSD2",FileName = "G:\\currdata\\vizfigs\\vizdata_2_09.gif")
 
 book.2.10 <-
 function()
@@ -309,7 +303,6 @@ function()
 		ylab = "Normal Quantile Function")
 }
 book.2.10()
-export.graph(Name = "GSD2",FileName = "G:\\currdata\\vizfigs\\vizdata_2_10.gif")
 
 book.2.11 <-
 function()
@@ -327,7 +320,6 @@ function()
 		xlab = "Unit Normal Quantile",
 		ylab="Height (inches)")
 book.2.11()
-export.graph(Name = "GSD2",FileName = "G:\\currdata\\vizfigs\\vizdata_2_11.gif")
 
 book.2.12 <-
 function()
@@ -336,7 +328,6 @@ function()
 		sub = list("Figure 2.12",cex=.8),
 		xlab="Mean Height (inches)")
 book.2.12()
-export.graph(Name = "GSD2",FileName = "G:\\currdata\\vizfigs\\vizdata_2_12.gif")
 
 book.2.13 <-
 function()
@@ -350,7 +341,6 @@ function()
 		sub = list("Figure 2.13",cex=.8),
 		xlab = "Residual Height (inches)")
 book.2.13()
-export.graph(Name = "GSD2",FileName = "G:\\currdata\\vizfigs\\vizdata_2_13.gif")
 
 book.2.14 <-
 function()
@@ -370,7 +360,6 @@ function()
 		ylab = "Residual Height (inches)")
 }
 book.2.14()
-export.graph(Name = "GSD2",FileName = "G:\\currdata\\vizfigs\\vizdata_2_14.gif")
 
 book.2.15 <-
 function()
@@ -383,7 +372,6 @@ function()
 		xlab = "f-value",
 		ylab = "Residual Height (inches)")
 book.2.15()
-export.graph(Name = "GSD2",FileName = "G:\\currdata\\vizfigs\\vizdata_2_15.gif")
 
 book.2.16 <-
 function()
@@ -399,7 +387,6 @@ function()
 		xlab = "Unit Normal Quantile",
 		ylab="Residual Height (inches)")
 book.2.16()
-export.graph(Name = "GSD2",FileName = "G:\\currdata\\vizfigs\\vizdata_2_16.gif")
 
 
 book.2.17 <-
@@ -409,7 +396,6 @@ function()
 		sub = list("Figure 2.17",cex=.8),
 		ylab = "Height (inches)")
 book.2.17()
-export.graph(Name = "GSD2",FileName = "G:\\currdata\\vizfigs\\vizdata_2_17.gif")
 
 book.2.19 <-
 function()
@@ -426,7 +412,6 @@ function()
 		xlab = "f-value",
 		ylab="Time (seconds)")
 book.2.19()
-export.graph(Name = "GSD2",FileName = "G:\\currdata\\vizfigs\\vizdata_2_19.gif")
 
 book.2.20 <-
 function()
@@ -452,7 +437,6 @@ function()
 	        ylab = "Data")
 }
 book.2.20()
-export.graph(Name = "GSD2",FileName = "G:\\currdata\\vizfigs\\vizdata_2_20.gif")
 
 book.2.21 <-
 function()
@@ -478,7 +462,6 @@ function()
 	        ylab = "Data")
 }
 book.2.21()
-export.graph(Name = "GSD2",FileName = "G:\\currdata\\vizfigs\\vizdata_2_21.gif")
 
 book.2.22 <-
 function()
@@ -496,7 +479,6 @@ function()
 		xlab = "Unit Normal Quantile",
 		ylab="Time (seconds)")
 book.2.22()
-export.graph(Name = "GSD2",FileName = "G:\\currdata\\vizfigs\\vizdata_2_22.gif")
 
 book.2.23 <-
 function()
@@ -506,7 +488,6 @@ function()
 		sub = list("Figure 2.23",cex=.8),
 		xlab="Time (seconds)")
 book.2.23()
-export.graph(Name = "GSD2",FileName = "G:\\currdata\\vizfigs\\vizdata_2_23.gif")
 
 book.2.24 <-
 function()
@@ -526,7 +507,6 @@ function()
 
 		ylab="Log Time (log 2 seconds)")
 book.2.24()
-export.graph(Name = "GSD2",FileName = "G:\\currdata\\vizfigs\\vizdata_2_24.gif")
 
 book.2.25 <-
 function()
@@ -545,7 +525,6 @@ function()
 		ylab="Square Root Absolute Residual Time (square root sec)")
 }
 book.2.25()
-export.graph(Name = "GSD2",FileName = "G:\\currdata\\vizfigs\\vizdata_2_25.gif")
 
 
 book.2.26 <-
@@ -565,7 +544,6 @@ function()
 		ylab="Square Root Absolute Residual Log Time (square root absolute log 2 sec)")
 }
 book.2.26()
-export.graph(Name = "GSD2",FileName = "G:\\currdata\\vizfigs\\vizdata_2_26.gif")
 
 book.2.27 <-
 function()
@@ -576,7 +554,6 @@ function()
 		xlab="NV Time (seconds)",
 		ylab="VV Time (seconds)")
 book.2.27()
-export.graph(Name = "GSD2",FileName = "G:\\currdata\\vizfigs\\vizdata_2_27.gif")
 
 
 book.2.28 <-
@@ -588,7 +565,6 @@ function()
 		xlab = "Log NV Time (log 2 seconds)",
 		ylab = "Log VV Time (log 2 seconds)")
 book.2.28()
-export.graph(Name = "GSD2",FileName = "G:\\currdata\\vizfigs\\vizdata_2_28.gif")
 		
 book.2.29 <-
 function()
@@ -598,7 +574,6 @@ function()
 		xlab = "Mean (log 2 seconds)",
 		ylab = "Difference (log 2 seconds)")
 book.2.29()
-export.graph(Name = "GSD2",FileName = "G:\\currdata\\vizfigs\\vizdata_2_29.gif")
 
 
 
@@ -620,7 +595,6 @@ function()
 		ylab = "Residual Log Time (log 2 seconds)")
 }
 book.2.30()
-export.graph(Name = "GSD2",FileName = "G:\\currdata\\vizfigs\\vizdata_2_30.gif")
 
 
 book.2.31 <-
@@ -636,7 +610,6 @@ function()
 		xlab = "Unit Normal Quantile", 
 		ylab = "Residual Log Time (log 2 seconds)")
 book.2.31()
-export.graph(Name = "GSD2",FileName = "G:\\currdata\\vizfigs\\vizdata_2_31.gif")
 
 
 book.2.32 <-
@@ -646,7 +619,6 @@ function()
 		sub = list("Figure 2.32",cex=.8),
 	        ylab = "Log Time (log 2 seconds)")
 book.2.32()
-export.graph(Name = "GSD2",FileName = "G:\\currdata\\vizfigs\\vizdata_2_32.gif")
 	
 book.2.33 <-
 function()
@@ -675,7 +647,6 @@ function()
 	ans
 }
 book.2.33()
-export.graph(Name = "GSD2",FileName = "G:\\currdata\\vizfigs\\vizdata_2_33.gif")
 
 
 book.2.34 <-
@@ -693,7 +664,6 @@ function()
 		xlab = "f-value",
 		ylab="Chain Length")
 book.2.34()
-export.graph(Name = "GSD2",FileName = "G:\\currdata\\vizfigs\\vizdata_2_34.gif")
 
 book.2.35 <-
 function()
@@ -713,7 +683,6 @@ function()
 		ylab="Square Root Absolute Residual Chain Length")
 }
 book.2.35()
-export.graph(Name = "GSD2",FileName = "G:\\currdata\\vizfigs\\vizdata_2_35.gif")
 
 
 book.2.36 <-
@@ -732,7 +701,6 @@ function()
 		xlab = "Unit Normal Quantile",
 		ylab="Chain Length")
 book.2.36()
-export.graph(Name = "GSD2",FileName = "G:\\currdata\\vizfigs\\vizdata_2_36.gif")
 
 book.2.37 <-
 function()
@@ -752,7 +720,6 @@ function()
 		ylab = "Square Root Absolute Residual Log 2 Chain Length")
 }
 book.2.37()
-export.graph(Name = "GSD2",FileName = "G:\\currdata\\vizfigs\\vizdata_2_37.gif")
 
 book.2.38 <-
 function()
@@ -770,7 +737,6 @@ function()
 		xlab = "Unit Normal Quantile",
 		ylab="Log 2 Chain Length")
 book.2.38()
-export.graph(Name = "GSD2",FileName = "G:\\currdata\\vizfigs\\vizdata_2_38.gif")
 
 book.2.39 <-
 function()
@@ -790,7 +756,6 @@ function()
 		ylab = "Square Root Absolute Residual Link Fraction")
 }
 book.2.39()
-export.graph(Name = "GSD2",FileName = "G:\\currdata\\vizfigs\\vizdata_2_39.gif")
 
 book.2.40 <-
 function()
@@ -807,7 +772,6 @@ function()
 	       xlab = "Unit Normal Quantile", 
 	       ylab = "Link Fraction")
 book.2.40()
-export.graph(Name = "GSD2",FileName = "G:\\currdata\\vizfigs\\vizdata_2_40.gif")
 	
 book.2.41 <-
 function()
@@ -827,7 +791,6 @@ function()
 		ylab = "Residual Link Fraction")
 }
 book.2.41()
-export.graph(Name = "GSD2",FileName = "G:\\currdata\\vizfigs\\vizdata_2_41.gif")
 
 book.2.42 <-
 function()
@@ -836,7 +799,6 @@ function()
 		aspect=1,
 		ylab = "Link Fraction")
 book.2.42()
-export.graph(Name = "GSD2",FileName = "G:\\currdata\\vizfigs\\vizdata_2_42.gif")
 
 book.2.43 <-
 function()
@@ -846,7 +808,6 @@ function()
 		sub = list("Figure 2.43",cex=.8),
 		xlab="Log 2 Empty Space")
 book.2.43()
-export.graph(Name = "GSD2",FileName = "G:\\currdata\\vizfigs\\vizdata_2_43.gif")
 
 book.2.44 <-
 function()
@@ -863,7 +824,6 @@ function()
 		xlab = "Unit Normal Quantile",
 		ylab = "Log 2 Empty Space")
 book.2.44()
-export.graph(Name = "GSD2",FileName = "G:\\currdata\\vizfigs\\vizdata_2_44.gif")
 
 book.2.45 <-
 function()
@@ -887,7 +847,6 @@ function()
 		ylab = "Spread-Standardized Residual Log 2 Empty Space")
 }
 book.2.45()
-export.graph(Name = "GSD2",FileName = "G:\\currdata\\vizfigs\\vizdata_2_45.gif")
 
 book.2.46 <-
 function()
@@ -914,7 +873,6 @@ function()
 	ans
 }
 book.2.46()
-export.graph(Name = "GSD2",FileName = "G:\\currdata\\vizfigs\\vizdata_2_46.gif")
 
 book.2.47 <-
 function()
@@ -934,7 +892,6 @@ function()
 		ylab = "Spread-Standardized Residual Log 2 Empty Space")
 }
 book.2.47()
-export.graph(Name = "GSD2",FileName = "G:\\currdata\\vizfigs\\vizdata_2_47.gif")
 
 book.2.48 <-
 function()
@@ -956,7 +913,6 @@ function()
 	ans
 }
 book.2.48()
-export.graph(Name = "GSD2",FileName = "G:\\currdata\\vizfigs\\vizdata_2_48.gif")
 
 book.2.49 <-
 function()
@@ -973,7 +929,6 @@ function()
 	ans
 }
 book.2.49()
-export.graph(Name = "GSD2",FileName = "G:\\currdata\\vizfigs\\vizdata_2_49.gif")
 
 book.2.50 <-
 function()
@@ -990,7 +945,6 @@ function()
 	ans
 }
 book.2.50()
-export.graph(Name = "GSD2",FileName = "G:\\currdata\\vizfigs\\vizdata_2_50.gif")
 
 book.2.51 <-
 function()
@@ -1008,7 +962,6 @@ function()
 	ans
 }
 book.2.51()
-export.graph(Name = "GSD2",FileName = "G:\\currdata\\vizfigs\\vizdata_2_51.gif")
 
 book.2.52 <-
 function()
@@ -1030,10 +983,12 @@ function()
 		ylab = "Spread-Standardized Log 2 Empty Space")
 }
 book.2.52()
-export.graph(Name = "GSD2",FileName = "G:\\currdata\\vizfigs\\vizdata_2_52.gif")
 ```
 
-```{r notImplemented, eval=FALSE, echo=FALSE}
+Chapter 3 Examples
+------------------
+
+```{r chapter3}
 book.3.1 <- 
 function()
 	xyplot(cp.ratio ~ area,
@@ -1043,8 +998,9 @@ function()
 		xlab = "Area (square mm)",
 		ylab = "CP Ratio")
 book.3.1()
-export.graph(Name = "GSD2",FileName = "G:\\currdata\\vizfigs\\vizdata_3_01.gif")
+```
 
+```{r chapter3NotImplemented, eval=FALSE, echo=FALSE}
 book.3.2 <- 
 function()
 	xyplot(cp.ratio ~ area, 
@@ -1060,7 +1016,6 @@ function()
 		ylab = "CP Ratio",
 		aspect="xy")
 book.3.2()
-export.graph(Name = "GSD2",FileName = "G:\\currdata\\vizfigs\\vizdata_3_02.gif")
 
 book.3.3 <- 
 function()
@@ -1095,7 +1050,6 @@ function()
 	invisible()
 }
 book.3.3()
-export.graph(Name = "GSD2",FileName = "G:\\currdata\\vizfigs\\vizdata_3_03.gif")
 
 book.3.4 <- 
 function()
@@ -1113,7 +1067,6 @@ function()
 		xlab = "Area (square mm)", ylab="CP Ratio")
 }
 book.3.4()
-export.graph(Name = "GSD2",FileName = "G:\\currdata\\vizfigs\\vizdata_3_04.gif")
 
 book.3.5 <- 
 function()
@@ -1137,7 +1090,6 @@ function()
 	ans
 }
 book.3.5()
-export.graph(Name = "GSD2",FileName = "G:\\currdata\\vizfigs\\vizdata_3_05.gif")
 
 book.3.6 <- 
 function()
@@ -1161,7 +1113,6 @@ function()
 		ylab = "y")
 }
 book.3.6()
-export.graph(Name = "GSD2",FileName = "G:\\currdata\\vizfigs\\vizdata_3_06.gif")
 
 # dont have 3.7, 3.8
 
@@ -1198,7 +1149,6 @@ function()
 		ylab = "y")
 }
 book.3.9()
-export.graph(Name = "GSD2",FileName = "G:\\currdata\\vizfigs\\vizdata_3_09.gif")
 
 book.3.10 <- 
 function()
@@ -1235,7 +1185,6 @@ function()
 		ylab = "y")
 }
 book.3.10()
-export.graph(Name = "GSD2",FileName = "G:\\currdata\\vizfigs\\vizdata_3_10.gif")
 
 book.3.11 <- 
 function()
@@ -1260,7 +1209,6 @@ function()
 		ylab = "y")
 }
 book.3.11()
-export.graph(Name = "GSD2",FileName = "G:\\currdata\\vizfigs\\vizdata_3_11.gif")
 
 book.3.12 <- 
 function()
@@ -1278,7 +1226,6 @@ function()
 		xlab = "Area (square mm)", 
 		ylab="Residual CP Ratio")
 book.3.12()
-export.graph(Name = "GSD2",FileName = "G:\\currdata\\vizfigs\\vizdata_3_12.gif")
 		
 book.3.13 <- 
 function()
@@ -1296,7 +1243,6 @@ function()
 		xlab = "Area (square mm)",
 		ylab="Residual CP Ratio")
 book.3.13()
-export.graph(Name = "GSD2",FileName = "G:\\currdata\\vizfigs\\vizdata_3_13.gif")
 
 book.3.14 <- 
 function()
@@ -1313,7 +1259,6 @@ function()
 		ylab = "Square Root Absolute Residual CP Ratio")
 }
 book.3.14()
-export.graph(Name = "GSD2",FileName = "G:\\currdata\\vizfigs\\vizdata_3_14.gif")
 
 
 book.3.15 <- 
@@ -1331,7 +1276,6 @@ function()
 		xlab = "Area (square mm)",
 		ylab = "Log Base 2 CP Ratio")
 book.3.15()
-export.graph(Name = "GSD2",FileName = "G:\\currdata\\vizfigs\\vizdata_3_15.gif")
 		
 book.3.16 <- 
 function()
@@ -1347,7 +1291,6 @@ function()
 		xlab = "Area (square mm)",
 		ylab = "Log Base 2 CP Ratio")
 book.3.16()
-export.graph(Name = "GSD2",FileName = "G:\\currdata\\vizfigs\\vizdata_3_16.gif")
 	
 book.3.17 <- 
 function()
@@ -1367,7 +1310,6 @@ function()
 		ylab="Residual Log Base 2 CP Ratio")
 }
 book.3.17()
-export.graph(Name = "GSD2",FileName = "G:\\currdata\\vizfigs\\vizdata_3_17.gif")
 
 book.3.18 <- 
 function()
@@ -1386,7 +1328,6 @@ function()
 		ylab = "Square Root Absolute Residual Log Base 2 CP Ratio")
 }
 book.3.18()
-export.graph(Name = "GSD2",FileName = "G:\\currdata\\vizfigs\\vizdata_3_18.gif")
 
 book.3.19 <- 
 function()
@@ -1395,7 +1336,6 @@ function()
 		aspect=2,
 		ylab="Log Base 2 CP Ratio")
 book.3.19()
-export.graph(Name = "GSD2",FileName = "G:\\currdata\\vizfigs\\vizdata_3_19.gif")
 
 book.3.20 <- 
 function()
@@ -1410,7 +1350,6 @@ function()
 		xlab = "Unit Normal Quantile",
 		ylab = "Residual Log Base 2 CP Ratio")
 book.3.20()
-export.graph(Name = "GSD2",FileName = "G:\\currdata\\vizfigs\\vizdata_3_20.gif")
 
 book.3.21 <- 
 function()
@@ -1421,7 +1360,6 @@ function()
 		xlab = "Carbon Age (kyr BP)",
 		ylab = "Thorium Age - Carbon Age (kyr BP)")
 book.3.21()
-export.graph(Name = "GSD2",FileName = "G:\\currdata\\vizfigs\\vizdata_3_21.gif")
 
 book.3.22 <- 
 function()
@@ -1439,7 +1377,6 @@ function()
 		ylab = "Thorium Age - Carbon Age (kyr BP)")
 }
 book.3.22()
-export.graph(Name = "GSD2",FileName = "G:\\currdata\\vizfigs\\vizdata_3_22.gif")
 
 book.3.23 <- 
 function()
@@ -1453,7 +1390,6 @@ function()
 		xlab = "Carbon Age (kyr BP)", 
 		ylab = "Residual Age Difference (kyr BP)")
 book.3.23()
-export.graph(Name = "GSD2",FileName = "G:\\currdata\\vizfigs\\vizdata_3_23.gif")
 
 # dont have 3.24
 
@@ -1482,7 +1418,6 @@ function()
 	ans
 }
 book.3.25()
-export.graph(Name = "GSD2",FileName = "G:\\currdata\\vizfigs\\vizdata_3_25.gif")
 
 book.3.26 <- 
 function()
@@ -1507,7 +1442,6 @@ function()
 	ans
 }
 book.3.26()
-export.graph(Name = "GSD2",FileName = "G:\\currdata\\vizfigs\\vizdata_3_26.gif")
 
 book.3.27 <- 
 function()
@@ -1534,7 +1468,6 @@ function()
 	ans
 }
 book.3.27()
-export.graph(Name = "GSD2",FileName = "G:\\currdata\\vizfigs\\vizdata_3_27.gif")
 
 book.3.28 <- 
 function()
@@ -1545,7 +1478,6 @@ function()
 		xlab = "Concentration (micrograms per cubic meter)",
 		ylab = "Babinet Point (degrees)")
 book.3.28()
-export.graph(Name = "GSD2",FileName = "G:\\currdata\\vizfigs\\vizdata_3_28.gif")
 
 book.3.29 <- 
 function()
@@ -1572,7 +1504,6 @@ function()
 	ans
 }
 book.3.29()
-export.graph(Name = "GSD2",FileName = "G:\\currdata\\vizfigs\\vizdata_3_29.gif")
 
 
 book.3.30 <- 
@@ -1584,7 +1515,6 @@ function()
 		xlab = "Cube Root Concentration (cube root micrograms per meter)",
 		ylab = "Babinet Point (degrees)")
 book.3.30()
-export.graph(Name = "GSD2",FileName = "G:\\currdata\\vizfigs\\vizdata_3_30.gif")
 
 book.3.31 <- 
 function()
@@ -1598,7 +1528,6 @@ function()
 		ylab = "Jittered Babinet Point (degrees)")
 }
 book.3.31()
-export.graph(Name = "GSD2",FileName = "G:\\currdata\\vizfigs\\vizdata_3_31.gif")
 
 book.3.32 <- 
 function()
@@ -1623,7 +1552,6 @@ function()
 	ans
 }
 book.3.32()
-export.graph(Name = "GSD2",FileName = "G:\\currdata\\vizfigs\\vizdata_3_32.gif")
 
 book.3.33 <- 
 function()
@@ -1645,7 +1573,6 @@ function()
 	ans
 }
 book.3.33()
-export.graph(Name = "GSD2",FileName = "G:\\currdata\\vizfigs\\vizdata_3_33.gif")
 
 book.3.34 <- 
 function()
@@ -1670,7 +1597,6 @@ function()
 	ans
 }
 book.3.34()
-export.graph(Name = "GSD2",FileName = "G:\\currdata\\vizfigs\\vizdata_3_34.gif")
 
 book.3.35 <- 
 function()
@@ -1689,7 +1615,6 @@ function()
 		ylab = "Residual Babinet Point (degrees)")
 }
 book.3.35()
-export.graph(Name = "GSD2",FileName = "G:\\currdata\\vizfigs\\vizdata_3_35.gif")
 
 book.3.36 <- 
 function()
@@ -1714,7 +1639,6 @@ function()
 	ans
 }
 book.3.36()
-export.graph(Name = "GSD2",FileName = "G:\\currdata\\vizfigs\\vizdata_3_36.gif")
 
 book.3.37 <- 
 function()
@@ -1733,7 +1657,6 @@ function()
 		ylab = "Residual Babinet Point (degrees)")
 }
 book.3.37()
-export.graph(Name = "GSD2",FileName = "G:\\currdata\\vizfigs\\vizdata_3_37.gif")
 
 book.3.38 <- 
 function()
@@ -1748,7 +1671,6 @@ function()
 		xlab = "Unit Normal Quantile",
 		ylab = "Residual Babinet Point (degrees)")
 book.3.38()
-export.graph(Name = "GSD2",FileName = "G:\\currdata\\vizfigs\\vizdata_3_38.gif")
 
 book.3.39 <- 
 function()
@@ -1757,7 +1679,6 @@ function()
 		aspect=1.5,
 		ylab="Babinet Point (degrees)")
 book.3.39()
-export.graph(Name = "GSD2",FileName = "G:\\currdata\\vizfigs\\vizdata_3_39.gif")
 		
 book.3.40 <- 
 function()
@@ -1773,7 +1694,6 @@ function()
 		xlab = "Cube Root Concentration (cube root micrograms per meter)",
 		ylab = "Babinet Point (degrees)")
 book.3.40()
-export.graph(Name = "GSD2",FileName = "G:\\currdata\\vizfigs\\vizdata_3_40.gif")
 
 book.3.41 <- 
 function()
@@ -1790,7 +1710,6 @@ function()
 		xlab = "Cube Root Concentration (cube root micrograms per meter)",
 		ylab = "Babinet Point (degrees)")
 book.3.41()
-export.graph(Name = "GSD2",FileName = "G:\\currdata\\vizfigs\\vizdata_3_41.gif")
 
 book.3.42 <- 
 function()
@@ -1805,7 +1724,6 @@ function()
 		xlab = "Cube Root Concentration (cube root micrograms per meter)",
 		ylab = "Residual Babinet Point (degrees)")
 book.3.42()
-export.graph(Name = "GSD2",FileName = "G:\\currdata\\vizfigs\\vizdata_3_42.gif")
 		
 book.3.43 <- 
 function()
@@ -1814,7 +1732,6 @@ function()
 		sub = list("Figure 3.43",cex=.8),
 		xlab = "Cube Root Concentration (cube root micrograms per meter)")
 book.3.43()
-export.graph(Name = "GSD2",FileName = "G:\\currdata\\vizfigs\\vizdata_3_43.gif")
 
 book.3.44 <- 
 function()
@@ -1834,7 +1751,6 @@ function()
 	ans
 }
 book.3.44()
-export.graph(Name = "GSD2",FileName = "G:\\currdata\\vizfigs\\vizdata_3_44.gif")
 
 book.3.45 <- 
 function()
@@ -1845,7 +1761,6 @@ function()
 		xlab="Temperature (Degrees Celsius)",
 		ylab="Facet Number")
 book.3.45()
-export.graph(Name = "GSD2",FileName = "G:\\currdata\\vizfigs\\vizdata_3_45.gif")
 
 book.3.46 <- 
 function()
@@ -1859,7 +1774,6 @@ function()
 		ylab="Jittered Facet Number")
 }
 book.3.46()
-export.graph(Name = "GSD2",FileName = "G:\\currdata\\vizfigs\\vizdata_3_46.gif")
 
 book.3.47 <- 
 function()
@@ -1870,7 +1784,6 @@ function()
 		xlab = "Facet Number",
 		ylab = "Temperature (Degrees Celsius)")
 book.3.47()
-export.graph(Name = "GSD2",FileName = "G:\\currdata\\vizfigs\\vizdata_3_47.gif")
 
 book.3.48 <- 
 function()
@@ -1890,7 +1803,6 @@ function()
 		ylab="Residual Facet Number")
 }
 book.3.48()
-export.graph(Name = "GSD2",FileName = "G:\\currdata\\vizfigs\\vizdata_3_48.gif")
 
 book.3.49 <- 
 function()
@@ -1914,7 +1826,6 @@ function()
 	ans
 }
 book.3.49()
-export.graph(Name = "GSD2",FileName = "G:\\currdata\\vizfigs\\vizdata_3_49.gif")
 
 book.3.50 <- 
 function()
@@ -1937,7 +1848,6 @@ function()
 	ans
 }
 book.3.50()
-export.graph(Name = "GSD2",FileName = "G:\\currdata\\vizfigs\\vizdata_3_50.gif")
 
 book.3.51 <- 
 function()
@@ -1957,7 +1867,6 @@ function()
 	invisible()
 }
 book.3.51()
-export.graph(Name = "GSD2",FileName = "G:\\currdata\\vizfigs\\vizdata_3_51.gif")
 
 book.3.52 <- 
 function()
@@ -1973,7 +1882,6 @@ function()
 		xlab = "Population (Thousands)")
 }
 book.3.52()
-export.graph(Name = "GSD2",FileName = "G:\\currdata\\vizfigs\\vizdata_3_52.gif")
 
 book.3.53 <- 
 function()
@@ -1984,7 +1892,6 @@ function()
 		sub = list("Figure 3.53",cex=.8),
 		xlab = "Square Root Population (square root thousands)")
 book.3.53()
-export.graph(Name = "GSD2",FileName = "G:\\currdata\\vizfigs\\vizdata_3_53.gif")
 
 book.3.54 <- 
 function()
@@ -2003,7 +1910,6 @@ function()
 		xlab = "Square Root Population (square root thousands)")
 }
 book.3.54()
-export.graph(Name = "GSD2",FileName = "G:\\currdata\\vizfigs\\vizdata_3_54.gif")
 
 book.3.55 <- 
 function()
@@ -2017,7 +1923,6 @@ function()
 		xlab = "Square Root Population (square root thousands)",
 		ylab = "Residual Diameter (mm)")
 book.3.55()
-export.graph(Name = "GSD2",FileName = "G:\\currdata\\vizfigs\\vizdata_3_55.gif")
 
 book.3.56 <- 
 function()
@@ -2031,7 +1936,6 @@ function()
 		ylab="Jittered Wind Speed (mph)")
 }
 book.3.56()
-export.graph(Name = "GSD2",FileName = "G:\\currdata\\vizfigs\\vizdata_3_56.gif")
 
 book.3.57 <- 
 function()
@@ -2046,7 +1950,6 @@ function()
 		xlab = "Unit Normal Quantile",
 		ylab = "Temperature (Degrees Fahrenheit)")
 book.3.57()
-export.graph(Name = "GSD2",FileName = "G:\\currdata\\vizfigs\\vizdata_3_57.gif")
 
 book.3.58 <- 
 function()
@@ -2061,7 +1964,6 @@ function()
 		xlab = "Unit Normal Quantile",
 		ylab = "Wind Speed (mph)")
 book.3.58()
-export.graph(Name = "GSD2",FileName = "G:\\currdata\\vizfigs\\vizdata_3_58.gif")
 
 
 book.3.59 <- 
@@ -2084,7 +1986,6 @@ function()
 		xlab = "Temperature (Degrees Fahrenheit)",
 		ylab = "Wind Speed (mph)")
 book.3.59()
-export.graph(Name = "GSD2",FileName = "G:\\currdata\\vizfigs\\vizdata_3_59.gif")
 
 book.3.60 <- 
 function()
@@ -2100,7 +2001,6 @@ function()
 		xlab="Yonkers Concentration (ppb)",
 		ylab="Stamford Concentration (ppb)")
 book.3.60()
-export.graph(Name = "GSD2",FileName = "G:\\currdata\\vizfigs\\vizdata_3_60.gif")
 
 book.3.61 <- 
 function()
@@ -2118,7 +2018,6 @@ function()
 		sub = list("Figure 3.61",cex=.8),
 		xlab="Mean (ppb)")
 book.3.61()
-export.graph(Name = "GSD2",FileName = "G:\\currdata\\vizfigs\\vizdata_3_61.gif")
 
 book.3.62 <- 
 function()
@@ -2134,7 +2033,6 @@ function()
 		xlab="Log Yonkers Concentration (log base 2 ppb)",
 		ylab="Log Stamford Concentration (log base 2 ppb)")
 book.3.62()
-export.graph(Name = "GSD2",FileName = "G:\\currdata\\vizfigs\\vizdata_3_62.gif")
 
 book.3.63 <- 
 function()
@@ -2153,7 +2051,6 @@ function()
 		sub = list("Figure 3.63",cex=.8),
 		xlab="Log Mean (log base 2 ppb)")
 book.3.63()
-export.graph(Name = "GSD2",FileName = "G:\\currdata\\vizfigs\\vizdata_3_63.gif")
 		
 book.3.64 <- 
 function()
@@ -2167,7 +2064,6 @@ function()
 		xlab = "Year",
 		ylab = "Incidence")
 book.3.64()
-export.graph(Name = "GSD2",FileName = "G:\\currdata\\vizfigs\\vizdata_3_64.gif")
 
 book.3.65 <- 
 function()
@@ -2186,7 +2082,6 @@ function()
 	ans
 }
 book.3.65()
-export.graph(Name = "GSD2",FileName = "G:\\currdata\\vizfigs\\vizdata_3_65.gif")
 
 book.3.66 <- 
 function()
@@ -2208,7 +2103,6 @@ function()
 	ans
 }
 book.3.66()
-export.graph(Name = "GSD2",FileName = "G:\\currdata\\vizfigs\\vizdata_3_66.gif")
 
 book.3.67 <- 
 function()
@@ -2233,7 +2127,6 @@ function()
 	ans
 }
 book.3.67()
-export.graph(Name = "GSD2",FileName = "G:\\currdata\\vizfigs\\vizdata_3_67.gif")
 
 book.3.68 <- 
 function()
@@ -2258,7 +2151,6 @@ function()
 	ans
 }
 book.3.68()
-export.graph(Name = "GSD2",FileName = "G:\\currdata\\vizfigs\\vizdata_3_68.gif")
 
 book.3.69 <- 
 function()
@@ -2281,7 +2173,6 @@ function()
 	ans
 }
 book.3.69()
-export.graph(Name = "GSD2",FileName = "G:\\currdata\\vizfigs\\vizdata_3_69.gif")
 
 book.3.70 <- 
 function()
@@ -2310,7 +2201,6 @@ function()
 	ans
 }
 book.3.70()
-export.graph(Name = "GSD2",FileName = "G:\\currdata\\vizfigs\\vizdata_3_70.gif")
 
 book.3.71 <- 
 function()
@@ -2340,7 +2230,6 @@ function()
 	invisible()
 }
 book.3.71()
-export.graph(Name = "GSD2",FileName = "G:\\currdata\\vizfigs\\vizdata_3_71.gif")
 
 
 book.3.72 <- 
@@ -2353,7 +2242,6 @@ function()
 		sub = list("Figure 3.72",cex=.8),
 		xlab = "Year")
 book.3.72()
-export.graph(Name = "GSD2",FileName = "G:\\currdata\\vizfigs\\vizdata_3_72.gif")
 
 book.3.73 <- 
 function()
@@ -2364,7 +2252,6 @@ function()
 		sub = list("Figure 3.73",cex=.8),
 		xlab = "Year")
 book.3.73()
-export.graph(Name = "GSD2",FileName = "G:\\currdata\\vizfigs\\vizdata_3_73.gif")
 
 
 
@@ -2389,7 +2276,6 @@ function()
 		ylab = "Carbon Dioxide (ppm)")
 }
 book.3.74()
-export.graph(Name = "GSD2",FileName = "G:\\currdata\\vizfigs\\vizdata_3_74.gif")
 
 book.3.75 <- 
 function()
@@ -2410,7 +2296,6 @@ function()
 		ylab="Carbon Dioxide (ppm)")
 }
 book.3.75()
-export.graph(Name = "GSD2",FileName = "G:\\currdata\\vizfigs\\vizdata_3_75.gif")
 
 book.3.76 <- 
 function()
@@ -2422,7 +2307,6 @@ function()
 		sub = list("Figure 3.76",cex=.8),
 		xlab = "Year")
 book.3.76()
-export.graph(Name = "GSD2",FileName = "G:\\currdata\\vizfigs\\vizdata_3_76.gif")
 
 book.3.77 <- 
 function()
@@ -2434,7 +2318,6 @@ function()
 		sub = list("Figure 3.77",cex=.8),
 		xlab = "Year")
 book.3.77()
-export.graph(Name = "GSD2",FileName = "G:\\currdata\\vizfigs\\vizdata_3_77.gif")
 
 book.3.78 <- 
 function()
@@ -2449,7 +2332,6 @@ function()
 		sub = list("Figure 3.78",cex=.8),
 		xlab = "Year")
 book.3.78()
-export.graph(Name = "GSD2",FileName = "G:\\currdata\\vizfigs\\vizdata_3_78.gif")
 
 book.3.79 <- 
 function()
@@ -2464,7 +2346,6 @@ function()
 		sub = list("Figure 3.79",cex=.8),
 		xlab = "Year")
 book.3.79()
-export.graph(Name = "GSD2",FileName = "G:\\currdata\\vizfigs\\vizdata_3_79.gif")
 
 book.3.80 <- 
 function()
@@ -2479,7 +2360,6 @@ function()
 		sub = list("Figure 3.80",cex=.8),
 		xlab = "Year")
 book.3.80()
-export.graph(Name = "GSD2",FileName = "G:\\currdata\\vizfigs\\vizdata_3_80.gif")
 
 book.3.81 <- 
 function()
@@ -2495,7 +2375,6 @@ function()
 		xlab = "Unit Normal Quantile",
 		ylab = "Residual Carbon Dioxide (ppm)")
 book.3.81()
-export.graph(Name = "GSD2",FileName = "G:\\currdata\\vizfigs\\vizdata_3_81.gif")
 
 book.3.82 <- 
 function()
@@ -2518,9 +2397,12 @@ function()
 		ylab = "Carbon Dioxide (ppm)")
 }
 book.3.82()
-export.graph(Name = "GSD2",FileName = "G:\\currdata\\vizfigs\\vizdata_3_82.gif")
+```
 
+Chapter 4 Examples
+------------------
 
+```{r chapter4}
 book.4.1 <- 
 function()
 	splom(~rubber[,1:3], 
@@ -2529,8 +2411,9 @@ function()
 			"Abrasion Loss\n(g/hp-hour)"),
 		sub = list("Figure 4.1",cex=.8))
 book.4.1()
-export.graph(Name = "GSD2",FileName = "G:\\currdata\\vizfigs\\vizdata_4_01.gif")
+```
 
+```{r chapter4NotImplemented, eval=FALSE, echo=FALSE}
 book.4.2 <- 
 function()
 	splom(~rubber[, 1:3], 
@@ -2544,7 +2427,6 @@ function()
 			"Tensile Strength\n(kg/square cm)",
 			"Abrasion Loss\n(g/hp-hour)"))
 book.4.2()
-export.graph(Name = "GSD2",FileName = "G:\\currdata\\vizfigs\\vizdata_4_02.gif")
 
 book.4.3 <- 
 function()
@@ -2573,7 +2455,6 @@ function()
         invisible()
 }
 book.4.3()
-export.graph(Name = "GSD2",FileName = "G:\\currdata\\vizfigs\\vizdata_4_03.gif")
 
 book.4.4 <- 
 function()
@@ -2602,7 +2483,6 @@ function()
         invisible()
 }
 book.4.4()
-export.graph(Name = "GSD2",FileName = "G:\\currdata\\vizfigs\\vizdata_4_04.gif")
 
 book.4.5 <- 
 function()
@@ -2613,7 +2493,6 @@ function()
 			"Compression\nRatio",
 			"Equivalence\nRatio"))
 book.4.5()
-export.graph(Name = "GSD2",FileName = "G:\\currdata\\vizfigs\\vizdata_4_05.gif")
 
 book.4.6 <- 
 function()
@@ -2642,7 +2521,6 @@ function()
         invisible()
 }
 book.4.6()
-export.graph(Name = "GSD2",FileName = "G:\\currdata\\vizfigs\\vizdata_4_06.gif")
 
 book.4.7 <- 
 function()
@@ -2670,7 +2548,6 @@ function()
         invisible()
 }
 book.4.7()
-export.graph(Name = "GSD2",FileName = "G:\\currdata\\vizfigs\\vizdata_4_07.gif")
 
 book.4.8 <- 
 function()
@@ -2680,7 +2557,6 @@ function()
 			"Tensile Strength\n(kg/square cm)",
 			"Abrasion Loss\n(g/hp-hour)"))
 book.4.8()
-export.graph(Name = "GSD2",FileName = "G:\\currdata\\vizfigs\\vizdata_4_08.gif")
 
 book.4.9 <- 
 function()
@@ -2695,7 +2571,6 @@ function()
 			"Tensile Strength\n(kg/square cm)",
 			"Abrasion Loss\n(g/hp-hour)"))
 book.4.9()
-export.graph(Name = "GSD2",FileName = "G:\\currdata\\vizfigs\\vizdata_4_09.gif")
 	
 book.4.10 <- 
 function()
@@ -2710,7 +2585,6 @@ function()
 			"Tensile Strength\n(kg/square cm)",
 			"Abrasion Loss\n(g/hp-hour)"))
 book.4.10()
-export.graph(Name = "GSD2",FileName = "G:\\currdata\\vizfigs\\vizdata_4_10.gif")			
 
 book.4.11 <- 
 function()
@@ -2725,7 +2599,6 @@ function()
 			"Tensile Strength\n(kg/square cm)",
 			"Abrasion Loss\n(g/hp-hour)"))
 book.4.11()
-export.graph(Name = "GSD2",FileName = "G:\\currdata\\vizfigs\\vizdata_4_11.gif")			
 
 book.4.12 <- 
 function()
@@ -2758,7 +2631,6 @@ function()
 	invisible()
 }
 book.4.12()
-export.graph(Name = "GSD2",FileName = "G:\\currdata\\vizfigs\\vizdata_4_12.gif")
 
 book.4.13 <- 
 function()
@@ -2792,7 +2664,6 @@ function()
 	invisible()
 }
 book.4.13()
-export.graph(Name = "GSD2",FileName = "G:\\currdata\\vizfigs\\vizdata_4_13.gif")
 
 book.4.14 <- 
 function()
@@ -2815,7 +2686,6 @@ function()
 	ans
 }
 book.4.14()
-export.graph(Name = "GSD2",FileName = "G:\\currdata\\vizfigs\\vizdata_4_14.gif")
 
 book.4.15 <- 
 function()
@@ -2830,7 +2700,6 @@ function()
 		sub = list("Figure 4.15",cex=.8),
 		xlab= "Tensile Strength (kg/square cm)")
 book.4.15()
-export.graph(Name = "GSD2",FileName = "G:\\currdata\\vizfigs\\vizdata_4_15.gif")
 
 book.4.16 <- 
 function()
@@ -2867,7 +2736,6 @@ function()
 	invisible()
 }
 book.4.16()
-export.graph(Name = "GSD2",FileName = "G:\\currdata\\vizfigs\\vizdata_4_16.gif")
 
 book.4.17 <- 
 function()
@@ -2905,7 +2773,6 @@ function()
         invisible()
 }
 book.4.17()
-export.graph(Name = "GSD2",FileName = "G:\\currdata\\vizfigs\\vizdata_4_17.gif")
 
 book.4.18 <- 
 function()
@@ -2930,7 +2797,6 @@ function()
 	ans
 }
 book.4.18()
-export.graph(Name = "GSD2",FileName = "G:\\currdata\\vizfigs\\vizdata_4_18.gif")
 
 book.4.19 <- 
 function()
@@ -2955,7 +2821,6 @@ function()
 	ans
 }
 book.4.19()
-export.graph(Name = "GSD2",FileName = "G:\\currdata\\vizfigs\\vizdata_4_19.gif")
 
 book.4.20 <- 
 function()
@@ -2990,7 +2855,6 @@ function()
         invisible()
 }
 book.4.20()
-export.graph(Name = "GSD2",FileName = "G:\\currdata\\vizfigs\\vizdata_4_20.gif")
 
 book.4.21 <- 
 function()
@@ -3025,7 +2889,6 @@ function()
 
 }
 book.4.21()
-export.graph(Name = "GSD2",FileName = "G:\\currdata\\vizfigs\\vizdata_4_21.gif")
 
 book.4.22 <- 
 function()
@@ -3060,7 +2923,6 @@ function()
         invisible()
 }
 book.4.22()
-export.graph(Name = "GSD2",FileName = "G:\\currdata\\vizfigs\\vizdata_4_22.gif")
 
 book.4.23 <- 
 function()
@@ -3095,7 +2957,6 @@ function()
         invisible()
 }
 book.4.23()
-export.graph(Name = "GSD2",FileName = "G:\\currdata\\vizfigs\\vizdata_4_23.gif")
 
 book.4.24 <- 
 function()
@@ -3134,7 +2995,6 @@ function()
         invisible()
 }
 book.4.24()
-export.graph(Name = "GSD2",FileName = "G:\\currdata\\vizfigs\\vizdata_4_24.gif")
 
 book.4.25 <- 
 function()
@@ -3174,7 +3034,6 @@ function()
 
 }
 book.4.25()
-export.graph(Name = "GSD2",FileName = "G:\\currdata\\vizfigs\\vizdata_4_25.gif")
 
 book.4.26 <- 
 function()
@@ -3199,7 +3058,6 @@ function()
 	ans
 }
 book.4.26()
-export.graph(Name = "GSD2",FileName = "G:\\currdata\\vizfigs\\vizdata_4_26.gif")
 
 book.4.27 <- 
 function()
@@ -3225,7 +3083,6 @@ function()
 	ans
 }
 book.4.27()
-export.graph(Name = "GSD2",FileName = "G:\\currdata\\vizfigs\\vizdata_4_27.gif")
 
 book.4.28 <- 
 function()
@@ -3245,7 +3102,6 @@ function()
 	ans
 }
 book.4.28()
-export.graph(Name = "GSD2",FileName = "G:\\currdata\\vizfigs\\vizdata_4_28.gif")
 
 book.4.29 <- 
 function()
@@ -3262,7 +3118,6 @@ function()
 		xlab="Equivalence Ratio",
 		ylab = "Residual NOx (micrograms/J)")
 book.4.29()
-export.graph(Name = "GSD2",FileName = "G:\\currdata\\vizfigs\\vizdata_4_29.gif")
 
 book.4.30 <- 
 function()
@@ -3284,7 +3139,6 @@ function()
 	ans
 }
 book.4.30()
-export.graph(Name = "GSD2",FileName = "G:\\currdata\\vizfigs\\vizdata_4_30.gif")
 
 book.4.31 <- 
 function()
@@ -3300,7 +3154,6 @@ function()
 		xlab = "Unit Normal Quantile",
 		ylab = "Residual NOx (micrograms/J)")
 book.4.31()
-export.graph(Name = "GSD2",FileName = "G:\\currdata\\vizfigs\\vizdata_4_31.gif")
 
 book.4.32 <- 
 function()
@@ -3311,7 +3164,6 @@ function()
 		aspect=2,
 		ylab = "NOx (micrograms/J)")
 book.4.32()
-export.graph(Name = "GSD2",FileName = "G:\\currdata\\vizfigs\\vizdata_4_32.gif")
 
 book.4.33 <- 
 function()
@@ -3333,7 +3185,6 @@ function()
 	ans
 }
 book.4.33()
-export.graph(Name = "GSD2",FileName = "G:\\currdata\\vizfigs\\vizdata_4_33.gif")
 
 # no fig 4.34
 
@@ -3351,7 +3202,6 @@ function()
 	sub = list("Figure 4.35",cex=.8))
 }
 book.4.35()
-export.graph(Name = "GSD2",FileName = "G:\\currdata\\vizfigs\\vizdata_4_35.gif")
 
 book.4.36 <- 
 function()
@@ -3376,7 +3226,6 @@ function()
         invisible()
 }
 book.4.36()
-export.graph(Name = "GSD2",FileName = "G:\\currdata\\vizfigs\\vizdata_4_36.gif")
 
 book.4.37 <- 
 function()
@@ -3401,7 +3250,6 @@ function()
         invisible()
 }
 book.4.37()
-export.graph(Name = "GSD2",FileName = "G:\\currdata\\vizfigs\\vizdata_4_37.gif")
 
 book.4.38 <- 
 function()
@@ -3428,7 +3276,6 @@ function()
         invisible()
 }
 book.4.38()
-export.graph(Name = "GSD2",FileName = "G:\\currdata\\vizfigs\\vizdata_4_38.gif")
 
 book.4.39 <- 
 function()
@@ -3453,7 +3300,6 @@ function()
 	ans
 }
 book.4.39()
-export.graph(Name = "GSD2",FileName = "G:\\currdata\\vizfigs\\vizdata_4_39.gif")
 
 book.4.40 <- 
 function()
@@ -3478,7 +3324,6 @@ function()
 	ans
 }
 book.4.40()
-export.graph(Name = "GSD2",FileName = "G:\\currdata\\vizfigs\\vizdata_4_40.gif")
 
 book.4.41 <- 
 function()
@@ -3499,7 +3344,6 @@ function()
 	ans
 }
 book.4.41()
-export.graph(Name = "GSD2",FileName = "G:\\currdata\\vizfigs\\vizdata_4_41.gif")
 
 book.4.42 <- 
 function()
@@ -3533,7 +3377,6 @@ function()
 
 }
 book.4.42()
-export.graph(Name = "GSD2",FileName = "G:\\currdata\\vizfigs\\vizdata_4_42.gif")
 
 book.4.43 <- 
 function()
@@ -3549,7 +3392,6 @@ function()
 	ans
 }
 book.4.43()
-export.graph(Name = "GSD2",FileName = "G:\\currdata\\vizfigs\\vizdata_4_43.gif")
 
 book.4.44 <- 
 function()
@@ -3577,7 +3419,6 @@ function()
         invisible()
 }
 book.4.44()
-export.graph(Name = "GSD2",FileName = "G:\\currdata\\vizfigs\\vizdata_4_44.gif")
 
 book.4.45 <- 
 function()
@@ -3603,7 +3444,6 @@ function()
         invisible()
 }
 book.4.45()
-export.graph(Name = "GSD2",FileName = "G:\\currdata\\vizfigs\\vizdata_4_45.gif")
 
 book.4.46 <- 
 function()
@@ -3639,7 +3479,6 @@ function()
         invisible()
 }
 book.4.46()
-export.graph(Name = "GSD2",FileName = "G:\\currdata\\vizfigs\\vizdata_4_46.gif")
 
 book.4.47 <- 
 function()
@@ -3669,7 +3508,6 @@ function()
         invisible()
 }
 book.4.47()
-export.graph(Name = "GSD2",FileName = "G:\\currdata\\vizfigs\\vizdata_4_47.gif")
 
 book.4.48 <- 
 function()
@@ -3686,7 +3524,6 @@ function()
 		xlab="Unit Normal Quantile",
 		ylab="Residual Velocity (km/sec)")
 book.4.48()
-export.graph(Name = "GSD2",FileName = "G:\\currdata\\vizfigs\\vizdata_4_48.gif")
 
 book.4.49 <- 
 function()
@@ -3697,7 +3534,6 @@ function()
 		aspect=1.5,
 		ylab="Velocity (km/sec)")
 book.4.49()
-export.graph(Name = "GSD2",FileName = "G:\\currdata\\vizfigs\\vizdata_4_49.gif")
 
 book.4.50 <- 
 function()
@@ -3731,7 +3567,6 @@ function()
 	ans
 }
 book.4.50()
-export.graph(Name = "GSD2",FileName = "G:\\currdata\\vizfigs\\vizdata_4_50.gif")
 
 # no figs for 4.51 - 4.54
 
@@ -3781,7 +3616,6 @@ function()
         invisible()
 }
 book.4.55()
-export.graph(Name = "GSD2",FileName = "G:\\currdata\\vizfigs\\vizdata_4_55.gif")
 
 book.4.56 <- 
 function()
@@ -3805,7 +3639,6 @@ function()
 	ans
 }
 book.4.56()
-export.graph(Name = "GSD2",FileName = "G:\\currdata\\vizfigs\\vizdata_4_56.gif")
 
 book.4.57 <- 
 function()
@@ -3829,7 +3662,6 @@ function()
 	ans
 }
 book.4.57()
-export.graph(Name = "GSD2",FileName = "G:\\currdata\\vizfigs\\vizdata_4_57.gif")
 
 book.4.58 <- 
 function()
@@ -3853,7 +3685,6 @@ function()
 	ans
 }
 book.4.58()
-export.graph(Name = "GSD2",FileName = "G:\\currdata\\vizfigs\\vizdata_4_58.gif")
 
 book.4.59 <- 
 function()
@@ -3877,7 +3708,6 @@ function()
 	ans
 }
 book.4.59()
-export.graph(Name = "GSD2",FileName = "G:\\currdata\\vizfigs\\vizdata_4_59.gif")
 
 book.4.60 <- 
 function()
@@ -3901,7 +3731,6 @@ function()
 	ans
 }
 book.4.60()
-export.graph(Name = "GSD2",FileName = "G:\\currdata\\vizfigs\\vizdata_4_60.gif")
 
 book.4.61 <- 
 function()
@@ -3924,7 +3753,6 @@ function()
 	ans
 }
 book.4.61()
-export.graph(Name = "GSD2",FileName = "G:\\currdata\\vizfigs\\vizdata_4_61.gif")
 
 book.4.62 <- 
 function()
@@ -3948,7 +3776,6 @@ function()
 	ans
 }
 book.4.62()
-export.graph(Name = "GSD2",FileName = "G:\\currdata\\vizfigs\\vizdata_4_62.gif")
 
 
 book.4.63 <- 
@@ -3971,7 +3798,6 @@ function()
 	invisible()
 }
 book.4.63()
-export.graph(Name = "GSD2",FileName = "G:\\currdata\\vizfigs\\vizdata_4_63.gif")
 
 book.4.64 <- 
 function()
@@ -3983,7 +3809,6 @@ function()
 		sub = list("Figure 4.64",cex=.8),
 		xlab= "Easting (km)")
 book.4.64()
-export.graph(Name = "GSD2",FileName = "G:\\currdata\\vizfigs\\vizdata_4_64.gif")
 
 book.4.65 <- 
 function()
@@ -3999,7 +3824,6 @@ function()
 		xlab="Resistivity (ohm-cm)",
 		ylab="Northing (km)")
 book.4.65()
-export.graph(Name = "GSD2",FileName = "G:\\currdata\\vizfigs\\vizdata_4_65.gif")
 
 book.4.66 <- 
 function()
@@ -4014,7 +3838,6 @@ function()
 		xlab="Easting (km)",
 		ylab="Resistivity (ohm-cm)")
 book.4.66()
-export.graph(Name = "GSD2",FileName = "G:\\currdata\\vizfigs\\vizdata_4_66.gif")
 
 book.4.67 <- 
 function()
@@ -4060,7 +3883,6 @@ function()
 	invisible()
 }
 book.4.67()
-export.graph(Name = "GSD2",FileName = "G:\\currdata\\vizfigs\\vizdata_4_67.gif")
 
 book.4.68 <- 
 function()
@@ -4082,8 +3904,12 @@ function()
 	ans
 }
 book.4.68()
-export.graph(Name = "GSD2",FileName = "G:\\currdata\\vizfigs\\vizdata_4_68.gif")
+```
 
+Chapter 5 Examples
+------------------
+
+```{r chapter5}
 book.5.1 <- 
 function()
 {
@@ -4097,8 +3923,9 @@ function()
 			"Wind Speed\n(mph)"))
 }
 book.5.1()
-export.graph(Name = "GSD2",FileName = "G:\\currdata\\vizfigs\\vizdata_5_01.gif")
+```
 
+```{r chapter5NotImplemented, eval=FALSE, echo=FALSE}
 book.5.2 <- 
 function()
 {
@@ -4121,7 +3948,6 @@ function()
 	ans
 }
 book.5.2()
-export.graph(Name = "GSD2",FileName = "G:\\currdata\\vizfigs\\vizdata_5_02.gif")
 
 book.5.3 <- 
 function()
@@ -4145,7 +3971,6 @@ function()
 	ans
 }
 book.5.3()
-export.graph(Name = "GSD2",FileName = "G:\\currdata\\vizfigs\\vizdata_5_03.gif")
 
 
 book.5.4 <- 
@@ -4170,7 +3995,6 @@ function()
 	ans
 }
 book.5.4()
-export.graph(Name = "GSD2",FileName = "G:\\currdata\\vizfigs\\vizdata_5_04.gif")
 
 
 
@@ -4196,7 +4020,6 @@ function()
 	ans
 }
 book.5.5()
-export.graph(Name = "GSD2",FileName = "G:\\currdata\\vizfigs\\vizdata_5_05.gif")
 
 
 book.5.6 <- 
@@ -4227,7 +4050,6 @@ function()
 	ans
 }
 book.5.6()
-export.graph(Name = "GSD2",FileName = "G:\\currdata\\vizfigs\\vizdata_5_06.gif")
 
 book.5.7 <- 
 function()
@@ -4257,7 +4079,6 @@ function()
 	invisible()
 }
 book.5.7()
-export.graph(Name = "GSD2",FileName = "G:\\currdata\\vizfigs\\vizdata_5_07.gif")
 
 book.5.8 <- 
 function()
@@ -4276,7 +4097,6 @@ function()
 			"Wind Speed\n(mph)"))
 }
 book.5.8()
-export.graph(Name = "GSD2",FileName = "G:\\currdata\\vizfigs\\vizdata_5_08.gif")
 
 book.5.9 <- 
 function()
@@ -4316,7 +4136,6 @@ function()
 	ans
 }
 book.5.9()
-export.graph(Name = "GSD2",FileName = "G:\\currdata\\vizfigs\\vizdata_5_09.gif")
 
 
 book.5.10 <- 
@@ -4355,7 +4174,6 @@ function()
 	ans
 }
 book.5.10()
-export.graph(Name = "GSD2",FileName = "G:\\currdata\\vizfigs\\vizdata_5_10.gif")
 
 book.5.11 <- 
 function()
@@ -4394,7 +4212,6 @@ function()
 	ans
 }
 book.5.11()
-export.graph(Name = "GSD2",FileName = "G:\\currdata\\vizfigs\\vizdata_5_11.gif")
 
 book.5.12 <- 
 function()
@@ -4416,7 +4233,6 @@ function()
 	ans
 }
 book.5.12()
-export.graph(Name = "GSD2",FileName = "G:\\currdata\\vizfigs\\vizdata_5_12.gif")
 
 book.5.13 <- 
 function()
@@ -4438,7 +4254,6 @@ function()
 	ans
 }
 book.5.13()
-export.graph(Name = "GSD2",FileName = "G:\\currdata\\vizfigs\\vizdata_5_13.gif")
 
 book.5.14 <- 
 function()
@@ -4461,7 +4276,6 @@ function()
 	ans
 }
 book.5.14()
-export.graph(Name = "GSD2",FileName = "G:\\currdata\\vizfigs\\vizdata_5_14.gif")
 
 book.5.15 <- 
 function()
@@ -4478,7 +4292,6 @@ function()
 		xlab = "Unit Normal Quantile",
 		ylab = "Cube Root Ozone (cube root ppb)")
 book.5.15()
-export.graph(Name = "GSD2",FileName = "G:\\currdata\\vizfigs\\vizdata_5_15.gif")
 
 book.5.16 <- 
 function()
@@ -4493,28 +4306,26 @@ function()
 		aspect=1.5,
 		ylab="Cube Root Ozone (cube root ppb)")
 book.5.16()
-export.graph(Name = "GSD2",FileName = "G:\\currdata\\vizfigs\\vizdata_5_16.gif")
 		
 book.5.17 <- 
 function()
 {
 	weight <- unlist(logb(hamster,2))
 	organ <- factor(unlist(col(hamster)),labels=names(hamster))
-	organ <- reorder.factor(organ,weight,median)
+  #organ <- reorder.factor(organ,weight,median)
+  organ <- reorder(organ,weight,median)
 	bwplot(organ ~ weight,
 		aspect = 0.3,
 		sub = list("Figure 5.17",cex=.8),
 		xlab="Log Organ Weight (Log 2 grams)")
 }
 book.5.17()
-export.graph(Name = "GSD2",FileName = "G:\\currdata\\vizfigs\\vizdata_5_17.gif")
 
 book.5.18 <- 
 function()
 	splom(~logb(hamster,2),
 	sub = list("Figure 5.18",cex=.8), varnames = names(hamster))
 book.5.18()
-export.graph(Name = "GSD2",FileName = "G:\\currdata\\vizfigs\\vizdata_5_18.gif")
 
 book.5.19 <- 
 function()
@@ -4528,7 +4339,6 @@ function()
 				font = plot.symbol$font, col = plot.symbol$col)
 		})
 book.5.19()
-export.graph(Name = "GSD2",FileName = "G:\\currdata\\vizfigs\\vizdata_5_19.gif")
 
 # HELP 
 if (F) {
@@ -4553,7 +4363,6 @@ function()
 			columns = n))
 }
 book.5.20()
-export.graph(Name = "GSD2",FileName = "G:\\currdata\\vizfigs\\vizdata_5_20.gif")
 
 book.5.21 <- 
 function()
@@ -4580,17 +4389,22 @@ function()
 			columns = n))
 }
 book.5.21()
-export.graph(Name = "GSD2",FileName = "G:\\currdata\\vizfigs\\vizdata_5_21.gif")
 }
+```
 
+Chapter 6 Examples
+------------------
 
+```{r chapter6,}
 book.6.1 <- 
 function()
 {
 	attach(livestock)
 	logcount <- log10(count)
-	new.country <- reorder.factor(country, logcount, median)
-	new.livestock <- reorder.factor(livestock.type, logcount, median)
+#   new.country <- reorder.factor(country, logcount, median)
+# 	new.livestock <- reorder.factor(livestock.type, logcount, median)
+  new.country <- reorder(country, logcount, median)
+	new.livestock <- reorder(livestock.type, logcount, median)
 	ans <- dotplot(new.country ~ logcount | new.livestock,
 		sub = list("Figure 6.1",cex=.8),
 		xlab = "Log 10 Number of Livestock",
@@ -4599,15 +4413,18 @@ function()
 	ans
 }
 book.6.1()
-export.graph(Name = "GSD2",FileName = "G:\\currdata\\vizfigs\\vizdata_6_01.gif")
+```
 
+```{r chapter6NotImplemented, eval=FALSE, echo=FALSE}
 book.6.2 <- 
 function()
 {
 	attach(livestock)
 	logcount <- log10(count)
-	new.country <- reorder.factor(country, logcount, median)
-	new.livestock <- reorder.factor(livestock.type, logcount, median)
+#   new.country <- reorder.factor(country, logcount, median)
+#   new.livestock <- reorder.factor(livestock.type, logcount, median)
+	new.country <- reorder(country, logcount, median)
+	new.livestock <- reorder(livestock.type, logcount, median)
 	ans <- dotplot(new.livestock ~ logcount | new.country,
 		sub = list("Figure 6.2",cex=.8),
 		xlab = "Log 10 Number of Livestock",
@@ -4617,7 +4434,6 @@ function()
 	ans
 }
 book.6.2()
-export.graph(Name = "GSD2",FileName = "G:\\currdata\\vizfigs\\vizdata_6_02.gif")
 
 book.6.3 <- 
 function()
@@ -4635,7 +4451,6 @@ function()
 	ans
 }
 book.6.3()
-export.graph(Name = "GSD2",FileName = "G:\\currdata\\vizfigs\\vizdata_6_03.gif")
 
 book.6.4 <- 
 function()
@@ -4658,8 +4473,8 @@ function()
 	ans
 }
 book.6.3()
-export.graph(Name = "GSD2",FileName = "G:\\currdata\\vizfigs\\vizdata_6_03.gif")
 
+# RES: problem with wt.bisquare
 # no 6.4
 
 book.6.5 <- 
@@ -4684,7 +4499,6 @@ function()
 	ans
 }
 book.6.5()
-export.graph(Name = "GSD2",FileName = "G:\\currdata\\vizfigs\\vizdata_6_05.gif")
 
 book.6.6 <- 
 function()
@@ -4709,7 +4523,6 @@ function()
 	ans
 }
 book.6.6()
-export.graph(Name = "GSD2",FileName = "G:\\currdata\\vizfigs\\vizdata_6_06.gif")
 
 
 
@@ -4736,7 +4549,6 @@ function()
 	ans
 }
 book.6.7()
-export.graph(Name = "GSD2",FileName = "G:\\currdata\\vizfigs\\vizdata_6_07.gif")
 
 book.6.8 <- 
 function()
@@ -4761,7 +4573,6 @@ function()
 	ans
 }
 book.6.8()
-export.graph(Name = "GSD2",FileName = "G:\\currdata\\vizfigs\\vizdata_6_08.gif")
 
 book.6.9 <- 
 function()
@@ -4791,7 +4602,6 @@ function()
 	ans
 }
 book.6.9()
-export.graph(Name = "GSD2",FileName = "G:\\currdata\\vizfigs\\vizdata_6_09.gif")
 
 book.6.10 <- 
 function()
@@ -4822,7 +4632,6 @@ function()
 	ans
 }
 book.6.10()
-export.graph(Name = "GSD2",FileName = "G:\\currdata\\vizfigs\\vizdata_6_10.gif")
 
 book.6.11 <- 
 function()
@@ -4889,7 +4698,6 @@ function()
 	invisible()
 }
 book.6.11()
-export.graph(Name = "GSD2",FileName = "G:\\currdata\\vizfigs\\vizdata_6_11.gif")
 
 book.6.12 <- 
 function()
@@ -4899,7 +4707,6 @@ function()
 		sub = list("Figure 6.12",cex=.8),
 		xlab = "Log Run Time (log 2 seconds)")
 book.6.12()
-export.graph(Name = "GSD2",FileName = "G:\\currdata\\vizfigs\\vizdata_6_12.gif")
 		
 book.6.13 <- 
 function()
@@ -4921,7 +4728,6 @@ function()
 			columns = length(Machine)))
 }
 book.6.13()
-export.graph(Name = "GSD2",FileName = "G:\\currdata\\vizfigs\\vizdata_6_13.gif")
 
 book.6.14 <- 
 function()
@@ -4943,7 +4749,6 @@ function()
 			columns = length(Machine)))
 }
 book.6.14()
-export.graph(Name = "GSD2",FileName = "G:\\currdata\\vizfigs\\vizdata_6_14.gif")
 
 book.6.15 <- 
 function()
@@ -4982,7 +4787,6 @@ function()
 			columns = length(Algorithm)))
 }
 book.6.15()
-export.graph(Name = "GSD2",FileName = "G:\\currdata\\vizfigs\\vizdata_6_15.gif")
 
 book.6.16 <- 
 function()
@@ -5016,7 +4820,6 @@ function()
 	ans
 }
 book.6.16()
-export.graph(Name = "GSD2",FileName = "G:\\currdata\\vizfigs\\vizdata_6_16.gif")
 
 book.6.17 <- 
 function()
@@ -5041,7 +4844,6 @@ function()
 		ylab = "Log Run Time (log 2 seconds)")
 }
 book.6.17()
-export.graph(Name = "GSD2",FileName = "G:\\currdata\\vizfigs\\vizdata_6_17.gif")
 
 book.6.18 <- 
 function()
@@ -5073,7 +4875,6 @@ function()
 	ans
 }
 book.6.18()
-export.graph(Name = "GSD2",FileName = "G:\\currdata\\vizfigs\\vizdata_6_18.gif")
 
 book.6.19 <- 
 function()
@@ -5105,7 +4906,6 @@ function()
 	ans
 }
 book.6.19()
-export.graph(Name = "GSD2",FileName = "G:\\currdata\\vizfigs\\vizdata_6_19.gif")
 
 book.6.20 <- 
 function()
@@ -5115,7 +4915,6 @@ function()
 		sub = list("Figure 6.20",cex=.8),
 		xlab = "Barley Yield (bushels/acre)")
 book.6.20()
-export.graph(Name = "GSD2",FileName = "G:\\currdata\\vizfigs\\vizdata_6_20.gif")
 
 book.6.21 <- 
 function()
@@ -5134,7 +4933,6 @@ function()
 	ans
 }
 book.6.21()
-export.graph(Name = "GSD2",FileName = "G:\\currdata\\vizfigs\\vizdata_6_21.gif")
 
 book.6.22 <- 
 function()
@@ -5156,7 +4954,6 @@ function()
 	ans
 }
 book.6.22()
-export.graph(Name = "GSD2",FileName = "G:\\currdata\\vizfigs\\vizdata_6_22.gif")
 
 book.6.23 <- 
 function()
@@ -5180,7 +4977,6 @@ function()
 	ans
 }
 book.6.23()
-export.graph(Name = "GSD2",FileName = "G:\\currdata\\vizfigs\\vizdata_6_23.gif")
 
 book.6.24 <- 
 function()
@@ -5219,7 +5015,6 @@ function()
 	ans
 }
 book.6.24()
-export.graph(Name = "GSD2",FileName = "G:\\currdata\\vizfigs\\vizdata_6_24.gif")
 
 book.6.25 <- 
 function()
@@ -5244,7 +5039,6 @@ function()
 	ans
 }
 book.6.25()
-export.graph(Name = "GSD2",FileName = "G:\\currdata\\vizfigs\\vizdata_6_25.gif")
 
 book.6.26 <- 
 function()
@@ -5273,7 +5067,6 @@ function()
 	ans
 }
 book.6.26()
-export.graph(Name = "GSD2",FileName = "G:\\currdata\\vizfigs\\vizdata_6_26.gif")
 
 book.6.27 <- 
 function()
@@ -5302,5 +5095,9 @@ function()
 	ans
 }
 book.6.27()
-export.graph(Name = "GSD2",FileName = "G:\\currdata\\vizfigs\\vizdata_6_27.gif")
 ```
+
+R and S-Plus differences
+------------------------
+
+reorder.factor in S-Plus becomes reorder in R: https://stat.ethz.ch/pipermail/r-devel/2004-September/030708.html
