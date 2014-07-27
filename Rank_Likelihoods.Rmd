@@ -1,0 +1,112 @@
+---
+title: "Likehood Estimates for Outcome Rank Given Correlated Variable"
+author: "Rich Seiter"
+date: "Sunday, July 27, 2014"
+output: html_document
+---
+
+Based on idea described in my comment at http://infoproc.blogspot.com/2014/07/success-ability-and-all-that.html
+
+Given a contributing factor X and a related outcome variable Y (with correlation r).  Calculate likelihood that a given X will have the largest Y.  An example case might be height as X and basketball ability as Y.  Here we will focus on abstract normal variables with mean 0 and standard deviation 1.  I am assuming a correlation of 0.65, but it will be interesting to vary that.
+
+Ideally this would be computed exactly.  This analysis uses a simulation instead.
+
+First we generate a single set of data to give a sense of what we will see.
+
+```{r example}
+Sys.time()
+# These variables define our distribution
+Xmean <- 0
+Ymean <- 0
+Xsd <- 1
+Ysd <- 1
+XYcor <- 0.65
+
+# Derived variables
+XYmean <- c(Xmean, Ymean)
+XYcov <- matrix(c(1, XYcor, XYcor, 1), nrow=2, ncol=2)
+
+# Create our multivariate normal distribution using mvrnorm in MASS
+require(MASS)
+ 
+#make this reproducible
+set.seed(2)
+ 
+# Don't make sample too large here, car scatterplot can be slow
+myDraws <- mvrnorm(1e5, mu=XYmean, Sigma=XYcov)
+myDraws <- data.frame(myDraws)
+colnames(myDraws) <- c("X", "Y")
+
+#check the mean, sd, and cor
+apply(myDraws, 2, mean)
+apply(myDraws, 2, sd)
+cor(myDraws)
+
+# Plot the distribution
+require(car)
+scatterplot(Y ~ X, data=myDraws, ellipse=TRUE, levels=c(0.5, 0.95, 0.99, 0.999, 0.9999))
+```
+
+Simulate Multiple Populations
+-----------------------------
+
+```{r simulation}
+Sys.time()
+numRuns <- 1e4
+popSize <- 1e5
+
+XOfLargestY <- 1:numRuns
+
+#make this reproducible
+set.seed(2)
+for (i in 1:numRuns) {
+  myDraws <- mvrnorm(popSize, mu=XYmean, Sigma=XYcov)
+  myDraws <- data.frame(myDraws)
+  colnames(myDraws) <- c("X", "Y")
+  XOfLargestY[i] <- myDraws$X[which.max(myDraws$Y)]
+}
+Sys.time()
+```
+
+Look at the Results
+-------------------
+
+How often does the largest Y have a given X value?
+
+```{r}
+require(lattice)
+densityplot(XOfLargestY)
+```
+
+How likely is it that any given person at level X will have the best Y?
+
+I'm not sure about these calculations (especially the attempt to normalize to a probability).  Feedback welcomed.
+
+```{r}
+obs_dvals <- density(XOfLargestY)
+dvals <- dnorm(obs_dvals$x,mean=0,sd=1)
+prob <- data.frame(x = obs_dvals$x,
+                    y = obs_dvals$y / dvals / popSize # Attempt to normalize this to prob.
+                    )
+
+xyplot(y ~ x, prob, type="l")
+xyplot(log10(y) ~ x, prob, type="l")
+```
+
+I believe the somewhat anomalous results at the extremes are due to sampling error.  For example, when I increased the popSize from 1e4 to 1e5 (numRuns = 1e2) the peak and dip at the right moved right by about 0.7 to correspond.  Then when I increased popSize to 1e6 the peak moved another ~0.3 right.  The center of the XOfLargestY distribution also shifted right and the probabilities for 3-4SD X decreased.
+
+
+Comments
+--------
+
+Clearly this simulation model has many assumptions.  The two that particularly concern me are:  
+1. Normality (e.g. IQ is believed to have fat tails)  
+2. That the sample population is large enough.  I saw consistent changes when increasing popSize.  I finally chose 1e5 as a compromise.
+
+I think it best to only really consider the results in the X range where XOfLargestY has at least one value (and possibly ignore apparent extreme outliers).
+
+
+Other Notes
+-----------
+
+A relevant point by another commenter: [True or False: Half of All 7-Footers are in the NBA](http://www.truthaboutit.net/2012/05/true-or-false-half-of-all-7-footers-are-in-the-nba.html)
