@@ -1,0 +1,3 @@
+# Deal with RPubs problem:
+# http://stackoverflow.com/questions/22537180/error-while-publishing-in-r-pubs
+options(rpubs.upload.method = "internal")
