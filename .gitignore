@@ -5,3 +5,7 @@
 # Derived files, not sure if I want to save
 *.html
 
+# knitr cache files
+*_cache
+*_files
+

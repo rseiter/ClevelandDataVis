@@ -13,6 +13,10 @@ load("visualizing_data.Rdata")
 # Use Lattice graphics
 library(lattice)
 # Note that Lattice contains data for: barley, environmental, ethanol, singer
+
+# Workarounds
+library(MASS)
+wt.bisquare <- psi.bisquare
 ```
 
 Chapter 1 Examples
@@ -4413,9 +4417,9 @@ function()
 	ans
 }
 book.6.1()
-```
-
-```{r chapter6NotImplemented, eval=FALSE, echo=FALSE}
+# ```
+# 
+# ```{r chapter6NotImplemented, eval=FALSE, echo=FALSE}
 book.6.2 <- 
 function()
 {
@@ -4472,9 +4476,9 @@ function()
 	detach()
 	ans
 }
-book.6.3()
+book.6.4()
 
-# RES: problem with wt.bisquare
+# RES: mistaken comment?
 # no 6.4
 
 book.6.5 <- 
@@ -4657,7 +4661,8 @@ function()
 		38.799221, 54.4492989))
 	country.names <- levels(country)
 	names(map.xy$y) <- names(map.xy$x) <-country.names
-	europe <- map("world.thin", xlim = xlim, ylim = ylim, plot = F)
+  #europe <- map("world.thin", xlim = xlim, ylim = ylim, plot = F)
+  europe <- map("world", xlim = xlim, ylim = ylim, plot = F)
 	logcount <- logb(count,2)
 	wt <- rep(1,length(logcount))
 	for(i in 1:10){
@@ -4697,7 +4702,7 @@ function()
 	detach()
 	invisible()
 }
-book.6.11()
+#book.6.11() # RES: causes problems
 
 book.6.12 <- 
 function()
@@ -4714,10 +4719,10 @@ function()
 	Machine <- levels(run.time$machine)
 	dotplot(algorithm ~ logb(time, 2) | input, 
 		data = run.time,
-		panel = function(x, y, subscripts, ...) {
-			do.call("abline", c(list(h = y), trellis.par.get("dot.line")))
-			panel.superpose(x, y, subscripts, ...)
-		},
+# 		panel = function(x, y, subscripts, ...) {
+# 			do.call("abline", c(list(h = y), trellis.par.get("dot.line")))
+# 			panel.superpose(x, y, subscripts, ...)
+# 		},
 		groups = machine,
 		aspect = "xy",
 		layout = c(2, 3),
@@ -4735,10 +4740,10 @@ function()
 	Machine <- levels(run.time$machine)
 	dotplot(input ~ logb(time, 2) | algorithm,
 		data = run.time,
-		panel = function(x, y, subscripts, ...) {
-			do.call("abline", c(list(h = y), trellis.par.get("dot.line")))
-			panel.superpose(x, y, subscripts, ...)
-		},
+# 		panel = function(x, y, subscripts, ...) {
+# 			do.call("abline", c(list(h = y), trellis.par.get("dot.line")))
+# 			panel.superpose(x, y, subscripts, ...)
+# 		},
 		groups = machine,
 		aspect = .5,	
 		layout = c(1,3),
@@ -4771,10 +4776,10 @@ function()
 	Algorithm <- levels(differences$algorithm)
 	dotplot(input ~ time | machine,
 		data = differences, 
-		panel = function(x, y, subscripts, ...){
-			do.call("abline", c(list(h = y), trellis.par.get("dot.line")))
-			panel.superpose(x, y, subscripts, ...)
-		},
+# 		panel = function(x, y, subscripts, ...){
+# 			do.call("abline", c(list(h = y), trellis.par.get("dot.line")))
+# 			panel.superpose(x, y, subscripts, ...)
+# 		},
 		groups = algorithm,
 		aspect = .5,
 		layout = c(2, 1),
@@ -4999,10 +5004,10 @@ function()
 	ys.site <- ordered(rep(levels(site),rep(2,6)),levels(site))
 	n <- length(levels(ys.year))
 	ans <- dotplot(ys.site ~ ys.effects,
-		panel = function(x, y, subscripts, ...) {
-			do.call("abline", c(list(h = y), trellis.par.get("dot.line")))
-			panel.superpose(x, y, subscripts, ...)
-		},
+# 		panel = function(x, y, subscripts, ...) {
+# 			do.call("abline", c(list(h = y), trellis.par.get("dot.line")))
+# 			panel.superpose(x, y, subscripts, ...)
+# 		},
 		groups = ys.year,
 		aspect = 2/3,
 		sub = list("Figure 6.24",cex=.8),
@@ -5101,3 +5106,7 @@ R and S-Plus differences
 ------------------------
 
 reorder.factor in S-Plus becomes reorder in R: https://stat.ethz.ch/pipermail/r-devel/2004-September/030708.html
+
+S-Plus wt.bisquare becomes psi.bisquare in R MASS package.
+
+map handling differs
