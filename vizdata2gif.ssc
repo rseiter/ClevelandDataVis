@@ -1,0 +1,5249 @@
+book.1.1 <-
+function()
+{
+        n <- length(levels(barley$year))
+        dotplot(variety ~ yield | site, 
+                data = barley,
+                groups = year,
+                panel = function(x, y, ...) {
+                        dot.line <- trellis.par.get("dot.line")
+                        abline(h = y, lwd = dot.line$lwd, lty = dot.line$lty, col = dot.line$col)
+                        panel.superpose(x, y, ...)
+                },
+                layout = c(1, 6),
+                aspect = .5,
+                sub = list("Figure 1.1",cex=.8),
+                xlab = "Barley Yield (bushels/acre)",
+                key = list(points = Rows(trellis.par.get("superpose.symbol"), 1:n),
+                           text = list(levels(barley$year)),
+                           columns = n))
+}
+book.1.1()
+export.graph(Name = "GSD2",FileName = "G:\\currdata\\vizfigs\\vizdata_1_1.gif")
+
+book.1.2 <-
+function()
+	histogram(~ height | voice.part,
+		  data = singer, 
+		  nint = 17, 
+		  endpoints = c(59.5, 76.5),
+		  layout = c(2, 4), 
+		  aspect = 1, 
+		  sub = list("Figure 1.2",cex=.8),
+		  xlab = "Height (inches)")
+book.1.2()
+export.graph(Name = "GSD2",FileName = "G:\\currdata\\vizfigs\\vizdata_1_2.gif")
+		
+book.1.3 <-
+function() 
+	xyplot(babinet ~ concentration, 
+	       data = polarization, 
+	       aspect = 1,
+		sub = list("Figure 1.3",cex=.8),
+	       xlab = "Concentration (micrograms per cubic meter)",
+	       ylab = "Babinet Point (degrees)")
+book.1.3()
+export.graph(Name = "GSD2",FileName = "G:\\currdata\\vizfigs\\vizdata_1_3.gif")
+
+book.1.4 <-
+function()
+	xyplot(NOx ~ E, 
+	       data = ethanol, 
+	       aspect = 1, 
+		sub = list("Figure 1.4",cex=.8),
+	       xlab= "E", 
+	       ylab= "Oxides of Nitrogen\n(micrograms/J)")
+book.1.4()
+export.graph(Name = "GSD2",FileName = "G:\\currdata\\vizfigs\\vizdata_1_4.gif")
+
+book.1.5 <-
+function()
+	xyplot(NOx ~ C, 
+	       data = ethanol, 
+	       aspect = 1,
+		sub = list("Figure 1.5",cex=.8),
+	       xlab= "C", 
+	       ylab= "Oxides of Nitrogen\n(micrograms/J)")
+book.1.5()
+export.graph(Name = "GSD2",FileName = "G:\\currdata\\vizfigs\\vizdata_1_5.gif")
+
+	
+book.1.6 <-
+function()
+	dotplot( variety ~ yield | year * site, 
+		data = barley, 
+		aspect = .4, 
+		sub = list("Figure 1.6",cex=.8),
+		xlab = "Barley Yield (bushels/acre)")
+book.1.6()
+export.graph(Name = "GSD2",FileName = "G:\\currdata\\vizfigs\\vizdata_1_6.gif")
+		
+book.2.1 <-
+function()
+	qqmath(~ height | voice.part,
+		distribution=qunif,
+		data=singer,
+	        panel = function(x, y) {
+			panel.grid()		
+	                panel.xyplot(x, y)
+	        },
+		layout=c(2,4), 
+		aspect=1,
+		sub = list("Figure 2.1",cex=.8),
+		xlab = "f-value",
+		ylab="Height (inches)")
+book.2.1()
+export.graph(Name = "GSD2",FileName = "G:\\currdata\\vizfigs\\vizdata_2_01.gif")
+
+
+book.2.2 <-
+function()
+	qqmath(~ sort(singer$height[singer$voice.part=="Tenor 1"]),
+		distribution = qunif, 
+		panel = function(x, y) {
+			panel.qqmath(c(0, x, 1), c(min(y), y, max(y)), type = "l")
+			panel.qqmath(x, y, col = 0, pch = 16) 
+                        panel.qqmath(x, y)
+		},
+		aspect = 1, 
+		sub = list("Figure 2.2",cex=.8),
+		xlab = "f-value",
+		ylab = "Tenor 1 Height (inches)")
+book.2.2()
+export.graph(Name = "GSD2",FileName = "G:\\currdata\\vizfigs\\vizdata_2_02.gif")
+
+book.2.3 <-
+function()
+{
+	voice.part <- ordered(singer$voice.part, 
+		c("Soprano 1", "Soprano 2", "Alto 1", "Alto 2",
+			"Tenor 1", "Tenor 2", "Bass 1", "Bass 2"))
+	qq(voice.part ~ singer$height,
+		subset=voice.part=="Bass 2" | voice.part=="Tenor 1",
+		aspect=1, 
+		sub = list("Figure 2.3",cex=.8),
+		xlab = "Tenor 1 Height (inches)",
+		ylab = "Base 2 Height (inches)")
+}
+book.2.3()
+export.graph(Name = "GSD2",FileName = "G:\\currdata\\vizfigs\\vizdata_2_03.gif")
+
+book.2.4 <-
+function()
+{
+	voice.part <- ordered(singer$voice.part,
+		c("Soprano 1", "Soprano 2", "Alto 1", "Alto 2",
+			"Tenor 1", "Tenor 2", "Bass 1", "Bass 2"))
+	bass.tenor.qq <- qq(voice.part ~ singer$height,
+		subset=voice.part=="Bass 2" | voice.part=="Tenor 1")
+	tmd(bass.tenor.qq,
+		aspect=1,
+		ylab = "Difference (inches)",
+		sub = list("Figure 2.4",cex=.8),
+		xlab = "Mean (inches)")
+}
+book.2.4()
+export.graph(Name = "GSD2",FileName = "G:\\currdata\\vizfigs\\vizdata_2_04.gif")
+
+# 2.5 missing ;	
+
+book.2.6 <-
+function()
+{
+	oldpty <- par("pty")
+	par(pty = "s")
+	data <-
+	c(0.9, 1.6, 2.26305, 2.55052, 2.61059, 2.69284, 2.78511, 2.80955, 
+		2.94647, 2.96043, 3.05728, 3.15748, 3.18033, 3.20021, 
+		3.20156, 3.24435, 3.33231, 3.34176, 3.3762, 3.39578, 3.4925,
+		3.55195, 3.56207, 3.65149, 3.72746, 3.73338, 3.73869, 
+		3.80469, 3.85224, 3.91386, 3.93034, 4.02351, 4.03947, 
+	        4.05481, 4.10111, 4.26249, 4.28782, 4.37586, 4.48811, 
+		4.6001, 4.65677, 4.66167, 4.73211, 4.80803, 4.9812, 5.17246,
+		5.3156, 5.35086, 5.36848, 5.48167, 5.68, 5.98848, 6.2, 7.1, 
+		7.4)
+	boxplot(data, rep(NA, length(data)), ylab = "Data")
+	usr <- par("usr")
+	x <- usr[1] + (usr[2] - usr[1]) * 0.5
+	at <- c(0.9, 1.6, 3.2, 3.8, 4.65, 6.2, 7.2)
+	arrows(rep(x * 1.15, 7), at, rep(x, 7), at)
+	mtext("Figure 2.6",1,1,cex=.8)
+	text(rep(x * 1.2, 7), at, adj = 0,
+		labels = c("outside value", "lower adjacent value", 
+			"lower quartile", "median", "upper quartile", 
+			"upper adjacent value", "outside values"))	
+	par(pty = oldpty)
+	invisible()
+}
+book.2.6()
+export.graph(Name = "GSD2",FileName = "G:\\currdata\\vizfigs\\vizdata_2_06.gif")
+
+book.2.7 <-
+function()
+{
+	data <- round(c(0.9, 1.6, 2.263047,
+		2.550518, 2.610592, 2.69284, 2.785113, 
+		2.809547, 2.946467, 2.96044, 3.057283, 
+		3.15748, 3.180327, 3.200206, 
+		3.20156, 3.244347, 3.332312, 
+		3.341763, 3.3762, 3.395778, 3.492497, 
+		3.551945, 3.562066, 3.65149, 
+		3.7274632, 3.73338, 3.738686, 3.80469, 
+		3.85224, 3.91386, 3.93034, 
+		4.02351, 4.039466, 4.05481, 4.101108, 4.262486, 
+		4.28782, 4.375864, 4.48811, 4.6001, 
+		4.656775, 4.661673, 4.73211, 
+		4.80803, 4.9812, 5.172464, 
+		5.3156, 5.35086, 5.36848, 
+		5.48167, 5.68, 5.98848, 6.2, 
+		7.1, 7.4),5)
+	uq <- quantile(data,.75)
+	lq <- quantile(data,.25)
+	r <- 1.5*(uq-lq)
+	h <- c(lq-r,1.6,lq,uq,6.2,uq+r)
+	writing <- c("lower quartile - 1.5 r",
+		"lower adjacent value",
+		"lower quartile",
+		"upper quartile",
+		 "upper adjacent value",
+		 "upper quartile + 1.5 r")
+	qqmath(~ data,
+		distribution = qunif,
+		panel = substitute(function(x, y) {
+			reference.line <- trellis.par.get("reference.line")
+			panel.abline(h = h, lwd = reference.line$lwd, lty = reference.line$lty, col = reference.line$col)
+			panel.qqmath(x, y, col = 0, pch = 16)
+			panel.qqmath(x, y)
+			text(rep(0,3), h[4:6], writing[4:6], adj=0)
+			text(rep(1,3), h[1:3], writing[1:3], adj=1)
+		}),
+		aspect = 1, 
+		sub = list("Figure 2.7",cex=.8),
+		xlab = "f-value", 
+		ylab = "Data")
+}
+book.2.7()
+export.graph(Name = "GSD2",FileName = "G:\\currdata\\vizfigs\\vizdata_2_07.gif")
+
+book.2.8 <-
+function()
+	bwplot(voice.part ~ height,
+		data=singer,
+		aspect=1,
+		sub = list("Figure 2.8",cex=.8),
+		xlab="Height (inches)")
+book.2.8()
+export.graph(Name = "GSD2",FileName = "G:\\currdata\\vizfigs\\vizdata_2_08.gif")
+		
+book.2.9 <-
+function()
+{
+	data <- sort(singer$height[singer$voice.part=="Alto 1"])
+	qqmath(~ data, 
+		distribution = qunif,
+		panel = function(x, y) {
+			panel.grid()
+			panel.qqmath(c(0, x, 1), c(min(y), y, max(y)), type = "l")
+			panel.qqmath(x, y, col = 0, pch = 16)
+			panel.qqmath(x, y)
+		},
+		aspect = 1, 
+		ylim = range(data, qnorm(ppoints(data), mean(data), sqrt(var(data)))),
+		sub = list("Figure 2.9",cex=.8),
+		xlab = "f-value",
+		ylab = "Alto 1 Height (inches)")
+}
+book.2.9()
+export.graph(Name = "GSD2",FileName = "G:\\currdata\\vizfigs\\vizdata_2_09.gif")
+
+book.2.10 <-
+function()
+{
+	data <- sort(singer$height[singer$voice.part=="Alto 1"])
+	x <- ppoints(data)
+	y <- qnorm(x, mean(data), sqrt(var(data)))
+	xyplot(y ~ x, 
+		panel = function(x, y){
+			panel.grid()
+			panel.xyplot(x, y, type = "l")
+		},
+		ylim = range(data, y),
+		aspect = 1, 
+		sub = list("Figure 2.10",cex=.8),
+		xlab = "f-value", 
+		ylab = "Normal Quantile Function")
+}
+book.2.10()
+export.graph(Name = "GSD2",FileName = "G:\\currdata\\vizfigs\\vizdata_2_10.gif")
+
+book.2.11 <-
+function()
+	qqmath(~ height | voice.part,
+		data=singer,
+		prepanel = prepanel.qqmathline,
+	        panel = function(x, y) {
+			panel.grid()
+	                panel.qqmathline(y, distribution = qnorm)
+	                panel.qqmath(x, y)
+	        },
+		layout=c(2,4),
+		aspect=1, 
+		sub = list("Figure 2.11",cex=.8),
+		xlab = "Unit Normal Quantile",
+		ylab="Height (inches)")
+book.2.11()
+export.graph(Name = "GSD2",FileName = "G:\\currdata\\vizfigs\\vizdata_2_11.gif")
+
+book.2.12 <-
+function()
+	dotplot(tapply(singer$height,singer$voice.part,mean), 
+		aspect=1,
+		sub = list("Figure 2.12",cex=.8),
+		xlab="Mean Height (inches)")
+book.2.12()
+export.graph(Name = "GSD2",FileName = "G:\\currdata\\vizfigs\\vizdata_2_12.gif")
+
+book.2.13 <-
+function()
+	bwplot(voice.part ~ oneway(height~voice.part, spread = 1)$residuals,
+		data = singer,
+		aspect=0.75,
+		panel = function(x,y){
+			panel.bwplot(x,y)
+			panel.abline(v=0)
+		},
+		sub = list("Figure 2.13",cex=.8),
+		xlab = "Residual Height (inches)")
+book.2.13()
+export.graph(Name = "GSD2",FileName = "G:\\currdata\\vizfigs\\vizdata_2_13.gif")
+
+book.2.14 <-
+function()
+{
+	res.height <- oneway(height ~ voice.part, data = singer, spread = 1)$residuals
+	qqmath(~ res.height | singer$voice.part, 
+		distribution = substitute(function(p) quantile(res.height, p)),
+		panel=function(x,y){
+			panel.grid()
+			panel.abline(0, 1)
+			panel.qqmath(x, y)
+		},
+		aspect=1,
+		layout=c(2,4),
+		sub = list("Figure 2.14",cex=.8),
+		xlab = "Pooled Residual Height (inches)",
+		ylab = "Residual Height (inches)")
+}
+book.2.14()
+export.graph(Name = "GSD2",FileName = "G:\\currdata\\vizfigs\\vizdata_2_14.gif")
+
+book.2.15 <-
+function()
+	qqmath(~ oneway(height ~ voice.part, spread = 1)$residuals, 
+		data = singer,
+		distribution = qunif,
+		aspect = 1,
+		sub = list("Figure 2.15",cex=.8),
+		xlab = "f-value",
+		ylab = "Residual Height (inches)")
+book.2.15()
+export.graph(Name = "GSD2",FileName = "G:\\currdata\\vizfigs\\vizdata_2_15.gif")
+
+book.2.16 <-
+function()
+	qqmath(~ oneway(height~voice.part, spread = 1)$residuals,
+		data = singer,
+		prepanel = prepanel.qqmathline, 
+	        panel = function(x, y) {
+	                panel.qqmathline(y, distribution = qnorm)
+	                panel.qqmath(x, y)
+	        },
+		aspect=1,
+		sub = list("Figure 2.16",cex=.8),
+		xlab = "Unit Normal Quantile",
+		ylab="Residual Height (inches)")
+book.2.16()
+export.graph(Name = "GSD2",FileName = "G:\\currdata\\vizfigs\\vizdata_2_16.gif")
+
+
+book.2.17 <-
+function()
+	rfs(oneway(height~voice.part, data = singer, spread = 1), 
+		aspect=1, 
+		sub = list("Figure 2.17",cex=.8),
+		ylab = "Height (inches)")
+book.2.17()
+export.graph(Name = "GSD2",FileName = "G:\\currdata\\vizfigs\\vizdata_2_17.gif")
+
+book.2.19 <-
+function()
+	qqmath(~ time | nv.vv,
+		data=fusion.time,
+		distribution = qunif,
+	        panel = function(x, y) {
+			panel.grid()
+	                panel.qqmath(x, y)
+	        },
+		aspect=1,
+		layout=c(2,1),
+		sub = list("Figure 2.19",cex=.8),
+		xlab = "f-value",
+		ylab="Time (seconds)")
+book.2.19()
+export.graph(Name = "GSD2",FileName = "G:\\currdata\\vizfigs\\vizdata_2_19.gif")
+
+book.2.20 <-
+function()
+{
+	data <- 5+qnorm(ppoints(25))
+	qqmath(~data,
+		distribution = qunif,
+		panel = function(x, y) {
+			reference.line <- trellis.par.get("reference.line")
+			m <- median(y)
+			segments(c(.1, .9), m, c(.1, .9), quantile(y, c(.1, .9)),
+				lwd = reference.line$lwd, lty = reference.line$lty, col = reference.line$col)
+			panel.qqmath(c(0, x, 1), c(min(y), y, max(y)), type = "l")
+			panel.qqmath(x, y, col = 0, pch = 16)
+			panel.qqmath(x, y)
+			panel.abline(h = m)
+			text(.05, 4.25, "d(0.1)", srt = 90, adj = 0)
+			text(.85, 5.25, "d(0.9)", srt = 90, adj = 0)
+		},
+		aspect = 1, 
+		sub = list("Figure 2.20",cex=.8),
+		xlab = "f-value",
+	        ylab = "Data")
+}
+book.2.20()
+export.graph(Name = "GSD2",FileName = "G:\\currdata\\vizfigs\\vizdata_2_20.gif")
+
+book.2.21 <-
+function()
+{
+	data <- 2 ^ (5 + qnorm(ppoints(25)))
+	qqmath(~ data,
+		distribution = qunif,
+		panel = function(x, y) {
+			reference.line <- trellis.par.get("reference.line")
+			m <- median(y)
+			segments(c(.1, .9), m, c(.1, .9), quantile(y, c(.1, .9)),
+				lwd = reference.line$lwd, lty = reference.line$lty, col = reference.line$col)
+			panel.qqmath(c(0, x, 1), c(min(y), y, max(y)), type = "l")
+			panel.qqmath(x, y, col = 0, pch = 16)
+			panel.qqmath(x, y)
+			panel.abline(h = m)
+	                text(.05, 15, "d(0.1)", srt = 90, adj = 0)
+	                text(.85, 40, "d(0.9)", srt = 90, adj = 0)
+		},
+		aspect = 1, 
+		sub = list("Figure 2.21",cex=.8),
+		xlab = "f-value",
+	        ylab = "Data")
+}
+book.2.21()
+export.graph(Name = "GSD2",FileName = "G:\\currdata\\vizfigs\\vizdata_2_21.gif")
+
+book.2.22 <-
+function()
+	qqmath(~ time | nv.vv,
+		data=fusion.time,
+		prepanel = prepanel.qqmathline,
+	        panel = function(x, y) {
+			panel.grid()
+	                panel.qqmathline(y, distribution = qnorm)
+	                panel.qqmath(x, y)
+	        },
+		aspect=1,
+		layout=c(2,1),
+		sub = list("Figure 2.22",cex=.8),
+		xlab = "Unit Normal Quantile",
+		ylab="Time (seconds)")
+book.2.22()
+export.graph(Name = "GSD2",FileName = "G:\\currdata\\vizfigs\\vizdata_2_22.gif")
+
+book.2.23 <-
+function()
+	bwplot(nv.vv ~ time,
+		data=fusion.time,
+		aspect = .5,
+		sub = list("Figure 2.23",cex=.8),
+		xlab="Time (seconds)")
+book.2.23()
+export.graph(Name = "GSD2",FileName = "G:\\currdata\\vizfigs\\vizdata_2_23.gif")
+
+book.2.24 <-
+function()
+	qqmath(~ logb(time,2) | nv.vv,
+		data=fusion.time,
+		prepanel=prepanel.qqmathline,
+	        panel = function(x, y) {
+			panel.grid()
+	                panel.qqmathline(y, distribution = qnorm)
+	                panel.qqmath(x, y)
+	        },
+		aspect=1,
+		layout=c(2,1),
+		sub = list("Figure 2.24",cex=.8),
+		xlab = "Unit Normal Quantile",
+		ylab="Log Time (log 2 seconds)")
+book.2.24()
+export.graph(Name = "GSD2",FileName = "G:\\currdata\\vizfigs\\vizdata_2_24.gif")
+
+book.2.25 <-
+function()
+{
+	fusion.time.m <- oneway(time ~ nv.vv, data=fusion.time, location=median, spread=1)
+	xyplot(sqrt(abs(residuals(fusion.time.m)))~jitter(fitted.values(fusion.time.m),factor=3),
+		aspect=1,
+		panel=substitute(function(x,y){
+			panel.xyplot(x,y)
+			srmads <- sqrt(tapply(abs(residuals(fusion.time.m)),
+				fusion.time$nv.vv, median))
+			lines(fusion.time.m$location,srmads)
+		}),
+		sub = list("Figure 2.25",cex=.8),
+		xlab="Jittered Median Time (sec)",
+		ylab="Square Root Absolute Residual Time (square root sec)")
+}
+book.2.25()
+export.graph(Name = "GSD2",FileName = "G:\\currdata\\vizfigs\\vizdata_2_25.gif")
+
+
+book.2.26 <-
+function()
+{
+	fusion.time.m <- oneway(logb(time,2) ~ nv.vv,data=fusion.time, location = median, spread=1)
+	xyplot(sqrt(abs(residuals(fusion.time.m))) ~ jitter(fitted.values(fusion.time.m),factor=3),
+		aspect=1,
+		panel=substitute(function(x,y){
+			panel.xyplot(x,y)
+			srmads <- tapply(abs(residuals(fusion.time.m)),
+				fusion.time$nv.vv,median)
+			lines(fusion.time.m$location,srmads)
+		}),
+		sub = list("Figure 2.26",cex=.8),
+		xlab="Jittered Median Log Time (log 2 sec)",
+		ylab="Square Root Absolute Residual Log Time (square root absolute log 2 sec)")
+}
+book.2.26()
+export.graph(Name = "GSD2",FileName = "G:\\currdata\\vizfigs\\vizdata_2_26.gif")
+
+book.2.27 <-
+function()
+	qq(nv.vv ~ time,
+		data = fusion.time,
+		aspect = 1,
+		sub = list("Figure 2.27",cex=.8),
+		xlab="NV Time (seconds)",
+		ylab="VV Time (seconds)")
+book.2.27()
+export.graph(Name = "GSD2",FileName = "G:\\currdata\\vizfigs\\vizdata_2_27.gif")
+
+
+book.2.28 <-
+function()
+	qq(nv.vv ~ logb(time, 2),
+		data = fusion.time,
+		aspect = 1,
+		sub = list("Figure 2.28",cex=.8),
+		xlab = "Log NV Time (log 2 seconds)",
+		ylab = "Log VV Time (log 2 seconds)")
+book.2.28()
+export.graph(Name = "GSD2",FileName = "G:\\currdata\\vizfigs\\vizdata_2_28.gif")
+		
+book.2.29 <-
+function()
+	tmd(qq(nv.vv ~ logb(time, 2), data = fusion.time),
+		aspect = 1,
+		sub = list("Figure 2.29",cex=.8),
+		xlab = "Mean (log 2 seconds)",
+		ylab = "Difference (log 2 seconds)")
+book.2.29()
+export.graph(Name = "GSD2",FileName = "G:\\currdata\\vizfigs\\vizdata_2_29.gif")
+
+
+
+book.2.30 <-
+function()
+{
+	res <- oneway(logb(time,2)~nv.vv, data = fusion.time, spread = 1)$residuals
+	qqmath(~ res | fusion.time$nv.vv,
+		distribution = substitute(function(p) quantile(res, p)),
+		panel=function(x,y){
+			panel.grid()
+			panel.abline(0, 1)
+			panel.qqmath(x, y)
+		},
+		aspect=1,
+		layout=c(2,1),
+		sub = list("Figure 2.30",cex=.8),
+		xlab = "Pooled Residual Log Time (log 2 seconds)",
+		ylab = "Residual Log Time (log 2 seconds)")
+}
+book.2.30()
+export.graph(Name = "GSD2",FileName = "G:\\currdata\\vizfigs\\vizdata_2_30.gif")
+
+
+book.2.31 <-
+function()
+	qqmath(~ oneway(logb(time,2)~nv.vv, data = fusion.time, spread = 1)$residuals,
+		prepanel = prepanel.qqmathline, 
+	        panel = function(x, y) {
+	                panel.qqmathline(y, distribution = qnorm)
+	                panel.qqmath(x, y)
+	        },
+		aspect = 1,
+		sub = list("Figure 2.31",cex=.8),
+		xlab = "Unit Normal Quantile", 
+		ylab = "Residual Log Time (log 2 seconds)")
+book.2.31()
+export.graph(Name = "GSD2",FileName = "G:\\currdata\\vizfigs\\vizdata_2_31.gif")
+
+
+book.2.32 <-
+function()
+	rfs(oneway(logb(time, 2)~nv.vv, data = fusion.time, spread = 1),
+		aspect=1,
+		sub = list("Figure 2.32",cex=.8),
+	        ylab = "Log Time (log 2 seconds)")
+book.2.32()
+export.graph(Name = "GSD2",FileName = "G:\\currdata\\vizfigs\\vizdata_2_32.gif")
+	
+book.2.33 <-
+function()
+{
+	attach(fusion.time)
+	vvtime <- time[nv.vv=="VV"]
+	transformed <- cbind(outer(vvtime,c(-1,-1/2,-1/4),"^"),log(vvtime),
+		(outer(vvtime,c(1/4,1/2,1),"^")))
+	fusion.time.power <- data.frame(transformed=c(transformed),
+		lambda = factor(rep(c(-1,-1/2,-1/4,0,1/4,1/2,1),rep(length(vvtime),7))))
+	ans <- qqmath(~ transformed | lambda,
+		data=fusion.time.power,
+		prepanel = prepanel.qqmathline,
+	        panel = function(x, y) {
+			panel.grid(h = 0)
+	                panel.qqmathline(y, distribution = qnorm)
+	                panel.qqmath(x, y)
+	        },
+		aspect=1,
+		scale = list(y = "free"),
+		layout=c(2,4), 
+		sub = list("Figure 2.33",cex=.8),
+		xlab = "Unit Normal Quantile",
+		ylab = "VV Time")
+	detach()
+	ans
+}
+book.2.33()
+export.graph(Name = "GSD2",FileName = "G:\\currdata\\vizfigs\\vizdata_2_33.gif")
+
+
+book.2.34 <-
+function()
+	qqmath(~ mean.length | dimension,
+		distribution = qunif,
+		data=food.web, 
+	        panel = function(x, y) {
+			panel.grid()
+	                panel.qqmath(x, y)
+	        },
+		layout=c(1,3),
+		aspect=1,
+		sub = list("Figure 2.34",cex=.8),
+		xlab = "f-value",
+		ylab="Chain Length")
+book.2.34()
+export.graph(Name = "GSD2",FileName = "G:\\currdata\\vizfigs\\vizdata_2_34.gif")
+
+book.2.35 <-
+function()
+{
+	foo.m <- oneway(mean.length~dimension, data = food.web, location = median, spread=1)
+	set.seed(19)
+	xyplot(sqrt(abs(residuals(foo.m))) ~ jitter(fitted.values(foo.m),factor=3),
+		aspect=1,
+	        panel = substitute(function(x,y){
+			panel.xyplot(x,y)
+			srmads <- tapply(abs(residuals(foo.m)),
+				food.web$dimension, median)
+			lines(foo.m$location,srmads)
+		}),
+		sub = list("Figure 2.35",cex=.8),
+		xlab="Jittered Median Chain Length",
+		ylab="Square Root Absolute Residual Chain Length")
+}
+book.2.35()
+export.graph(Name = "GSD2",FileName = "G:\\currdata\\vizfigs\\vizdata_2_35.gif")
+
+
+book.2.36 <-
+function()
+	qqmath(~ mean.length | dimension,
+		data=food.web,
+		prepanel = prepanel.qqmathline,
+	        panel = function(x, y) {
+			panel.grid()
+	                panel.qqmathline(y, distribution = qnorm)
+	                panel.qqmath(x, y)
+	        },
+		layout=c(1,3),
+		aspect=1, 
+		sub = list("Figure 2.36",cex=.8),
+		xlab = "Unit Normal Quantile",
+		ylab="Chain Length")
+book.2.36()
+export.graph(Name = "GSD2",FileName = "G:\\currdata\\vizfigs\\vizdata_2_36.gif")
+
+book.2.37 <-
+function()
+{
+	foo.m <- oneway(logb(mean.length, 2) ~ dimension, data = food.web, location = median, spread = 1)
+	set.seed(19)
+	xyplot(sqrt(abs(residuals(foo.m))) ~ jitter(fitted.values(foo.m), factor = 3),
+	        panel = substitute(function(x, y) {
+			panel.xyplot(x, y)
+			add.line <- trellis.par.get("add.line")
+			lines(foo.m$location, tapply(y, food.web$dimension, median), 
+				lty = add.line$lty, lwd = add.line$lwd, col = add.line$col)
+		}),
+		aspect = 1,
+		sub = list("Figure 2.37",cex=.8),
+		xlab = "Jittered Median Log 2 Chain Length",
+		ylab = "Square Root Absolute Residual Log 2 Chain Length")
+}
+book.2.37()
+export.graph(Name = "GSD2",FileName = "G:\\currdata\\vizfigs\\vizdata_2_37.gif")
+
+book.2.38 <-
+function()
+	qqmath(~ logb(mean.length,2) | dimension,
+		data=food.web,
+		prepanel = prepanel.qqmathline,
+	        panel = function(x, y) {
+			panel.grid()
+	                panel.qqmathline(y, distribution = qnorm)
+	                panel.qqmath(x, y)
+	        },
+		layout=c(1,3),
+		aspect=1, 
+		sub = list("Figure 2.38",cex=.8),
+		xlab = "Unit Normal Quantile",
+		ylab="Log 2 Chain Length")
+book.2.38()
+export.graph(Name = "GSD2",FileName = "G:\\currdata\\vizfigs\\vizdata_2_38.gif")
+
+book.2.39 <-
+function()
+{
+	foo.m <- oneway(1/mean.length ~ dimension, data = food.web, location = median, spread = 1)
+	set.seed(19)
+	xyplot(sqrt(abs(residuals(foo.m))) ~ jitter(fitted.values(foo.m), factor = 3),
+	        panel = substitute(function(x,y) {
+			panel.xyplot(x,y)
+	                add.line <- trellis.par.get("add.line")
+			lines(foo.m$location, tapply(y, food.web$dimension, median),
+			lty = add.line$lty, lwd = add.line$lwd, col = add.line$col)
+		}),
+		aspect = 1,
+		sub = list("Figure 2.39",cex=.8),
+		xlab = "Jittered Median Link Fraction",
+		ylab = "Square Root Absolute Residual Link Fraction")
+}
+book.2.39()
+export.graph(Name = "GSD2",FileName = "G:\\currdata\\vizfigs\\vizdata_2_39.gif")
+
+book.2.40 <-
+function()
+	qqmath(~ (1/mean.length) | dimension,
+	       data = food.web,
+	       panel = function(x, y){
+			panel.grid()
+			panel.xyplot(x, y)
+			panel.qqmathline(y, distribution = qnorm)
+	       },
+	       layout = c(1, 3),
+	       aspect = 1,
+		sub = list("Figure 2.40",cex=.8),
+	       xlab = "Unit Normal Quantile", 
+	       ylab = "Link Fraction")
+book.2.40()
+export.graph(Name = "GSD2",FileName = "G:\\currdata\\vizfigs\\vizdata_2_40.gif")
+	
+book.2.41 <-
+function()
+{
+	res <- oneway((1/mean.length)~dimension, data = food.web, spread = 1)$residuals
+	qqmath(~ res | food.web$dimension,
+		distribution = substitute(function(p) quantile(res, p)),
+		panel=function(x,y){
+			panel.grid()
+			panel.abline(0, 1)
+			panel.qqmath(x, y)
+		},
+		layout=c(1,3),
+		aspect=1,
+		sub = list("Figure 2.41",cex=.8),
+		xlab = "Pooled Residual Link Fraction",
+		ylab = "Residual Link Fraction")
+}
+book.2.41()
+export.graph(Name = "GSD2",FileName = "G:\\currdata\\vizfigs\\vizdata_2_41.gif")
+
+book.2.42 <-
+function()
+	rfs(oneway((1/mean.length)~dimension, data = food.web, spread = 1),
+		sub = list("Figure 2.42",cex=.8),
+		aspect=1,
+		ylab = "Link Fraction")
+book.2.42()
+export.graph(Name = "GSD2",FileName = "G:\\currdata\\vizfigs\\vizdata_2_42.gif")
+
+book.2.43 <-
+function()
+	bwplot(factor(number.runs) ~ logb(empty.space,2),
+		data=bin.packing,
+		aspect=1,
+		sub = list("Figure 2.43",cex=.8),
+		xlab="Log 2 Empty Space")
+book.2.43()
+export.graph(Name = "GSD2",FileName = "G:\\currdata\\vizfigs\\vizdata_2_43.gif")
+
+book.2.44 <-
+function()
+	qqmath(~ logb(empty.space,2) | factor(number.runs),
+		data = bin.packing,
+		prepanel = prepanel.qqmathline,
+	        panel = function(x, y) {
+			panel.grid()
+	                panel.qqmathline(y, distribution = qnorm)
+	                panel.qqmath(x, y)
+	        },
+		layout = c(3, 4),
+		sub = list("Figure 2.44",cex=.8),
+		xlab = "Unit Normal Quantile",
+		ylab = "Log 2 Empty Space")
+book.2.44()
+export.graph(Name = "GSD2",FileName = "G:\\currdata\\vizfigs\\vizdata_2_44.gif")
+
+book.2.45 <-
+function()
+{
+	res <- oneway(logb(empty.space,2) ~ number.runs, data = bin.packing, 
+		location = median,
+# This next line is the way it should be.
+#		spread = function(x) median(abs(x-median(x)))
+# This next line is the way it is now.
+		spread = function(x) (quantile(x,.75)-quantile(x,.25))/1.33)$scaled.residuals
+	qqmath(~ res | factor(bin.packing$number.runs),
+		prepanel = prepanel.qqmathline, 
+	        panel = function(x, y) {
+			panel.grid()
+	                panel.qqmathline(y, distribution = qnorm)
+	                panel.qqmath(x, y)
+        	},
+		layout = c(3,4),
+		sub = list("Figure 2.45",cex=.8),
+		xlab = "Unit Normal Quantile",
+		ylab = "Spread-Standardized Residual Log 2 Empty Space")
+}
+book.2.45()
+export.graph(Name = "GSD2",FileName = "G:\\currdata\\vizfigs\\vizdata_2_45.gif")
+
+book.2.46 <-
+function()
+{
+	attach(bin.packing)
+	data <- logb(empty.space,2)
+	bin.packing.m <- oneway(data~number.runs,location = median,
+		spread=function(x) diff(quantile(x,c(.25,.75)))/1.35)
+	res <- bin.packing.m$scaled.res[number.runs>1000]
+	gr <- factor(number.runs[number.runs>1000])
+	ans <- qqmath(~ res | gr,
+		distribution = substitute(function(p) quantile(res, p)),
+		panel = function(x, y){
+			panel.grid()
+			panel.abline(0, 1)
+			panel.qqmath(x, y)
+		},
+		aspect = 1,
+		layout = c(2, 4),
+		sub = list("Figure 2.46",cex=.8),
+		xlab = "Pooled Spread-Standardized Residual Log 2 Empty Space",
+		ylab = "Spread-Standardized Residual Log 2 Empty Space")
+	detach()
+	ans
+}
+book.2.46()
+export.graph(Name = "GSD2",FileName = "G:\\currdata\\vizfigs\\vizdata_2_46.gif")
+
+book.2.47 <-
+function()
+{
+	bin.packing.m <- oneway(logb(empty.space,2) ~ number.runs, data = bin.packing, 
+		location = median, 
+		spread = function(x) diff(quantile(x,c(.25,.75)))/1.35)
+	qqmath(~ bin.packing.m$scaled.res[bin.packing$number.runs > 1000],
+		prepanel = prepanel.qqmathline, 
+	        panel = function(x, y) {
+	                panel.qqmathline(y, distribution = qnorm)
+	                panel.qqmath(x, y)
+	        },
+		aspect = 1, 
+		sub = list("Figure 2.47",cex=.8),
+		xlab = "Unit Normal Quantile",
+		ylab = "Spread-Standardized Residual Log 2 Empty Space")
+}
+book.2.47()
+export.graph(Name = "GSD2",FileName = "G:\\currdata\\vizfigs\\vizdata_2_47.gif")
+
+book.2.48 <-
+function()
+{
+	attach(bin.packing)
+	data <- logb(empty.space,2)
+	mq <- tapply(data, number.runs, median)
+	nw <- logb(sort(unique(number.runs)),2)
+	ans <- xyplot(mq ~ nw,
+	        panel = function(x, y){
+			panel.xyplot(x, y)
+			panel.abline(y[11] - x[11]/3, 1/3)
+		},
+		aspect = 1,
+		sub = list("Figure 2.48",cex=.8),
+		xlab = "Log 2 Number of Weights",
+		ylab = "Median Log 2 Empty Space")
+	detach()
+	ans
+}
+book.2.48()
+export.graph(Name = "GSD2",FileName = "G:\\currdata\\vizfigs\\vizdata_2_48.gif")
+
+book.2.49 <-
+function()
+{
+	attach(bin.packing)
+	bin.packing.m <- oneway(logb(empty.space, 2) ~ number.runs, location = median, spread = 1)
+	srmads <- tapply(abs(residuals(bin.packing.m)), number.runs, median)
+	ans <- xyplot(logb(srmads, 2) ~ logb(sort(unique(number.runs)), 2),
+		aspect = 1,
+		sub = list("Figure 2.49",cex=.8),
+		xlab = "Log 2 Number of Weights",
+		ylab = "Log 2 Mad of Log 2 Empty Space")
+	detach()
+	ans
+}
+book.2.49()
+export.graph(Name = "GSD2",FileName = "G:\\currdata\\vizfigs\\vizdata_2_49.gif")
+
+book.2.50 <-
+function()
+{
+	attach(bin.packing)
+	bin.packing.m <- oneway(logb(empty.space,2) ~ number.runs, location = median, spread = 1)
+	srmads <- tapply(abs(residuals(bin.packing.m)), number.runs, median)
+	ans <- xyplot(logb(srmads/min(srmads), 2) ~ bin.packing.m$location,
+		aspect = 1,
+		sub = list("Figure 2.50",cex=.8),
+		xlab = "Median Log 2 Empty Space",
+		ylab = "Log 2 Relative Spread")
+	detach()
+	ans
+}
+book.2.50()
+export.graph(Name = "GSD2",FileName = "G:\\currdata\\vizfigs\\vizdata_2_50.gif")
+
+book.2.51 <-
+function()
+{
+	attach(bin.packing)
+	bin.packing.m <- oneway(empty.space~number.runs,location = median, spread=1)
+	srmads <- tapply(abs(residuals(bin.packing.m)),number.runs,median)
+	log.srmads <- logb(srmads/min(srmads),2)
+	ans <- xyplot(log.srmads ~ bin.packing.m$location,
+		aspect=1,
+		sub = list("Figure 2.51",cex=.8),
+		xlab="Median Empty Space",
+		ylab="Log 2 Relative Spread")
+	detach()
+	ans
+}
+book.2.51()
+export.graph(Name = "GSD2",FileName = "G:\\currdata\\vizfigs\\vizdata_2_51.gif")
+
+book.2.52 <-
+function()
+{
+	res <- oneway(logb(empty.space,2) ~ number.runs, data = bin.packing,
+		location = median,
+		spread = function(x) median(abs(x-median(x))))$scaled.residuals/1.68
+	qqmath(~ res | factor(bin.packing$number.runs), 
+		prepanel = prepanel.qqmathline, 
+		panel = function(x, y) {
+			panel.grid()
+			panel.qqmathline(y, distribution = qnorm)
+			panel.qqmath(x, y, err=-1)   # no warnings for out of bounds
+		},
+		ylim = c(-2.75, 2.75),
+		layout = c(3, 4), 
+		sub = list("Figure 2.52",cex=.8),
+		xlab = "Unit Normal Quantile", 
+		ylab = "Spread-Standardized Log 2 Empty Space")
+}
+book.2.52()
+export.graph(Name = "GSD2",FileName = "G:\\currdata\\vizfigs\\vizdata_2_52.gif")
+
+book.3.1 <- 
+function()
+	xyplot(cp.ratio ~ area,
+		data = ganglion,
+		aspect=1,
+		sub = list("Figure 3.1",cex=.8),
+		xlab = "Area (square mm)",
+		ylab = "CP Ratio")
+book.3.1()
+export.graph(Name = "GSD2",FileName = "G:\\currdata\\vizfigs\\vizdata_3_01.gif")
+
+book.3.2 <- 
+function()
+	xyplot(cp.ratio ~ area, 
+		data = ganglion,
+		prepanel=function(x,y)
+			prepanel.loess(x,y,family="g"),
+		panel = function(x,y){
+			panel.xyplot(x,y)
+			panel.loess(x,y, family = "g")
+		},
+		sub = list("Figure 3.2",cex=.8),
+		xlab = "Area (square mm)",
+		ylab = "CP Ratio",
+		aspect="xy")
+book.3.2()
+export.graph(Name = "GSD2",FileName = "G:\\currdata\\vizfigs\\vizdata_3_02.gif")
+
+book.3.3 <- 
+function()
+{
+	x <- seq(-1, 1, length = 100)
+	y <- c(x[1:50]^2, x[51:100])
+	ans1 <- xyplot(y ~ x,
+		aspect = "xy", 
+		scale = list(draw = F),
+		type = "l",
+		xlab = "",
+		ylab = "")
+	print(ans1, position = c(0, 0, 0.85, 1), more = T)
+	ans1 <- xyplot(y ~ x,
+		aspect = "xy", 
+		scale = list(draw = F),
+		xlim=c(-1.2,1.2),
+		type = "l",
+		xlab = "",
+		ylab = "")
+	print(update(ans1, aspect = 5), position = c(0.73, 0.32, 1, 0.68), 
+		more = T)
+	ans1 <- xyplot(y ~ x,
+		aspect = "xy", 
+		scale = list(draw = F),
+		ylim=c(-.2,1.2),
+		type = "l",
+		sub = list("Figure 3.3",cex=.8),
+		xlab = "",
+		ylab = "")
+	print(update(ans1, aspect = 0.05), position = c(0, 0.15, .95, 0.45))
+	invisible()
+}
+book.3.3()
+export.graph(Name = "GSD2",FileName = "G:\\currdata\\vizfigs\\vizdata_3_03.gif")
+
+book.3.4 <- 
+function()
+{
+	fit <- lm(cp.ratio~area, data = ganglion)
+	xyplot(cp.ratio~area,
+		data = ganglion,
+		prepanel = prepanel.lmline,
+		panel = substitute(function(x, y) {
+	                panel.xyplot(x, y)
+			panel.abline(fit)
+		}),
+		aspect=1,
+		sub = list("Figure 3.4",cex=.8),
+		xlab = "Area (square mm)", ylab="CP Ratio")
+}
+book.3.4()
+export.graph(Name = "GSD2",FileName = "G:\\currdata\\vizfigs\\vizdata_3_04.gif")
+
+book.3.5 <- 
+function()
+{
+	attach(ganglion)
+	add.line <- trellis.par.get("add.line")
+	gan.lm <- lm(cp.ratio~area+I(area^2))
+	gan.x <- seq(min(area),max(area),length=50)
+	gan.fit <- gan.lm$coef[1]+gan.lm$coef[2]*gan.x+gan.lm$coef[3]*gan.x^2
+	ans <- xyplot(cp.ratio~area,
+		prepanel = substitute(function(x, y) 
+			list(dx = diff(gan.x), dy = diff(gan.fit))),
+		panel = substitute(function(x, y) {
+	                panel.xyplot(x, y)
+			lines(gan.x, gan.fit, lwd = add.line$lwd, lty = add.line$lty, col = add.line$col)
+		}),
+		sub = list("Figure 3.5",cex=.8),
+		xlab = "Area (square mm)",
+		ylab = "CP Ratio")
+	detach()
+	ans
+}
+book.3.5()
+export.graph(Name = "GSD2",FileName = "G:\\currdata\\vizfigs\\vizdata_3_05.gif")
+
+book.3.6 <- 
+function()
+{
+	x <- seq(5, 10, length=150)
+	z <- seq(0, 1, length=50)
+	y <- 5 + c(-(1-z)^.5, sin(z*2*pi), .5*z^2)
+	fit <- loess.smooth(x, y, degree = 2, family = "g", span = .5, evaluation = 150)
+	set.seed(20)
+	y <- fit$y + rnorm(150, 0, .2)
+	x <- fit$x
+	xyplot(y ~ x, 
+		prepanel = function(x, y) 
+			prepanel.loess(x, y, degree = 2, family = "g", span = .3, evaluation = 300), 
+		panel = function(x, y){
+	        	panel.xyplot(x, y)
+			panel.loess(x, y, degree = 2, family = "g", span = .3, evaluation = 300)
+		},
+		sub = list("Figure 3.6",cex=.8),
+		xlab = "x", 	
+		ylab = "y")
+}
+book.3.6()
+export.graph(Name = "GSD2",FileName = "G:\\currdata\\vizfigs\\vizdata_3_06.gif")
+
+# dont have 3.7, 3.8
+
+book.3.9 <- 
+function()
+{
+	X <- seq(5, 10, length=150)
+	z <- seq(0, 1, length=50)
+	base.y <- 5 + c(-(1-z)^.5, sin(z*2*pi), .5*z^2)
+	true.y <- loess.smooth(X, base.y, degree = 2, family = "g", span = .5, evaluation = 150)$y
+	set.seed(20)
+	Y <- true.y+rnorm(150, 0, .2)
+	fit1 <- loess.smooth(X, Y, degree = 2, family = "g", span = .1, evaluation = 150)
+	fit2 <- loess.smooth(X, Y, degree = 2, family = "g", span = .3, evaluation = 150)
+	fit3 <- loess.smooth(X, Y, degree = 2, family = "g", span = .6, evaluation = 150)
+	alpha <- factor(rep(c(.1,.3,.6),rep(length(X),3)))
+	fits <- c(fit1$y, fit2$y, fit3$y)
+	X <- rep(X,3)
+	Y <- rep(Y,3)
+	xyplot(Y ~ X | alpha, 
+		prepanel = substitute(function(x, y, subscripts) {
+			list(dx = diff(x), dy=diff(fits[subscripts]))}),
+		panel = substitute(function(x, y, subscripts){
+			add.line <- trellis.par.get("add.line")
+			panel.xyplot(x, y)
+			lines(x, fits[subscripts], lwd = add.line$lwd,
+				lty = add.line$lty, col = add.line$col)
+		}),
+		strip = function(...) strip.default(..., strip.names = T),
+		layout = c(1, 3),
+		sub = list("Figure 3.9",cex=.8),
+		xlab = "x", 	
+		ylab = "y")
+}
+book.3.9()
+export.graph(Name = "GSD2",FileName = "G:\\currdata\\vizfigs\\vizdata_3_09.gif")
+
+book.3.10 <- 
+function()
+{
+	X <- seq(5, 10, length=150)
+	z <- seq(0, 1, length=50)
+	Y <- 5 + c(-(1-z)^.5, sin(z*2*pi), .5*z^2)
+	base.y <- 5 + c(-(1-z)^.5, sin(z*2*pi), .5*z^2)
+	true.y <- loess.smooth(X, base.y, degree = 2, family = "g", span = .5, evaluation = 150)$y
+	set.seed(20)
+	Y <- true.y+rnorm(150, 0, .2)
+        fit1 <- loess.smooth(X, Y, degree = 1, family = "g", span = .1, evaluation = 150)
+        fit2 <- loess.smooth(X, Y, degree = 1, family = "g", span = .3, evaluation = 150)
+        fit3 <- loess.smooth(X, Y, degree = 2, family = "g", span = .3, evaluation = 150)
+	fits <- c(fit1$y, fit2$y, fit3$y)
+	which <- factor(rep(c(
+		"alpha .1, lambda 1",
+		"alpha .3, lambda 1",
+		"alpha .3, lambda 2"), rep(length(X),3)))
+	X <- rep(X,3)
+	Y <- rep(Y,3)
+	xyplot(Y ~ X | which, 
+		prepanel = substitute(function(x, y, subscripts) {
+			list(dx = diff(x), dy=diff(fits[subscripts]))}),
+		panel = substitute(function(x, y, subscripts){
+			add.line <- trellis.par.get("add.line")
+			panel.xyplot(x, y)
+			lines(x, fits[subscripts], lwd = add.line$lwd,
+				lty = add.line$lty, col = add.line$col)
+		}),
+		layout = c(1, 3),
+		sub = list("Figure 3.10",cex=.8),
+		xlab = "x", 	
+		ylab = "y")
+}
+book.3.10()
+export.graph(Name = "GSD2",FileName = "G:\\currdata\\vizfigs\\vizdata_3_10.gif")
+
+book.3.11 <- 
+function()
+{
+	x <- seq(5, 10, length=150)
+	z <- seq(0, 1, length=50)
+	base.y <- 5 + c(-(1-z)^.5, sin(z*2*pi), .5*z^2)
+	true.y <- loess.smooth(x,base.y,degree = 2, family = "g", span = .5, evaluation = 150)$y
+	set.seed(20)
+	y <- true.y+rnorm(150, 0, .2)
+	fit <- loess.smooth(x, y, degree = 2, family = "g", span = .5, evaluation = 150)
+	xyplot(y ~ fit$x, 
+		prepanel = function(x, y) 
+			prepanel.loess(x, y, degree = 2, family = "g", span = .3, evaluation = 300), 
+		panel = function(x, y){
+	        	panel.xyplot(x, y)
+			panel.loess(x, y, degree = 2, family = "g", span = .3, evaluation = 300)
+		        panel.abline(v = c(5.3, 5.7))
+		},
+		sub = list("Figure 3.11",cex=.8),
+		xlab = "x", 	
+		ylab = "y")
+}
+book.3.11()
+export.graph(Name = "GSD2",FileName = "G:\\currdata\\vizfigs\\vizdata_3_11.gif")
+
+book.3.12 <- 
+function()
+	xyplot(lm(cp.ratio~area)$residuals ~ area,
+		data = ganglion,
+		prepanel = function(x, y)
+			prepanel.loess(x, y, span=1, family = "g"),
+		panel = function(x,y){
+			panel.xyplot(x,y)
+			panel.loess(x, y, span=1, family = "g")
+			panel.abline(h=0)
+		},
+		aspect=1,
+		sub = list("Figure 3.12",cex=.8),
+		xlab = "Area (square mm)", 
+		ylab="Residual CP Ratio")
+book.3.12()
+export.graph(Name = "GSD2",FileName = "G:\\currdata\\vizfigs\\vizdata_3_12.gif")
+		
+book.3.13 <- 
+function()
+	xyplot(lm(cp.ratio~area+I(area^2))$residuals ~ area,
+		data = ganglion,
+		prepanel = function(x, y)
+			prepanel.loess(x, y, span=1, family = "g"),
+		panel = function(x,y){
+			panel.xyplot(x,y)
+			panel.loess(x, y, span=1, family = "g")
+			panel.abline(h=0)
+		},	
+		aspect=1,
+		sub = list("Figure 3.13",cex=.8),
+		xlab = "Area (square mm)",
+		ylab="Residual CP Ratio")
+book.3.13()
+export.graph(Name = "GSD2",FileName = "G:\\currdata\\vizfigs\\vizdata_3_13.gif")
+
+book.3.14 <- 
+function()
+{
+	gan.lm <- lm(cp.ratio~area+I(area^2), data = ganglion)
+	xyplot(sqrt(abs(residuals(gan.lm))) ~ gan.lm$fit,
+		panel = function(x,y){
+			panel.xyplot(x,y)
+			panel.loess(x, y, span=2, evaluation=100, family = "g")
+		},
+		aspect=1,
+		sub = list("Figure 3.14",cex=.8),
+		xlab = "Fitted CP Ratio",
+		ylab = "Square Root Absolute Residual CP Ratio")
+}
+book.3.14()
+export.graph(Name = "GSD2",FileName = "G:\\currdata\\vizfigs\\vizdata_3_14.gif")
+
+
+book.3.15 <- 
+function()
+	xyplot(logb(cp.ratio,2) ~ area,
+		data = ganglion,
+		prepanel=function(x,y)
+			prepanel.loess(x,y,family="g"),
+		panel = function(x,y){
+			panel.xyplot(x,y)
+			panel.loess(x,y, family = "g")
+		},
+		aspect="xy",
+		sub = list("Figure 3.15",cex=.8),
+		xlab = "Area (square mm)",
+		ylab = "Log Base 2 CP Ratio")
+book.3.15()
+export.graph(Name = "GSD2",FileName = "G:\\currdata\\vizfigs\\vizdata_3_15.gif")
+		
+book.3.16 <- 
+function()
+	xyplot(logb(cp.ratio,2) ~ area, 
+		data = ganglion,
+		prepanel = prepanel.lmline,
+		panel = substitute(function(x, y) {
+	                panel.xyplot(x, y)
+			panel.abline(lm(logb(cp.ratio,2)~area, data = ganglion))
+		}),
+		aspect=1,
+		sub = list("Figure 3.16",cex=.8),
+		xlab = "Area (square mm)",
+		ylab = "Log Base 2 CP Ratio")
+book.3.16()
+export.graph(Name = "GSD2",FileName = "G:\\currdata\\vizfigs\\vizdata_3_16.gif")
+	
+book.3.17 <- 
+function()
+{
+	gan.lm <- lm(logb(cp.ratio,2) ~ area, data = ganglion)
+	xyplot(gan.lm$res ~ ganglion$area,
+		prepanel = function(x, y)
+			prepanel.loess(x, y,span=1, evaluation=100, family = "g"),
+		panel = function(x,y){
+			panel.xyplot(x,y)
+			panel.loess(x, y, span=1, evaluation=100, family = "g")
+			panel.abline(h=0)
+		},
+		aspect=1,
+		sub = list("Figure 3.17",cex=.8),
+		xlab = "Area (square mm)",
+		ylab="Residual Log Base 2 CP Ratio")
+}
+book.3.17()
+export.graph(Name = "GSD2",FileName = "G:\\currdata\\vizfigs\\vizdata_3_17.gif")
+
+book.3.18 <- 
+function()
+{
+	gan.lm <- lm(logb(cp.ratio,2) ~ area, data = ganglion)
+	xyplot(sqrt(abs(gan.lm$res)) ~ gan.lm$fit,
+		prepanel = function(x, y)
+			prepanel.loess(x, y,span=2, evaluation=100, family = "g"),
+		panel = function(x,y){
+			panel.xyplot(x,y)
+			panel.loess(x, y, span=2, evaluation=100, family = "g")
+		},
+		aspect=1,
+		sub = list("Figure 3.18",cex=.8),
+		xlab = "Fitted Log Base 2 CP Ratio",
+		ylab = "Square Root Absolute Residual Log Base 2 CP Ratio")
+}
+book.3.18()
+export.graph(Name = "GSD2",FileName = "G:\\currdata\\vizfigs\\vizdata_3_18.gif")
+
+book.3.19 <- 
+function()
+	rfs(lm(logb(cp.ratio,2) ~ area, data = ganglion),
+		sub = list("Figure 3.19",cex=.8),
+		aspect=2,
+		ylab="Log Base 2 CP Ratio")
+book.3.19()
+export.graph(Name = "GSD2",FileName = "G:\\currdata\\vizfigs\\vizdata_3_19.gif")
+
+book.3.20 <- 
+function()
+	qqmath(~lm(logb(cp.ratio,2) ~ area, data = ganglion)$residuals,
+		prepanel = prepanel.qqmathline,
+		panel = function(x,y){
+			panel.qqmathline(y, distribution = qnorm)
+			panel.qqmath(x,y)
+		},
+		aspect = 1,
+		sub = list("Figure 3.20",cex=.8),
+		xlab = "Unit Normal Quantile",
+		ylab = "Residual Log Base 2 CP Ratio")
+book.3.20()
+export.graph(Name = "GSD2",FileName = "G:\\currdata\\vizfigs\\vizdata_3_20.gif")
+
+book.3.21 <- 
+function()
+	xyplot((thorium - carbon) ~ carbon,
+		data = dating,
+		aspect=1, 
+		sub = list("Figure 3.21",cex=.8),
+		xlab = "Carbon Age (kyr BP)",
+		ylab = "Thorium Age - Carbon Age (kyr BP)")
+book.3.21()
+export.graph(Name = "GSD2",FileName = "G:\\currdata\\vizfigs\\vizdata_3_21.gif")
+
+book.3.22 <- 
+function()
+{
+	difference <- dating$thorium - dating$carbon
+	xyplot(difference ~ dating$carbon, 
+	#	prepanel = prepanel.lmline,
+		panel = substitute(function(x, y) {
+	                panel.xyplot(x, y)
+			panel.abline(lm(difference~dating$carbon))
+		}),
+		aspect = 1,
+		sub = list("Figure 3.22",cex=.8),
+		xlab = "Carbon Age (kyr BP)",
+		ylab = "Thorium Age - Carbon Age (kyr BP)")
+}
+book.3.22()
+export.graph(Name = "GSD2",FileName = "G:\\currdata\\vizfigs\\vizdata_3_22.gif")
+
+book.3.23 <- 
+function()
+	xyplot(lm((thorium - carbon)~carbon, data = dating)$residuals ~ dating$carbon,
+		panel = function(x, y) {
+	                panel.xyplot(x, y)
+			panel.abline(h=0)
+		},
+		aspect=1,
+		sub = list("Figure 3.23",cex=.8),
+		xlab = "Carbon Age (kyr BP)", 
+		ylab = "Residual Age Difference (kyr BP)")
+book.3.23()
+export.graph(Name = "GSD2",FileName = "G:\\currdata\\vizfigs\\vizdata_3_23.gif")
+
+# dont have 3.24
+
+book.3.25 <- 
+function()
+{
+	attach(dating)
+	difference <- thorium - carbon
+	wt <- rep(1,length(difference))
+	for(i in 1:10){
+	        dat.lm <- lm(difference~carbon,weights=wt)
+	        wt <- wt.bisquare(dat.lm$res/median(abs(dat.lm$res)),c=6)
+	}
+	ylim <- range(fitted.values(dat.lm),difference)
+	ans <- xyplot(difference~carbon,
+	#	ylim = ylim,
+		panel = substitute(function(x, y) {
+			panel.xyplot(x, y)
+			panel.abline(dat.lm)
+		}),
+		aspect=1,
+		sub = list("Figure 3.25",cex=.8),
+		xlab = "Carbon Age (kyr BP)",
+		ylab = "Thorium Age - Carbon Age (kyr BP)")
+	detach()
+	ans
+}
+book.3.25()
+export.graph(Name = "GSD2",FileName = "G:\\currdata\\vizfigs\\vizdata_3_25.gif")
+
+book.3.26 <- 
+function()
+{
+	attach(dating)
+	difference <- thorium - carbon
+	wt <- rep(1,length(difference))
+	for(i in 1:10){
+		dat.lm <- lm(difference~carbon,weights=wt)
+		wt <- wt.bisquare(dat.lm$res/median(abs(dat.lm$res)),c=6)
+	}
+	ans <- xyplot(residuals(dat.lm)~carbon,
+	        panel = function(x, y) {
+	                panel.xyplot(x, y)
+			panel.abline(h=0)
+		},
+		aspect=1,
+		sub = list("Figure 3.26",cex=.8),
+		xlab = "Carbon Age (kyr BP)",
+		ylab = "Residual Age Difference (kyr BP)")
+	detach()
+	ans
+}
+book.3.26()
+export.graph(Name = "GSD2",FileName = "G:\\currdata\\vizfigs\\vizdata_3_26.gif")
+
+book.3.27 <- 
+function()
+{
+	attach(dating)
+	difference <- thorium - carbon
+	wt <- rep(1,length(difference))
+	for(i in 1:10){
+		dat.lm <- lm(difference~carbon,weights=wt)
+		wt <- wt.bisquare(dat.lm$res/median(abs(dat.lm$res)),c=6)
+	}
+	ans <- qqmath(~residuals(dat.lm),
+		prepanel = prepanel.qqmathline,
+	        panel = function(x, y) {
+	                panel.qqmathline(y, distribution = qnorm)
+	                panel.qqmath(x, y)
+	        },
+		sub = list("Figure 3.27",cex=.8),
+		xlab = "Unit Normal Quantile",
+		ylab = "Residual Age Difference (kyr BP)",
+		aspect=1)
+	detach()
+	ans
+}
+book.3.27()
+export.graph(Name = "GSD2",FileName = "G:\\currdata\\vizfigs\\vizdata_3_27.gif")
+
+book.3.28 <- 
+function()
+	xyplot(babinet~concentration,
+		data = polarization,
+		aspect=1,
+		sub = list("Figure 3.28",cex=.8),
+		xlab = "Concentration (micrograms per cubic meter)",
+		ylab = "Babinet Point (degrees)")
+book.3.28()
+export.graph(Name = "GSD2",FileName = "G:\\currdata\\vizfigs\\vizdata_3_28.gif")
+
+book.3.29 <- 
+function()
+{
+	attach(polarization)
+	transformed <- c(concentration^(-1/3),log(concentration),
+		concentration^(1/3),concentration)
+	lambda <- factor(rep(c("-1/3","0","1/3","1"), rep(length(concentration),4)))
+	lambda <- ordered(lambda, c("-1/3","0","1/3","1"))
+	ans <- qqmath(~transformed|lambda,
+		prepanel = prepanel.qqmathline,
+	        panel = function(x, y) {
+			panel.grid(h = 0)
+	                panel.qqmathline(y, distribution = qnorm)
+	                panel.qqmath(x, y)
+	        },
+		aspect=1, 
+		scale = list(y = "free"),
+		layout=c(2,2),
+		sub = list("Figure 3.29",cex=.8),
+		xlab = "Unit Normal Quantile",
+		ylab = "Concentration")
+	detach()
+	ans
+}
+book.3.29()
+export.graph(Name = "GSD2",FileName = "G:\\currdata\\vizfigs\\vizdata_3_29.gif")
+
+
+book.3.30 <- 
+function()
+	xyplot(babinet~concentration^(1/3),
+		data=polarization,
+		aspect=1,
+		sub = list("Figure 3.30",cex=.8),
+		xlab = "Cube Root Concentration (cube root micrograms per meter)",
+		ylab = "Babinet Point (degrees)")
+book.3.30()
+export.graph(Name = "GSD2",FileName = "G:\\currdata\\vizfigs\\vizdata_3_30.gif")
+
+book.3.31 <- 
+function()
+{
+	set.seed(19)
+	xyplot(jitter(babinet)~jitter(concentration^(1/3)),
+		data=polarization,
+		aspect=1,
+		sub = list("Figure 3.31",cex=.8),
+		xlab = "Jittered Cube Root Concentration (cube root micrograms per meter)",
+		ylab = "Jittered Babinet Point (degrees)")
+}
+book.3.31()
+export.graph(Name = "GSD2",FileName = "G:\\currdata\\vizfigs\\vizdata_3_31.gif")
+
+book.3.32 <- 
+function()
+{
+	attach(polarization)
+	add.line <- trellis.par.get("add.line")
+	set.seed(19)
+	curve <- loess.smooth(concentration^(1/3), babinet, span = 3/4)
+	y <- jitter(babinet)
+	x <- jitter(concentration^(1/3))
+	ans <- xyplot(y ~ x,
+	       prepanel = substitute(function(x, y)
+			list(dx = diff(curve$x), dy = diff(curve$y))),
+	       panel = substitute(function(x, y){
+			panel.xyplot(x, y)
+			lines(curve, lwd = add.line$lwd, lty = add.line$lty, col = add.line$col)
+	       }),
+		sub = list("Figure 3.32",cex=.8),
+	       xlab = "Jittered Cube Root Concentration (cube root micrograms per meter)",
+	       ylab = "Jittered Babinet Point (degrees)")
+	detach()
+	ans
+}
+book.3.32()
+export.graph(Name = "GSD2",FileName = "G:\\currdata\\vizfigs\\vizdata_3_32.gif")
+
+book.3.33 <- 
+function()
+{
+	attach(polarization)
+	conc <- concentration^(1/3)
+	set.seed(19)
+	ans <- xyplot(residuals(loess(babinet~conc,span=3/4,family="s",degree=1)) ~ jitter(conc),
+		panel = substitute(function(x, y) {
+			panel.xyplot(x, y)
+			panel.loess(conc,y,span = 1/3)
+			panel.abline(h=0)
+		}),
+		aspect=1,
+		sub = list("Figure 3.33",cex=.8),
+		xlab = "Jittered Cube Root Concentration (cube root micrograms per meter)",
+		ylab = "Residual Babinet Point (degrees)")
+	detach()
+	ans
+}
+book.3.33()
+export.graph(Name = "GSD2",FileName = "G:\\currdata\\vizfigs\\vizdata_3_33.gif")
+
+book.3.34 <- 
+function()
+{
+	attach(polarization)
+	add.line <- trellis.par.get("add.line")
+	set.seed(19)
+	curve <- loess.smooth(concentration^(1/3), babinet, span = 1/6, evaluation=200)
+	y <- jitter(babinet)
+	x <- jitter(concentration^(1/3))
+	ans <- xyplot(y ~ x,
+	       prepanel = substitute(function(x, y)
+			list(dx = diff(curve$x), dy = diff(curve$y))),
+	       panel = substitute(function(x, y){
+			panel.xyplot(x, y)
+			lines(curve, lwd = add.line$lwd, lty = add.line$lty, col = add.line$col)
+	       }),
+		sub = list("Figure 3.34",cex=.8),
+	       xlab = "Jittered Cube Root Concentration (cube root micrograms per meter)",
+	       ylab = "Jittered Babinet Point (degrees)")
+	detach()
+	ans
+}
+book.3.34()
+export.graph(Name = "GSD2",FileName = "G:\\currdata\\vizfigs\\vizdata_3_34.gif")
+
+book.3.35 <- 
+function()
+{
+	conc <- polarization$concentration^(1/3)
+	set.seed(19)
+	xyplot(residuals(loess(polarization$babinet ~ conc, span=1/6,family="s",degree=1)) ~ jitter(conc),
+		panel = substitute(function(x, y) {
+			panel.xyplot(x, y)
+			panel.loess(conc, y, span = 1/3)
+			panel.abline(h=0)
+		}),
+		aspect=1,
+		sub = list("Figure 3.35",cex=.8),
+		xlab = "Jittered Cube Root Concentration (cube root micrograms per meter)",
+		ylab = "Residual Babinet Point (degrees)")
+}
+book.3.35()
+export.graph(Name = "GSD2",FileName = "G:\\currdata\\vizfigs\\vizdata_3_35.gif")
+
+book.3.36 <- 
+function()
+{
+	attach(polarization)
+	set.seed(19)
+	curve <- loess.smooth(concentration^(1/3), babinet, span = 1/3)
+	y <- jitter(babinet)
+	x <- jitter(concentration^(1/3))
+	ans <- xyplot(y ~ x,
+	       prepanel = substitute(function(x, y)
+			list(dx = diff(curve$x), dy = diff(curve$y))),
+	       panel = substitute(function(x, y){
+			add.line <- trellis.par.get("add.line")
+			panel.xyplot(x, y)
+			lines(curve, lwd = add.line$lwd, lty = add.line$lty, col = add.line$col)
+	       }),
+		sub = list("Figure 3.36",cex=.8),
+	       xlab = "Jittered Cube Root Concentration (cube root micrograms per meter)",
+	       ylab = "Babinet Point (degrees)")
+	detach()
+	ans
+}
+book.3.36()
+export.graph(Name = "GSD2",FileName = "G:\\currdata\\vizfigs\\vizdata_3_36.gif")
+
+book.3.37 <- 
+function()
+{
+	conc <- polarization$concentration^(1/3)
+	set.seed(19)
+	xyplot(residuals(loess(polarization$babinet ~ conc, span=1/3,family="s",degree=1))~jitter(conc),
+		panel = substitute(function(x, y) {
+			panel.xyplot(x, y)
+			panel.loess(conc, y, span = 1/3)
+			panel.abline(h=0)
+		}),
+		aspect=1,
+		sub = list("Figure 3.37",cex=.8),
+		xlab = "Jittered Cube Root Concentration (cube root micrograms per meter)",
+		ylab = "Residual Babinet Point (degrees)")
+}
+book.3.37()
+export.graph(Name = "GSD2",FileName = "G:\\currdata\\vizfigs\\vizdata_3_37.gif")
+
+book.3.38 <- 
+function()
+	qqmath(~residuals(loess(babinet~concentration^(1/3), data = polarization, span=1/3, family="s", degree=1)),
+		prepanel = prepanel.qqmathline,
+	        panel = function(x, y) {
+	                panel.qqmathline(y, distribution = qnorm)
+	                panel.qqmath(x, y)
+	        },
+		aspect = 1,
+		sub = list("Figure 3.38",cex=.8),
+		xlab = "Unit Normal Quantile",
+		ylab = "Residual Babinet Point (degrees)")
+book.3.38()
+export.graph(Name = "GSD2",FileName = "G:\\currdata\\vizfigs\\vizdata_3_38.gif")
+
+book.3.39 <- 
+function()
+	rfs(loess(babinet~concentration^(1/3), data = polarization, span=1/3, family="s", degree=1),
+		sub = list("Figure 3.39",cex=.8),
+		aspect=1.5,
+		ylab="Babinet Point (degrees)")
+book.3.39()
+export.graph(Name = "GSD2",FileName = "G:\\currdata\\vizfigs\\vizdata_3_39.gif")
+		
+book.3.40 <- 
+function()
+	xyplot(babinet ~ concentration^(1/3),
+		data = polarization,
+		prepanel = function(x, y)
+			prepanel.loess(x, y, span = 1/3),
+		panel = function(x, y) {
+			panel.xyplot(x, y)
+			panel.abline(v = c(3.936497, 4.188859))
+		},
+		sub = list("Figure 3.40",cex=.8),
+		xlab = "Cube Root Concentration (cube root micrograms per meter)",
+		ylab = "Babinet Point (degrees)")
+book.3.40()
+export.graph(Name = "GSD2",FileName = "G:\\currdata\\vizfigs\\vizdata_3_40.gif")
+
+book.3.41 <- 
+function()
+	xyplot(babinet ~ concentration^(1/3),
+		data = polarization,
+		prepanel = function(x, y)
+			prepanel.loess(x, y, span = 1/3),
+		panel = function(x, y) {
+			panel.xyplot(x, y)	
+			panel.loess(x, y, span = 1/3)
+			panel.abline(v = c(3.936497, 4.188859))
+		},
+		sub = list("Figure 3.41",cex=.8),
+		xlab = "Cube Root Concentration (cube root micrograms per meter)",
+		ylab = "Babinet Point (degrees)")
+book.3.41()
+export.graph(Name = "GSD2",FileName = "G:\\currdata\\vizfigs\\vizdata_3_41.gif")
+
+book.3.42 <- 
+function()
+	xyplot(residuals(loess(babinet ~ concentration^(1/3), span = 1/3, 
+			family = "s", degree = 1)) ~ concentration^(1/3),
+		data = polarization,
+		panel = function(x, y) {
+	                panel.xyplot(x, y)
+	                panel.abline(h = 0, v = c(3.936497, 4.188859))
+		},
+		sub = list("Figure 3.42",cex=.8),
+		xlab = "Cube Root Concentration (cube root micrograms per meter)",
+		ylab = "Residual Babinet Point (degrees)")
+book.3.42()
+export.graph(Name = "GSD2",FileName = "G:\\currdata\\vizfigs\\vizdata_3_42.gif")
+		
+book.3.43 <- 
+function()
+	plot(equal.count(polarization$concentration^(1/3), 15, .5),
+		aspect = 1,
+		sub = list("Figure 3.43",cex=.8),
+		xlab = "Cube Root Concentration (cube root micrograms per meter)")
+book.3.43()
+export.graph(Name = "GSD2",FileName = "G:\\currdata\\vizfigs\\vizdata_3_43.gif")
+
+book.3.44 <- 
+function()
+{
+	attach(polarization)
+	cube.root <- concentration^(1/3)
+	pol.m <- loess(babinet~cube.root,span=1/3,family="s",degree=1)
+	ans <- bwplot(equal.count(cube.root,15,1/2) ~ residuals(pol.m), 
+		panel = function(x, y) {
+			panel.bwplot(x, y)
+			panel.abline(v=0)
+		},
+		aspect=1,
+		sub = list("Figure 3.44",cex=.8),
+		xlab="Residual Babinet Point (degrees)")
+	detach()
+	ans
+}
+book.3.44()
+export.graph(Name = "GSD2",FileName = "G:\\currdata\\vizfigs\\vizdata_3_44.gif")
+
+book.3.45 <- 
+function()
+	xyplot(facet~temperature,
+		data = fly,
+		aspect=1,
+		sub = list("Figure 3.45",cex=.8),
+		xlab="Temperature (Degrees Celsius)",
+		ylab="Facet Number")
+book.3.45()
+export.graph(Name = "GSD2",FileName = "G:\\currdata\\vizfigs\\vizdata_3_45.gif")
+
+book.3.46 <- 
+function()
+{
+	set.seed(19)
+	xyplot(jitter(facet,1)~jitter(temperature,2),
+		data = fly,
+		aspect=1.2,
+		sub = list("Figure 3.46",cex=.8),
+		xlab="Jittered Temperature (Degrees Celsius)",
+		ylab="Jittered Facet Number")
+}
+book.3.46()
+export.graph(Name = "GSD2",FileName = "G:\\currdata\\vizfigs\\vizdata_3_46.gif")
+
+book.3.47 <- 
+function()
+	bwplot(factor(temperature) ~ facet,
+		data=fly,
+		aspect=1.2,
+		sub = list("Figure 3.47",cex=.8),
+		xlab = "Facet Number",
+		ylab = "Temperature (Degrees Celsius)")
+book.3.47()
+export.graph(Name = "GSD2",FileName = "G:\\currdata\\vizfigs\\vizdata_3_47.gif")
+
+book.3.48 <- 
+function()
+{
+	fly.m <- oneway(facet~temperature,data=fly,spread=1)
+	Temperature <- factor(fly$temperature)
+	qqmath(~residuals(fly.m)|Temperature,
+		prepanel = prepanel.qqmathline,
+		panel = function(x, y) {
+			panel.grid()
+			panel.qqmathline(y, distribution = qnorm)
+			panel.qqmath(x, y)
+		},
+		aspect = 1,
+		sub = list("Figure 3.48",cex=.8),
+		xlab="Unit Normal Quantile",
+		ylab="Residual Facet Number")
+}
+book.3.48()
+export.graph(Name = "GSD2",FileName = "G:\\currdata\\vizfigs\\vizdata_3_48.gif")
+
+book.3.49 <- 
+function()
+{
+	attach(fly)
+	fly.lm <- lm(facet~temperature)
+	ylim <- range(fitted.values(fly.lm))
+	fly.means <- tapply(facet,temperature,mean)
+	fly.temps <- unique(temperature)
+	ans <- xyplot(fly.means~fly.temps,
+	        ylim = ylim,
+		panel = substitute(function(x, y) {
+	                panel.xyplot(x, y)
+			panel.abline(fly.lm)
+		}),
+		aspect=1,
+		sub = list("Figure 3.49",cex=.8),
+		xlab="Temperature (Degrees Celsius)",
+		ylab="Facet Number")
+	detach()
+	ans
+}
+book.3.49()
+export.graph(Name = "GSD2",FileName = "G:\\currdata\\vizfigs\\vizdata_3_49.gif")
+
+book.3.50 <- 
+function()
+{
+	attach(fly)
+	fly.lm <- lm(facet~temperature)
+	fly.means <- tapply(facet,temperature,mean)
+	fly.temps <- unique(temperature)
+	fly.res <- fly.means-predict(fly.lm,data.frame(temperature=fly.temps))
+	ans <- xyplot(fly.res~fly.temps,
+		panel = function(x, y) {
+	                panel.xyplot(x, y)
+			panel.abline(h=0)
+		},
+		aspect=1,
+		sub = list("Figure 3.50",cex=.8),
+		xlab="Temperature",
+		ylab="Residual Facet Number")
+	detach()
+	ans
+}
+book.3.50()
+export.graph(Name = "GSD2",FileName = "G:\\currdata\\vizfigs\\vizdata_3_50.gif")
+
+book.3.51 <- 
+function()
+{
+	on.exit(par(oldpar))
+	oldpar <- par("pty", "xaxt", "yaxt")
+	par(pty = "s", xaxt = "n", yaxt = "n")
+	attach(Playfair)
+	x <- c(seq(22, 1, length = 11), seq(22, 1, length = 11))
+	y <- c(rep(1, 11), rep(2, 11))
+	symbols(x, y, circles = diameter, inches = 1/6, ylim = c(0.5, 2.2))
+	y <- c(rep(0.9, 11), rep(1.8, 11))
+	mtext("Figure 3.5",1,1,cex=.8)
+	text(x, y, dimnames(Playfair)[1], srt = 45, adj = 1)
+	# text(x, y, id, srt = 45, adj = 1)
+	detach()
+	invisible()
+}
+book.3.51()
+export.graph(Name = "GSD2",FileName = "G:\\currdata\\vizfigs\\vizdata_3_51.gif")
+
+book.3.52 <- 
+function()
+{
+# The first two lines is not necessary if Playfair is a matrix;
+# in which case dotplot(Playfair[,"population"], ...) will work.
+	population <- Playfair$population	
+	names(population) <- row.names(Playfair)
+	dotplot(population,
+		aspect = 2/3,
+		xlim = range(0, population),
+		sub = list("Figure 3.52",cex=.8),
+		xlab = "Population (Thousands)")
+}
+book.3.52()
+export.graph(Name = "GSD2",FileName = "G:\\currdata\\vizfigs\\vizdata_3_52.gif")
+
+book.3.53 <- 
+function()
+	xyplot(diameter ~ sqrt(population),
+		data = Playfair,
+		aspect=1,
+		ylab = "Diameter (mm)",
+		sub = list("Figure 3.53",cex=.8),
+		xlab = "Square Root Population (square root thousands)")
+book.3.53()
+export.graph(Name = "GSD2",FileName = "G:\\currdata\\vizfigs\\vizdata_3_53.gif")
+
+book.3.54 <- 
+function()
+{
+	pla.lm <- lm(diameter ~ sqrt(population) - 1, data = Playfair)
+	xyplot(diameter ~ sqrt(population),
+		data = Playfair,
+		ylim = range(Playfair$diameter, fitted.values(pla.lm)),
+		panel = substitute(function(x, y) {
+	                panel.xyplot(x, y)
+			panel.abline(pla.lm)
+		}),
+		aspect=1,
+		ylab = "Diameter (mm)",
+		sub = list("Figure 3.54",cex=.8),
+		xlab = "Square Root Population (square root thousands)")
+}
+book.3.54()
+export.graph(Name = "GSD2",FileName = "G:\\currdata\\vizfigs\\vizdata_3_54.gif")
+
+book.3.55 <- 
+function()
+	xyplot(residuals(lm(diameter ~ sqrt(population) - 1, data = Playfair)) ~ sqrt(Playfair$population),
+		panel = function(x, y) {
+	                panel.xyplot(x, y)
+			panel.abline(h=0)
+		},
+		aspect = "xy",
+		sub = list("Figure 3.55",cex=.8),
+		xlab = "Square Root Population (square root thousands)",
+		ylab = "Residual Diameter (mm)")
+book.3.55()
+export.graph(Name = "GSD2",FileName = "G:\\currdata\\vizfigs\\vizdata_3_55.gif")
+
+book.3.56 <- 
+function()
+{
+	set.seed(19)
+	xyplot(jitter(wind)~jitter(temperature),
+		data = environmental,
+		aspect=1,
+		sub = list("Figure 3.56",cex=.8),
+		xlab="Jittered Temperature (Degrees Fahrenheit)",
+		ylab="Jittered Wind Speed (mph)")
+}
+book.3.56()
+export.graph(Name = "GSD2",FileName = "G:\\currdata\\vizfigs\\vizdata_3_56.gif")
+
+book.3.57 <- 
+function()
+	qqmath(~environmental$temperature,
+		prepanel = prepanel.qqmathline,
+	        panel = function(x, y) {
+	                panel.qqmathline(y, distribution = qnorm)
+	                panel.qqmath(x, y)
+	        },
+		aspect = 1,
+		sub = list("Figure 3.57",cex=.8),
+		xlab = "Unit Normal Quantile",
+		ylab = "Temperature (Degrees Fahrenheit)")
+book.3.57()
+export.graph(Name = "GSD2",FileName = "G:\\currdata\\vizfigs\\vizdata_3_57.gif")
+
+book.3.58 <- 
+function()
+	qqmath(~environmental$wind,
+		prepanel = prepanel.qqmathline,
+	        panel = function(x, y) {
+	                panel.qqmathline(y, distribution = qnorm)
+	                panel.qqmath(x, y)
+	        },
+		aspect = 1,
+		sub = list("Figure 3.58",cex=.8),
+		xlab = "Unit Normal Quantile",
+		ylab = "Wind Speed (mph)")
+book.3.58()
+export.graph(Name = "GSD2",FileName = "G:\\currdata\\vizfigs\\vizdata_3_58.gif")
+
+book.3.59 <- 
+function()
+	xyplot(wind~temperature,
+		data = environmental,
+		panel=function(x,y){
+			add.line <- trellis.par.get("add.line")
+			panel.xyplot(x,y)
+			lines(loess.smooth(x, y, span=3/4, family="g"), 
+				lwd = add.line$lwd, lty = add.line$lty,
+				col = add.line$col)
+			other.fit <- loess.smooth(y, x, span=3/4, family="g")
+			lines(other.fit$y,other.fit$x, 
+				lwd = add.line$lwd, lty = add.line$lty,
+				col = add.line$col)
+		},
+		aspect = 1,
+		sub = list("Figure 3.59",cex=.8),
+		xlab = "Temperature (Degrees Fahrenheit)",
+		ylab = "Wind Speed (mph)")
+book.3.59()
+export.graph(Name = "GSD2",FileName = "G:\\currdata\\vizfigs\\vizdata_3_59.gif")
+
+book.3.60 <- 
+function()
+	xyplot(stamford~yonkers,
+		data = ozone,
+		panel = function(x, y) {
+			panel.xyplot(x, y)
+			panel.abline(0, 1)
+		},
+		aspect=1,
+		scale = list(limits = range(ozone)),
+		sub = list("Figure 3.60",cex=.8),
+		xlab="Yonkers Concentration (ppb)",
+		ylab="Stamford Concentration (ppb)")
+book.3.60()
+export.graph(Name = "GSD2",FileName = "G:\\currdata\\vizfigs\\vizdata_3_60.gif")
+
+book.3.61 <- 
+function()
+	tmd(xyplot(stamford~yonkers,
+		data = ozone),
+		prepanel = function(x, y)
+			prepanel.loess(x, y,span=1,degree=1,family="g"),
+		panel = function(x, y) {
+			panel.xyplot(x, y)
+			panel.loess(x, y, span=1,degree=1,family="g")
+			panel.abline(h = 0)
+		},
+		aspect = "xy",
+		ylab="Difference (ppb)",
+		sub = list("Figure 3.61",cex=.8),
+		xlab="Mean (ppb)")
+book.3.61()
+export.graph(Name = "GSD2",FileName = "G:\\currdata\\vizfigs\\vizdata_3_61.gif")
+
+book.3.62 <- 
+function()
+	xyplot(logb(stamford, 2) ~ logb(yonkers, 2),
+		data = ozone,
+		panel = function(x, y) {
+			panel.xyplot(x, y)
+			panel.abline(0, 1)
+		},
+		scale = list(limits = range(logb(ozone, 2))),
+		aspect = 1,
+		sub = list("Figure 3.62",cex=.8),
+		xlab="Log Yonkers Concentration (log base 2 ppb)",
+		ylab="Log Stamford Concentration (log base 2 ppb)")
+book.3.62()
+export.graph(Name = "GSD2",FileName = "G:\\currdata\\vizfigs\\vizdata_3_62.gif")
+
+book.3.63 <- 
+function()
+	tmd(xyplot(logb(stamford,2)~logb(yonkers,2), data = ozone),
+		prepanel = function(x, y)
+			prepanel.loess(x, y,span=1,degree=1,family="g"),
+		panel = function(x, y) {
+			panel.xyplot(x, y)
+			panel.loess(x, y, span=1,degree=1,family="g")
+			panel.abline(h = 0)
+		},
+		aspect=1.5,
+		scale = list(y = list(labels = c("-1", "0", "1"),
+			at = c(-1, 0, 1))),
+		ylab="Log Difference (log base 2 ppb)",
+		sub = list("Figure 3.63",cex=.8),
+		xlab="Log Mean (log base 2 ppb)")
+book.3.63()
+export.graph(Name = "GSD2",FileName = "G:\\currdata\\vizfigs\\vizdata_3_63.gif")
+		
+book.3.64 <- 
+function()
+	xyplot(incidence ~ year,
+		data = melanoma,
+		panel = function(x, y)
+			panel.xyplot(x, y, type="o", pch = 16, cex = .75),
+		aspect = "xy",
+		ylim = c(0, 5),
+		sub = list("Figure 3.64",cex=.8),
+		xlab = "Year",
+		ylab = "Incidence")
+book.3.64()
+export.graph(Name = "GSD2",FileName = "G:\\currdata\\vizfigs\\vizdata_3_64.gif")
+
+book.3.65 <- 
+function()
+{
+	attach(melanoma)
+	mel.low <- stl(ts(incidence, start = 1936, frequency=1, end = 1972), 
+		fc.window = 30,
+		fc.degree = 1)
+	ans <- xyplot(mel.low$fc.30~year,
+		aspect="xy",
+		type="l",
+		ylab = "Incidence",
+		sub = list("Figure 3.65",cex=.8),
+		xlab = "Year")
+	detach()
+	ans
+}
+book.3.65()
+export.graph(Name = "GSD2",FileName = "G:\\currdata\\vizfigs\\vizdata_3_65.gif")
+
+book.3.66 <- 
+function()
+{
+	attach(melanoma)
+	mel.m <- stl(ts(incidence, start = 1936, frequency=1, end = 1972), 
+		fc.window = 30,
+		fc.degree = 1)
+	ans <- xyplot(mel.m$remainder~year,
+		panel = function(x, y) {
+			panel.xyplot(x, y, type = "o", pch = 16, cex=.6)
+			panel.abline(h = 0)
+		},
+		aspect = "xy",
+		ylab = "Incidence",
+		sub = list("Figure 3.66",cex=.8),
+		xlab = "Year")
+	detach()
+	ans
+}
+book.3.66()
+export.graph(Name = "GSD2",FileName = "G:\\currdata\\vizfigs\\vizdata_3_66.gif")
+
+book.3.67 <- 
+function()
+{
+	attach(melanoma)
+	mel.mlow <- stl(ts(incidence, start = 1936, frequency=1, end = 1972), 
+		fc.window = 30,
+		fc.degree = 1)
+	mel.mo <- stl(mel.mlow$remainder,
+		fc.window = 9,
+		fc.degree = 2)
+	ans <- xyplot(mel.mo$fc.9~year,
+		panel = function(x, y) {
+			panel.xyplot(x, y, type = "o", pch = 16, cex = .6)
+			panel.abline(h = 0)
+		},
+		aspect = "xy",
+		ylab = "Incidence",
+		sub = list("Figure 3.67",cex=.8),
+		xlab = "Year")
+	detach()
+	ans
+}
+book.3.67()
+export.graph(Name = "GSD2",FileName = "G:\\currdata\\vizfigs\\vizdata_3_67.gif")
+
+book.3.68 <- 
+function()
+{
+	attach(melanoma)
+	mel.mboth <- stl(ts(incidence, start = 1936, frequency=1, end = 1972),
+		fc.window = c(30,9),
+		fc.degree = c(1,2))
+	ylim <- c(-1,1)*2*max(abs(mel.mboth$remainder))
+	ans <- xyplot(mel.mboth$remainder~year,
+		panel = function(x, y) {
+			panel.xyplot(x, y, type="o", pch = 16, cex=.75)
+			panel.abline(h=0)
+		},
+		aspect="xy",
+		las = 0, # vertical y-axis labels
+		ylim=ylim,
+		ylab = "Residual\nIncidence",
+		sub = list("Figure 3.68",cex=.8),
+		xlab = "Year")
+	detach()
+	ans
+}
+book.3.68()
+export.graph(Name = "GSD2",FileName = "G:\\currdata\\vizfigs\\vizdata_3_68.gif")
+
+book.3.69 <- 
+function()
+{
+	attach(melanoma)
+	mel.mboth <- stl(ts(incidence, start = 1936, frequency=1, end = 1972),
+		fc.window = c(30,9),
+		fc.degree = c(1,2))
+	ans <- qqmath(~mel.mboth$remainder,
+		prepanel = prepanel.qqmathline,
+	        panel = function(x, y) {
+	                panel.qqmathline(y, distribution = qnorm)
+	                panel.qqmath(x, y)
+	        },
+		aspect=1,
+		sub = list("Figure 3.69",cex=.8),
+		xlab = "Unit Normal Quantile",
+		ylab = "Residual Incidence")
+	detach()
+	ans
+}
+book.3.69()
+export.graph(Name = "GSD2",FileName = "G:\\currdata\\vizfigs\\vizdata_3_69.gif")
+
+book.3.70 <- 
+function()
+{
+	attach(melanoma)
+	mel.mboth <- stl(ts(incidence, start = 1936, frequency=1, end = 1972),
+		fc.window = c(30,9),
+		fc.degree = c(1,2))
+	n <- length(incidence)
+	mel.mboth$fc.30 <- mel.mboth$fc.30 - mean(mel.mboth$fc.30)
+	mel.components <- c(mel.mboth$fc.30,mel.mboth$fc.9, mel.mboth$remainder)
+	mel.year <-  rep(1936:1972,3)
+	mel.names <- ordered(rep(c("Trend","Oscillatory","Residuals"),c(n,n,n)),
+	 c("Trend","Oscillatory","Residuals"))
+	ans <- xyplot(mel.components~mel.year|mel.names,
+	        panel = function(x, y) {
+	                panel.grid(h = 7)
+	                panel.xyplot(x, y, type = "o", pch = 16, cex = .7)
+	        },
+		layout=c(3,1),
+		ylim = c(-1,1)*max(abs(mel.components)),
+		sub = list("Figure 3.70",cex=.8),
+		xlab="Year",
+		ylab="Incidence")
+	detach()
+	ans
+}
+book.3.70()
+export.graph(Name = "GSD2",FileName = "G:\\currdata\\vizfigs\\vizdata_3_70.gif")
+
+book.3.71 <- 
+function()
+{
+	print(xyplot(stl(ts(incidence, start = 1936, frequency=1, end = 1972),
+		        fc.window = c(30,9), fc.degree = c(1,2))$fc.9 ~ year,
+			data = melanoma,
+			panel=function(x, y) {
+				panel.grid(v = 5,h = 0)
+				panel.xyplot(x, y, type = "l")
+			},
+			aspect = "xy",
+			ylab = "Incidence",
+			xlab = "Year"),	
+			position = c(0, .4, 1, 1), more = T)
+	print(xyplot(sunspot ~ year,
+			data = melanoma,
+			panel=function(x, y) {
+				panel.grid(v = 5, h = 0)
+				panel.xyplot(x, y, type = "l")
+			},
+			aspect = "xy",
+			ylab = "Sunspot Number",
+			sub = list("Figure 3.71",cex=.8),
+			xlab = "Year"),
+			position = c(0, .2, 1, .6))
+	invisible()
+}
+book.3.71()
+export.graph(Name = "GSD2",FileName = "G:\\currdata\\vizfigs\\vizdata_3_71.gif")
+
+
+book.3.72 <- 
+function()
+	xyplot(carbon.dioxide~time(carbon.dioxide), 
+		aspect="xy",
+		type="l",
+		scales=list(x=list(cex=.7),y=list(cex=.7)),
+		ylab = "CO2 (ppm)",
+		sub = list("Figure 3.72",cex=.8),
+		xlab = "Year")
+book.3.72()
+export.graph(Name = "GSD2",FileName = "G:\\currdata\\vizfigs\\vizdata_3_72.gif")
+
+book.3.73 <- 
+function()
+	xyplot(carbon.dioxide ~ time(carbon.dioxide),
+		aspect = 1,
+		type = "l",
+		ylab = "Carbon Dioxide (ppm)",
+		sub = list("Figure 3.73",cex=.8),
+		xlab = "Year")
+book.3.73()
+export.graph(Name = "GSD2",FileName = "G:\\currdata\\vizfigs\\vizdata_3_73.gif")
+
+
+
+book.3.74 <- 
+function()
+{
+	car.sfit <- stl(carbon.dioxide,ss.window = 25, ss.degree=1)$seasonal
+	ylim <- c(-1,1)*max(abs(car.sfit))
+	car.time <- time(carbon.dioxide)
+	xyplot(car.sfit ~ car.time | equal.count(car.time, 7, overlap=1),
+	        panel = function(x, y) {
+	                panel.grid(v = 0)
+	                panel.xyplot(x, y, type="l")
+	        },
+		aspect = "xy",
+		strip = F,
+		ylim = ylim,
+		scale = list(x = "free"),
+		layout = c(1, 7),
+		sub = list("Figure 3.74",cex=.8),
+		xlab = "Year",
+		ylab = "Carbon Dioxide (ppm)")
+}
+book.3.74()
+export.graph(Name = "GSD2",FileName = "G:\\currdata\\vizfigs\\vizdata_3_74.gif")
+
+book.3.75 <- 
+function()
+{
+	car.sfit <- stl(carbon.dioxide,ss.window = 25, ss.degree=1)$seasonal
+	car.time <- time(carbon.dioxide)-1959
+	car.subseries <- factor(cycle(carbon.dioxide),label=month.abb)
+	xyplot(car.sfit~car.time|car.subseries,
+		layout=c(12,1),
+		panel=function(x,y) {
+			panel.xyplot(x,y,type="l")
+			panel.abline(h=mean(y))
+		},
+		aspect="xy",
+		scales=list(cex=.7, tick.number=3),
+		sub = list("Figure 3.75",cex=.8),
+		xlab="",
+		ylab="Carbon Dioxide (ppm)")
+}
+book.3.75()
+export.graph(Name = "GSD2",FileName = "G:\\currdata\\vizfigs\\vizdata_3_75.gif")
+
+book.3.76 <- 
+function()
+	xyplot(stl(carbon.dioxide,ss.window = 25, 
+		ss.degree=1)$remainder ~ time(carbon.dioxide),
+		aspect = 1,
+		type = "l",
+		ylab = "Carbon Dioxide (ppm)",
+		sub = list("Figure 3.76",cex=.8),
+		xlab = "Year")
+book.3.76()
+export.graph(Name = "GSD2",FileName = "G:\\currdata\\vizfigs\\vizdata_3_76.gif")
+
+book.3.77 <- 
+function()
+	xyplot(stl(carbon.dioxide,ss.window = 25, ss.degree=1, fc.window=101, 
+			fc.degree=1)$fc.101 ~ time(carbon.dioxide),
+		aspect="xy",
+		type="l",
+		ylab = "Carbon Dioxide (ppm)",
+		sub = list("Figure 3.77",cex=.8),
+		xlab = "Year")
+book.3.77()
+export.graph(Name = "GSD2",FileName = "G:\\currdata\\vizfigs\\vizdata_3_77.gif")
+
+book.3.78 <- 
+function()
+	xyplot(stl(carbon.dioxide,ss.window = 25, ss.degree=1, fc.window=101, 
+			fc.degree=1)$remainder ~ time(carbon.dioxide),
+		panel = function(x, y) {
+			panel.xyplot(x, y, type = "l")
+			panel.abline(h = 0)
+		},
+		aspect = 1/3,
+		ylab = "Carbon Dioxide (ppm)",
+		sub = list("Figure 3.78",cex=.8),
+		xlab = "Year")
+book.3.78()
+export.graph(Name = "GSD2",FileName = "G:\\currdata\\vizfigs\\vizdata_3_78.gif")
+
+book.3.79 <- 
+function()
+	xyplot(stl(carbon.dioxide,ss.window = 25, ss.degree=1, fc.window=c(101,35), 
+			fc.degree=c(1,2))$fc.35 ~ time(carbon.dioxide),
+		panel = function(x, y) {
+			panel.xyplot(x, y, type="l")
+			panel.abline(h = 0)
+		},
+		aspect = "xy",
+		ylab = "CO2 (ppm)",
+		sub = list("Figure 3.79",cex=.8),
+		xlab = "Year")
+book.3.79()
+export.graph(Name = "GSD2",FileName = "G:\\currdata\\vizfigs\\vizdata_3_79.gif")
+
+book.3.80 <- 
+function()
+	xyplot(stl(carbon.dioxide,ss.window = 25, ss.degree=1, fc.window=c(101,35), 
+			fc.degree=c(1,2))$remainder ~ time(carbon.dioxide),
+		panel = function(x, y, ...) {
+			panel.xyplot(x, y, type = "l")
+			panel.abline(h = 0)
+		},
+		aspect = .1,
+		ylab = "Residual CO2 (ppm)",
+		sub = list("Figure 3.80",cex=.8),
+		xlab = "Year")
+book.3.80()
+export.graph(Name = "GSD2",FileName = "G:\\currdata\\vizfigs\\vizdata_3_80.gif")
+
+book.3.81 <- 
+function()
+	qqmath(~stl(carbon.dioxide,ss.window = 25, ss.degree=1,
+	                fc.window=c(101,35),fc.degree=c(1,2))$remainder,
+		prepanel = prepanel.qqmathline,
+	        panel = function(x, y) {
+	                panel.qqmathline(y, distribution = qnorm)
+	                panel.qqmath(x, y)
+	        },
+		aspect = 1,
+		sub = list("Figure 3.81",cex=.8),
+		xlab = "Unit Normal Quantile",
+		ylab = "Residual Carbon Dioxide (ppm)")
+book.3.81()
+export.graph(Name = "GSD2",FileName = "G:\\currdata\\vizfigs\\vizdata_3_81.gif")
+
+book.3.82 <- 
+function()
+{
+	car.fit <- stl(carbon.dioxide,ss.window = 25, ss.degree=1,
+		fc.window=c(101,35), fc.degree=c(1,2))
+	co2 <- unlist(car.fit[c("fc.35","seasonal","remainder")])
+	n <- length(carbon.dioxide)
+	co2.names <- factor(rep(c("3.5-Year","Seasonal","Residual"),rep(n,3)))
+	co2.names <- ordered(co2.names, c("3.5-Year","Seasonal","Residual"))
+	co2.year <- rep(time(carbon.dioxide),3)
+	xyplot(co2 ~ co2.year | co2.names,
+	        panel = function(x, y) {
+	                panel.grid(h = 5, v = 0)
+	                panel.xyplot(x, y, type = "l")},
+		layout = c(1, 3),
+		ylim = c(-1,1) *1.05 * max(abs(co2)),
+		sub = list("Figure 3.82",cex=.8),
+		xlab = "Year",
+		ylab = "Carbon Dioxide (ppm)")
+}
+book.3.82()
+export.graph(Name = "GSD2",FileName = "G:\\currdata\\vizfigs\\vizdata_3_82.gif")
+
+
+book.4.1 <- 
+function()
+	splom(~rubber[,1:3], 
+		varnames = c("Hardness\n(degrees Shore)",
+			"Tensile Strength\n(kg/square cm)",
+			"Abrasion Loss\n(g/hp-hour)"),
+		sub = list("Figure 4.1",cex=.8))
+book.4.1()
+export.graph(Name = "GSD2",FileName = "G:\\currdata\\vizfigs\\vizdata_4_01.gif")
+
+book.4.2 <- 
+function()
+	splom(~rubber[, 1:3], 
+		panel = function(x, y) {
+			   i <- rubber[,1] < 62
+	                   panel.splom(x[!i], y[!i])
+	                   panel.splom(x[i], y[i], pch = "+")
+		},
+		sub = list("Figure 4.2",cex=.8),
+		varnames = c("Hardness\n(degrees Shore)", 
+			"Tensile Strength\n(kg/square cm)",
+			"Abrasion Loss\n(g/hp-hour)"))
+book.4.2()
+export.graph(Name = "GSD2",FileName = "G:\\currdata\\vizfigs\\vizdata_4_02.gif")
+
+book.4.3 <- 
+function()
+{
+	attach(rubber)
+	Hardness <- equal.count(hardness,6,3/4)
+	ans <- xyplot(abrasion.loss ~ tensile.strength | Hardness,
+		prepanel=function(x,y) prepanel.loess(x, y, span = 3/4, degree = 1),
+		panel = function(x, y) {
+			panel.grid(h=2)
+			panel.xyplot(x, y)
+			panel.loess(x, y, span = 3/4, degree = 1)
+		},
+		layout = c(3,2),
+		xlab = "Tensile Strength (kg/square cm)",
+		ylab = "Abrasion Loss (g/hp-hour)")
+	detach()
+	print(ans, position=c(0,.375,1,1), more=T)
+
+	print(plot(equal.count(rubber$hardness,6,3/4), 
+		aspect=.2,
+		scales=list(x=list(cex=.7),y=list(cex=.7)),
+		sub = list("Figure 4.3",cex=.8),
+		xlab = "Hardness (degrees Shore)"),
+		position=c(0,.1,1,.425))
+        invisible()
+}
+book.4.3()
+export.graph(Name = "GSD2",FileName = "G:\\currdata\\vizfigs\\vizdata_4_03.gif")
+
+book.4.4 <- 
+function()
+{
+	attach(rubber)
+	Tensile.strength <- equal.count(tensile.strength,6,3/4)
+	ans <- xyplot(abrasion.loss ~ hardness | Tensile.strength,
+		prepanel=function(x,y) prepanel.loess(x, y, span = 3/4, degree = 1),
+		panel = function(x, y){
+			panel.grid()
+	          	panel.xyplot(x,y)
+	          	panel.loess(x, y, span = 3/4, degree = 1)
+		},
+		layout = c(3, 2),
+		xlab = "Hardness (degrees Shore)",
+		ylab = "Abrasion Loss (g/hp-hour)")
+	detach()
+	print(ans, position=c(0,.375,1,1), more=T)
+
+	print(plot(equal.count(rubber$tensile.strength,6,3/4), 
+		aspect=.25,
+		sub = list("Figure 4.4",cex=.8),
+		scales=list(x=list(cex=.7),y=list(cex=.7)),
+		xlab = "Tensile Strength (kg/square cm)"),
+		position=c(0,.1,1,.425))
+        invisible()
+}
+book.4.4()
+export.graph(Name = "GSD2",FileName = "G:\\currdata\\vizfigs\\vizdata_4_04.gif")
+
+book.4.5 <- 
+function()
+	splom(~ethanol, 
+		sub = list("Figure 4.5",cex=.8),
+		aspect = 1,
+		varnames=c("NOx\n(micrograms/J)",
+			"Compression\nRatio",
+			"Equivalence\nRatio"))
+book.4.5()
+export.graph(Name = "GSD2",FileName = "G:\\currdata\\vizfigs\\vizdata_4_05.gif")
+
+book.4.6 <- 
+function()
+{
+	attach(ethanol)
+	Equivalence.Ratio <- equal.count(E, number = 9, overlap = 0.25)
+	ans <- xyplot(NOx ~ C | Equivalence.Ratio,
+		prepanel= function(x,y) prepanel.loess(x, y, span = 1),
+		panel = function(x, y) {
+			panel.grid(v = 2)
+			panel.xyplot(x, y)
+			panel.loess(x, y, span = 1)
+		},
+		aspect = 2.5, # banking to 45 degrees results in aspect that is too big 
+	        layout = c(5, 2),
+		xlab = "Compression Ratio",
+		ylab = "NOx (micrograms/J)")
+	detach()
+	print(ans, position=c(0,.375,1,1), more=T)
+
+        print(plot(equal.count(ethanol$E, number = 9, overlap = 0.25), 
+		sub = list("Figure 4.6",cex=.8),
+		scales=list(x=list(cex=.7),y=list(cex=.7)),
+		xlab = "Equivalence Ratio"),
+		position=c(0,.1,1,.425))
+        invisible()
+}
+book.4.6()
+export.graph(Name = "GSD2",FileName = "G:\\currdata\\vizfigs\\vizdata_4_06.gif")
+
+book.4.7 <- 
+function()
+{
+	attach(ethanol)
+	Compression.Ratio <- C
+	ans <- xyplot(NOx ~ E | Compression.Ratio,
+		prepanel=function(x,y) prepanel.loess(x, y, span = 3/4, degree = 2),
+		panel = function(x, y) {
+			panel.grid(h=2)
+			panel.xyplot(x, y)
+			panel.loess(x, y, span = 3/4, degree = 2)
+		},
+		layout=c(3,2),
+		xlab = "Equivalence Ratio",
+		ylab = "NOx (micrograms/J)")
+	detach()
+        print(ans, position=c(0,.375,1,1), more=T)
+
+	print(plot(shingle(ethanol$C), 
+		sub = list("Figure 4.7",cex=.8),
+		scales=list(x=list(cex=.7),y=list(cex=.7)),
+		xlab = "Compression Ratio"),
+		position=c(0,.2,1,.5))
+        invisible()
+}
+book.4.7()
+export.graph(Name = "GSD2",FileName = "G:\\currdata\\vizfigs\\vizdata_4_07.gif")
+
+book.4.8 <- 
+function()
+	splom(~rubber[, 1:3], 
+		sub = list("Figure 4.8",cex=.8),
+		varnames = c("Hardness\n(degrees Shore)", 
+			"Tensile Strength\n(kg/square cm)",
+			"Abrasion Loss\n(g/hp-hour)"))
+book.4.8()
+export.graph(Name = "GSD2",FileName = "G:\\currdata\\vizfigs\\vizdata_4_08.gif")
+
+book.4.9 <- 
+function()
+	splom(~rubber[, 1:3], 
+		panel = function(x, y) {
+			   i <- rubber[,1] < 62
+	                   panel.splom(x[!i], y[!i])
+	                   panel.splom(x[i], y[i], pch = "+")
+		},
+		sub = list("Figure 4.9",cex=.8),
+		varnames = c("Hardness\n(degrees Shore)", 
+			"Tensile Strength\n(kg/square cm)",
+			"Abrasion Loss\n(g/hp-hour)"))
+book.4.9()
+export.graph(Name = "GSD2",FileName = "G:\\currdata\\vizfigs\\vizdata_4_09.gif")
+	
+book.4.10 <- 
+function()
+	splom(~rubber[, 1:3], 
+		panel = function(x, y) {
+			   i <- rubber[,1] > 54 & rubber[,1] < 72
+	                   panel.splom(x[!i], y[!i])
+	                   panel.splom(x[i], y[i], pch = "+")
+		},
+		sub = list("Figure 4.10",cex=.8),
+		varnames = c("Hardness\n(degrees Shore)", 
+			"Tensile Strength\n(kg/square cm)",
+			"Abrasion Loss\n(g/hp-hour)"))
+book.4.10()
+export.graph(Name = "GSD2",FileName = "G:\\currdata\\vizfigs\\vizdata_4_10.gif")			
+
+book.4.11 <- 
+function()
+	splom(~rubber[, 1:3], 
+		panel = function(x, y) {
+			   i <- rubber[,2] < 170
+	                   panel.splom(x[!i], y[!i])
+	                   panel.splom(x[i], y[i], pch = "+")
+		},
+		sub = list("Figure 4.11",cex=.8),
+		varnames = c("Hardness\n(degrees Shore)", 
+			"Tensile Strength\n(kg/square cm)",
+			"Abrasion Loss\n(g/hp-hour)"))
+book.4.11()
+export.graph(Name = "GSD2",FileName = "G:\\currdata\\vizfigs\\vizdata_4_11.gif")			
+
+book.4.12 <- 
+function()
+{
+	attach(ethanol)
+	eth.m <- loess(NOx ~ C * E, span = 1/3, degree = 2,
+		parametric = "C", drop.square = "C",family="s")
+	CE.marginal <- list(C=seq(min(C),max(C),length=2),
+		E=seq(min(E),max(E),length=16))
+	CE.grid <- expand.grid(CE.marginal)
+	eth.fit <- predict(eth.m,CE.grid)
+	EQ.Ratio <- CE.grid$E
+	ans <- xyplot(eth.fit ~ CE.grid$C | EQ.Ratio,
+		aspect=2,
+		layout = c(8, 2),
+		panel = function(x, y) {
+			panel.grid(v=2)
+			panel.xyplot(x, y, type = "l")
+		},
+		xlab = "Compression Ratio",
+		ylab = "NOx (micrograms/J)")
+	detach()
+	print(ans, position=c(0,.3,1,1), more=T)
+
+	ans <- plot(shingle(seq(min(ethanol$E), max(ethanol$E), length=16)), 
+		sub = list("Figure 4.12",cex=.8),
+		scales=list(x=list(cex=.7),y=list(cex=.7)),
+		xlab = "Equivalence Ratio")
+	print(ans, position=c(0,.1,1,.45))
+	invisible()
+}
+book.4.12()
+export.graph(Name = "GSD2",FileName = "G:\\currdata\\vizfigs\\vizdata_4_12.gif")
+
+book.4.13 <- 
+function()
+{
+	attach(ethanol)
+	eth.m <- loess(NOx ~ C * E, span = 1/3, degree = 2,
+		parametric = "C", drop.square = "C",family="s")
+	C.marginal <- seq(min(C),max(C),length=16)
+	E.marginal <- seq(min(E),max(E),length=50)
+	CE.marginal <- list(C=C.marginal,E=E.marginal)
+	CE.grid <- expand.grid(CE.marginal)
+	eth.fit <- predict(eth.m,CE.grid)
+	Compression.Ratio <- CE.grid$C
+	ans <- xyplot(eth.fit ~ CE.grid$E | Compression.Ratio,
+		panel = function(x, y) {
+	                panel.grid(h=2)
+	                panel.xyplot(x, y, type = "l")
+	        },
+		aspect="xy",
+		layout = c(4, 4),
+		xlab = "Equivalence Ratio",
+		ylab = "NOx (micrograms/J)")
+	detach()
+	print(ans, position=c(0,.3,1,1), more=T)
+
+	ans <- plot(shingle(seq(min(ethanol$C), max(ethanol$C), length=16)), 
+		sub = list("Figure 4.13",cex=.8),
+		scales=list(x=list(cex=.7),y=list(cex=.7)),
+		xlab = "Compression Ratio")
+	print(ans, position=c(0,.1,1,.45))
+	invisible()
+}
+book.4.13()
+export.graph(Name = "GSD2",FileName = "G:\\currdata\\vizfigs\\vizdata_4_13.gif")
+
+book.4.14 <- 
+function()
+{
+	attach(ethanol)
+	c.values <- seq(min(C), max(C), length = 16)
+	e.values <- seq(min(E), max(E), length = 16)
+	ans <- xyplot(E ~ C,
+		panel = substitute(function(x, y){
+			segments(rep(min(x),16),e.values,rep(max(x),16),e.values)
+			segments(c.values,rep(min(y),16),c.values,rep(max(y),16))
+			panel.xyplot(x, y, col=0, pch=16)  # cover grid lines
+			panel.xyplot(x, y)
+		}),
+		aspect = 1,
+		sub = list("Figure 4.14",cex=.8),
+		xlab = "Compression Ratio",
+		ylab = "Equivalence Ratio")
+	detach()
+	ans
+}
+book.4.14()
+export.graph(Name = "GSD2",FileName = "G:\\currdata\\vizfigs\\vizdata_4_14.gif")
+
+book.4.15 <- 
+function()
+	xyplot(hardness ~ tensile.strength,
+		data = rubber,
+		aspect=1,
+		panel = function(x, y) {
+			panel.xyplot(x, y)
+			panel.abline(h=c(55,83),v=c(144,237))
+		},
+		ylab= "Hardness (degrees Shore)",
+		sub = list("Figure 4.15",cex=.8),
+		xlab= "Tensile Strength (kg/square cm)")
+book.4.15()
+export.graph(Name = "GSD2",FileName = "G:\\currdata\\vizfigs\\vizdata_4_15.gif")
+
+book.4.16 <- 
+function()
+{
+	attach(rubber)
+	wt <- rep(1,length(abrasion.loss))
+	for(i in 1:10){
+		rub.lm <- lm(abrasion.loss~hardness+ts.low,weights=wt)
+		wt <- wt.bisquare(rub.lm$res/median(abs(rub.lm$res)),c=6)
+	}
+	grid <- expand.grid(hardness = seq(55, 83, length = 4),
+		tensile.strength = c(seq(144,180,length=50),c(181, 190)))
+	center <- grid$tensile.strength-180
+	grid$ts.low <- center*(center<0)
+	rub.fit <- predict(rub.lm,grid)
+	Hardness <- grid$hardness
+	ans <- xyplot(rub.fit ~ grid$tensile.strength | Hardness,
+		aspect="xy",
+		layout = c(4, 1),
+		panel = function(x, y) {
+	                panel.grid(v=2)
+	                panel.xyplot(x, y, type = "l")
+	        },
+		xlab = "Tensile Strength (kg/square cm)", 
+		ylab = "Abrasion Loss (g/hp-hour)")
+	detach()
+	print(ans, position=c(0,.3,1,1), more=T)
+
+	print(plot(shingle(seq(55, 83, length = 4)), 
+		sub = list("Figure 4.16",cex=.8),
+		scales=list(x=list(cex=.7),y=list(cex=.7)),
+		xlab = "Hardness (degrees Shore)"), 
+		position=c(0,.1,1,.45))
+	invisible()
+}
+book.4.16()
+export.graph(Name = "GSD2",FileName = "G:\\currdata\\vizfigs\\vizdata_4_16.gif")
+
+book.4.17 <- 
+function()
+{
+	attach(rubber)
+	wt <- rep(1,length(abrasion.loss))
+	for(i in 1:10){
+		rub.lm <- lm(abrasion.loss~hardness+ts.low,weights=wt)
+		wt <- wt.bisquare(rub.lm$res/median(abs(rub.lm$res)),c=6)
+	}
+	grid<-expand.grid(tensile.strength = seq(144,180,length = 3), 
+		hardness = seq(55, 83,length=50))
+	#this mimics the computation of ts.low for this cropped version of tensile strength
+	center <- grid$tensile.strength-180
+	grid$ts.low <- center*(center<0)
+	rub.fit <- predict(rub.lm,grid)
+	Tensile.strength <- grid$tensile.strength
+	ans <- xyplot(rub.fit ~ grid$hardness | Tensile.strength,
+		aspect="xy",
+		layout = c(3, 1), 
+		panel = function(x, y) {
+			panel.grid(v=2)
+			panel.xyplot(x, y, type = "l")
+		},
+		xlab = "Hardness (degrees Shore)",
+		ylab = "Abrasion Loss (g/hp-hour)")
+	detach()
+	print(ans, position=c(0,.3,1,1), more=T)
+
+	print(plot(shingle(seq(144,180,length = 3)), 
+		sub = list("Figure 4.17",cex=.8),
+		scales=list(x=list(cex=.7),y=list(cex=.7)),
+		xlab = "Tensile Strength (kg/square cm)"),
+		position=c(0,.1,1,.45))
+        invisible()
+}
+book.4.17()
+export.graph(Name = "GSD2",FileName = "G:\\currdata\\vizfigs\\vizdata_4_17.gif")
+
+book.4.18 <- 
+function()
+{
+	attach(rubber)
+	wt <- rep(1,length(abrasion.loss))
+	for(i in 1:10){
+		rub.lm <- lm(abrasion.loss~hardness+ts.low,weights=wt)
+		wt <- wt.bisquare(rub.lm$res/median(abs(rub.lm$res)),c=6)
+	}
+	ans <- xyplot(residuals(rub.lm) ~ tensile.strength,
+		panel = function(x, y) {
+			panel.xyplot(x, y)
+			panel.loess(x, y, span=1)
+			panel.abline(h=0)
+		},
+		aspect=1,
+		sub = list("Figure 4.18",cex=.8),
+		xlab = "Tensile Strength (kg/square cm)",
+		ylab = "Residual Abrasion Loss (g/hp-hour)")
+	detach()
+	ans
+}
+book.4.18()
+export.graph(Name = "GSD2",FileName = "G:\\currdata\\vizfigs\\vizdata_4_18.gif")
+
+book.4.19 <- 
+function()
+{
+	attach(rubber)
+	wt <- rep(1,length(abrasion.loss))
+	for(i in 1:10){
+		rub.lm <- lm(abrasion.loss~hardness+ts.low,weights=wt)
+		wt <- wt.bisquare(rub.lm$res/median(abs(rub.lm$res)),c=6)
+	}
+	ans <- xyplot(residuals(rub.lm) ~ hardness,
+		panel = function(x, y) {
+			panel.xyplot(x, y)
+			panel.loess(x, y, span=1)
+			panel.abline(h=0)
+		},
+		aspect=1,
+		sub = list("Figure 4.19",cex=.8),
+		xlab = "Hardness (degrees Shore)",
+		ylab = "Residual Abrasion Loss (g/hp-hour)")
+	detach()
+	ans
+}
+book.4.19()
+export.graph(Name = "GSD2",FileName = "G:\\currdata\\vizfigs\\vizdata_4_19.gif")
+
+book.4.20 <- 
+function()
+{
+	attach(rubber)
+	wt <- rep(1,length(abrasion.loss))
+	for(i in 1:10){
+		rub.lm <- lm(abrasion.loss~hardness+ts.low,weights=wt)
+		wt <- wt.bisquare(rub.lm$res/median(abs(rub.lm$res)),c=6)
+	}
+	Hardness <- equal.count(hardness,6,3/4)
+	ans <- xyplot(residuals(rub.lm) ~ tensile.strength | Hardness,
+		panel = function(x, y, ...) {
+			panel.grid(v=2)
+			panel.xyplot(x, y)
+			panel.loess(x, y, span = 1, degree = 1)
+			panel.abline(h=0)
+		},
+		aspect = 2,
+		layout = c(3, 2),
+		xlab = "Tensile Strength (kg/square cm)", 
+		ylab = "Residual Abrasion Loss (g/hp-hour)")
+	detach()
+	print(ans, position=c(0,.375,1,1), more=T)
+
+	print(plot(equal.count(rubber$hardness,6,3/4), 
+		sub = list("Figure 4.20",cex=.8),
+		scales=list(x=list(cex=.7),y=list(cex=.7)),
+		xlab = "Hardness (degrees Shore)"),
+		position=c(0,.1,1,.425))
+        invisible()
+}
+book.4.20()
+export.graph(Name = "GSD2",FileName = "G:\\currdata\\vizfigs\\vizdata_4_20.gif")
+
+book.4.21 <- 
+function()
+{
+	attach(rubber)
+	wt <- rep(1,length(abrasion.loss))
+	for(i in 1:10){
+		rub.lm <- lm(abrasion.loss~hardness+ts.low,weights=wt)
+		wt <- wt.bisquare(rub.lm$res/median(abs(rub.lm$res)),c=6)
+	}
+	Tensile.Strength <- equal.count(tensile.strength,6,3/4)
+	ans <- xyplot(residuals(rub.lm) ~ hardness | Tensile.Strength,
+		panel = function(x, y) {
+			panel.grid(v=2)
+			panel.xyplot(x, y)
+			panel.loess(x, y, span = 1, degree = 1)
+			panel.abline(h=0)
+		},
+		aspect = 2,
+		layout = c(3, 2),
+		xlab = "Hardness (degrees Shore)", 
+		ylab = "Residual Abrasion Loss (g/hp-hour)")
+	detach()
+	print(ans, position=c(0,.375,1,1), more=T)
+
+	print(plot(equal.count(rubber$tensile.strength,6,3/4), 
+		sub = list("Figure 4.21",cex=.8),
+		scales=list(x=list(cex=.7),y=list(cex=.7)),
+		xlab = "Tensile Strength (kg/square cm)"),
+		position=c(0,.1,1,.425))
+        invisible()
+
+}
+book.4.21()
+export.graph(Name = "GSD2",FileName = "G:\\currdata\\vizfigs\\vizdata_4_21.gif")
+
+book.4.22 <- 
+function()
+{
+	new.rubber <- rubber[rubber$tensile.strength>130,]
+	attach(new.rubber)
+	wt <- rep(1,length(abrasion.loss))
+	for(i in 1:10){
+		rub.lm <- lm(abrasion.loss~hardness*ts.low, weights=wt)
+		wt <- wt.bisquare(rub.lm$res/median(abs(rub.lm$res)),c=6)
+	}
+	Hardness <- equal.count(hardness,6,3/4)
+	ans <- xyplot(residuals(rub.lm) ~ tensile.strength | Hardness,
+	        panel = function(x, y, ...) {
+	                panel.grid(v=2, h=2)
+			panel.xyplot(x, y)
+	                panel.loess(x, y, span = 1, degree = 1)
+	                panel.abline(h=0)
+	        },
+	        aspect = 1,
+		layout = c(3, 2),
+	        xlab = "Tensile Strength (kg/square cm)",
+	        ylab = "Residual Abrasion Loss (g/hp-hour)")
+	detach()
+	print(ans, position=c(0,.375,1,1), more=T)
+
+	print(plot(equal.count(rubber[rubber$tensile.strength>130,]$hardness,6,3/4),
+		sub = list("Figure 4.22",cex=.8),
+		scales=list(x=list(cex=.7),y=list(cex=.7)),
+		xlab = "Hardness (degrees Shore)"),
+		position=c(0,.1,1,.425))
+        invisible()
+}
+book.4.22()
+export.graph(Name = "GSD2",FileName = "G:\\currdata\\vizfigs\\vizdata_4_22.gif")
+
+book.4.23 <- 
+function()
+{
+	new.rubber <- rubber[rubber$tensile.strength>130,]
+	attach(new.rubber)
+	wt <- rep(1,length(abrasion.loss))
+	for(i in 1:10){
+		rub.lm <- lm(abrasion.loss~hardness*ts.low,weights=wt)
+		wt <- wt.bisquare(rub.lm$res/median(abs(rub.lm$res)),c=6)
+	}
+	Tensile.Strength <- equal.count(tensile.strength,6,3/4)
+	ans <- xyplot(residuals(rub.lm) ~ hardness | Tensile.Strength,
+		panel = function(x, y, ...) {
+			panel.grid(v=2, h=2)
+			panel.xyplot(x, y)
+			panel.loess(x, y, span = 1, degree = 1)
+			panel.abline(h=0)
+		},
+		aspect = 1,
+		layout = c(3, 2),
+		xlab = "Hardness (degrees Shore)",
+		ylab = "Residual Abrasion Loss (g/hp-hour)")
+	detach()
+	print(ans, position=c(0,.375,1,1), more=T)
+
+	print(plot(equal.count(rubber[rubber$tensile.strength>130,]$tensile.strength,6,3/4), 
+		sub = list("Figure 4.23",cex=.8),
+		scales=list(x=list(cex=.7),y=list(cex=.7)),
+		xlab = "Tensile Strength (kg/square cm)"),
+		position=c(0,.1,1,.425))
+        invisible()
+}
+book.4.23()
+export.graph(Name = "GSD2",FileName = "G:\\currdata\\vizfigs\\vizdata_4_23.gif")
+
+book.4.24 <- 
+function()
+{
+	new.rubber <- rubber[rubber$tensile.strength>130,]
+	attach(new.rubber)
+	wt <- rep(1,length(abrasion.loss))
+	for(i in 1:10){
+		rub.lm <- lm(abrasion.loss~hardness*ts.low,weights=wt)
+		wt <- wt.bisquare(rub.lm$res/median(abs(rub.lm$res)),c=6)
+	}
+	grid <- expand.grid(hardness = seq(55, 83, length = 4),
+		tensile.strength = c(seq(144,180,length=50),181, 190))
+	center <- grid$tensile.strength-180
+	grid$ts.low <- center*(center<0)
+	rub.fit <- predict(rub.lm,grid)
+	Hardness <- grid$hardness
+	ans <- xyplot(rub.fit ~ grid$tensile.strength | Hardness,
+		aspect="xy",
+		layout = c(4, 1),
+		panel = function(x, y) {
+	                panel.grid(v=2)
+	                panel.xyplot(x, y, type = "l")
+	        },
+		xlab = "Tensile Strength (kg/square cm)",
+		ylab = "Abrasion Loss (g/hp-hour)")
+	detach()
+	print(ans, position=c(0,.375,1,1), more=T)
+
+        print(plot(shingle(seq(55, 83, length = 4)), 		
+		sub = list("Figure 4.24",cex=.8),
+		scales=list(x=list(cex=.7),y=list(cex=.7)),
+		xlab = "Hardness (degrees Shore)"),
+		position=c(0,.1,1,.425))
+        invisible()
+}
+book.4.24()
+export.graph(Name = "GSD2",FileName = "G:\\currdata\\vizfigs\\vizdata_4_24.gif")
+
+book.4.25 <- 
+function()
+{
+	new.rubber <- rubber[rubber$tensile.strength>130,]
+	attach(new.rubber)
+	wt <- rep(1,length(abrasion.loss))
+	for(i in 1:10){
+		rub.lm <- lm(abrasion.loss~hardness*ts.low, weights=wt)
+		wt <- wt.bisquare(rub.lm$res/median(abs(rub.lm$res)),c=6)
+	}
+	grid<-expand.grid(tensile.strength = seq(144,180,length = 3), 	
+			hardness = seq(55, 83,length=50))
+	center <- grid$tensile.strength-180
+	grid$ts.low <- center*(center<0)
+	rub.fit <- predict(rub.lm,grid)
+	Tensile.Strength <- grid$tensile.strength
+	ans <- xyplot(rub.fit ~ grid$hardness | Tensile.Strength,
+		aspect="xy",
+		layout = c(3, 1),
+		panel = function(x, y) {
+	                panel.grid(h=2)
+	                panel.xyplot(x, y, type = "l")
+	        },
+		xlab = "Hardness (degrees Shore)",
+		ylab = "Abrasion Loss (g/hp-hour)")
+	detach()
+	print(ans, position=c(0,.375,1,1), more=T)
+
+	print(plot(shingle(seq(144,180,length = 3)), 
+		sub = list("Figure 4.25",cex=.8),
+		scales=list(x=list(cex=.7),y=list(cex=.7)),
+		xlab = "Tensile Strength (kg/square cm)"),
+                position=c(0,.1,1,.425))
+        invisible()
+
+}
+book.4.25()
+export.graph(Name = "GSD2",FileName = "G:\\currdata\\vizfigs\\vizdata_4_25.gif")
+
+book.4.26 <- 
+function()
+{
+	new.rubber <- rubber[rubber$tensile.strength>130,]
+	attach(new.rubber)
+	wt <- rep(1,length(abrasion.loss))
+	for(i in 1:10){
+		rub.lm <- lm(abrasion.loss~hardness*ts.low, weights=wt)
+		wt <- wt.bisquare(rub.lm$res/median(abs(rub.lm$res)),c=6)
+	}
+	ans <- xyplot(sqrt(abs(rub.lm$res)) ~ rub.lm$fit,
+		panel = function(x, y){
+			panel.xyplot(x, y)
+	                panel.loess(x, y, span=2)
+	        },
+	        aspect=1,
+		sub = list("Figure 4.26",cex=.8),
+	        xlab = "Fitted Abrasion Loss (g/hp-hour)",
+	        ylab = "Square Root Absolute Residual Abrasion Loss (g/hp-hour)")
+	detach()
+	ans
+}
+book.4.26()
+export.graph(Name = "GSD2",FileName = "G:\\currdata\\vizfigs\\vizdata_4_26.gif")
+
+book.4.27 <- 
+function()
+{
+	new.rubber <- rubber[rubber$tensile.strength>130,]
+	attach(new.rubber)
+	wt <- rep(1,length(abrasion.loss))
+	for(i in 1:10){
+		rub.lm <- lm(abrasion.loss~hardness*ts.low, weights=wt)
+		wt <- wt.bisquare(rub.lm$res/median(abs(rub.lm$res)),c=6)
+	}
+	ans <- qqmath(~residuals(rub.lm), 
+		prepanel = prepanel.qqmathline,
+	        panel = function(x, y) {
+	                panel.qqmathline(y, distribution = qnorm)
+	                panel.qqmath(x, y)
+	        },
+		aspect=1,
+		sub = list("Figure 4.27",cex=.8),
+		xlab = "Unit Normal Quantile",
+		ylab="Residual Abrasion Loss (g/hp-hour)")
+	detach()
+	ans
+}
+book.4.27()
+export.graph(Name = "GSD2",FileName = "G:\\currdata\\vizfigs\\vizdata_4_27.gif")
+
+book.4.28 <- 
+function()
+{
+	new.rubber <- rubber[rubber$tensile.strength>130,]
+	attach(new.rubber)
+	wt <- rep(1,length(abrasion.loss))
+	for(i in 1:10){
+		rub.lm <- lm(abrasion.loss~hardness*ts.low, weights=wt)
+		wt <- wt.bisquare(rub.lm$res/median(abs(rub.lm$res)),c=6)
+	}
+	ans <- rfs(rub.lm,
+		sub = list("Figure 4.28",cex=.8),
+		aspect=1.5,
+		ylab="Residual Abrasion Loss (g/hp-hour)")
+	detach()
+	ans
+}
+book.4.28()
+export.graph(Name = "GSD2",FileName = "G:\\currdata\\vizfigs\\vizdata_4_28.gif")
+
+book.4.29 <- 
+function()
+	xyplot(loess(NOx ~ C * E, span = 1/2, degree = 2,
+			parametric = "C", drop.square = "C",family="s")$residuals ~ E,
+		data = ethanol,
+		panel = function(x, y) {
+			panel.xyplot(x, y)
+			panel.loess(x, y, span=1/2, degree=1)
+	                panel.abline(h=0)
+		},
+		aspect=1,
+		sub = list("Figure 4.29",cex=.8),
+		xlab="Equivalence Ratio",
+		ylab = "Residual NOx (micrograms/J)")
+book.4.29()
+export.graph(Name = "GSD2",FileName = "G:\\currdata\\vizfigs\\vizdata_4_29.gif")
+
+book.4.30 <- 
+function()
+{
+	attach(ethanol)
+	eth.m <- loess(NOx ~ C * E, span = 1/3, degree = 2,
+		parametric = "C", drop.square = "C",family="s")
+	ans <- xyplot(sqrt(abs(residuals(eth.m))) ~ fitted.values(eth.m),
+		panel = function(x, y) {
+			panel.xyplot(x, y)
+			panel.loess(x, y, span=2)
+		},
+		aspect=1,
+		scales=list(cex=.9),
+		sub = list("Figure 4.30",cex=.8),
+		xlab = list("Fitted NOx (micrograms/J)",cex=.9),
+		ylab = list("Square Root Absolute Residual NOx (square root micrograms/J)",cex=.9))
+	detach()
+	ans
+}
+book.4.30()
+export.graph(Name = "GSD2",FileName = "G:\\currdata\\vizfigs\\vizdata_4_30.gif")
+
+book.4.31 <- 
+function()
+	qqmath(~loess(NOx ~ C * E, data = ethanol, span = 1/3, degree = 2,
+			parametric = "C", drop.square = "C",family="s")$residuals,
+		prepanel = prepanel.qqmathline,
+	        panel = function(x, y) {
+	                panel.qqmathline(y, distribution = qnorm)
+	                panel.qqmath(x, y)
+	        },
+		aspect=1, 
+		sub = list("Figure 4.31",cex=.8),
+		xlab = "Unit Normal Quantile",
+		ylab = "Residual NOx (micrograms/J)")
+book.4.31()
+export.graph(Name = "GSD2",FileName = "G:\\currdata\\vizfigs\\vizdata_4_31.gif")
+
+book.4.32 <- 
+function()
+	rfs(loess(NOx ~ C * E, data = ethanol, span = 1/3, degree = 2,
+			parametric = "C", drop.square = "C",family="s"),
+		sub = list("Figure 4.32",cex=.8),
+		aspect=2,
+		ylab = "NOx (micrograms/J)")
+book.4.32()
+export.graph(Name = "GSD2",FileName = "G:\\currdata\\vizfigs\\vizdata_4_32.gif")
+
+book.4.33 <- 
+function()
+{
+	attach(ethanol)
+	eth.m <- loess(logb(NOx,2) ~ C * E, span = 1/3, degree = 2,
+		parametric = "C", drop.square = "C",family="s")
+	ans <- xyplot(sqrt(abs(eth.m$res)) ~ eth.m$fit,
+		panel = function(x, y) {
+			panel.xyplot(x, y)
+			panel.loess(x, y, span=2)
+		},
+		aspect=1,
+		scales=list(cex=.8),
+		sub = list("Figure 4.33",cex=.8),
+		xlab = list("Fitted Log NOx (log 2 micrograms/J)",cex=.8),
+		ylab = list("Square Root Absolute Residual Log NOx\n(square root absolute log 2 micrograms/J)\n",cex=.8))
+	detach()
+	ans
+}
+book.4.33()
+export.graph(Name = "GSD2",FileName = "G:\\currdata\\vizfigs\\vizdata_4_33.gif")
+
+# no fig 4.34
+
+book.4.35 <- 
+function()
+{
+	set.seed(19)
+	new.slope <- slope
+	new.slope$percent <- jitter(new.slope$percent,2)
+	splom(~new.slope,
+		varnames =c("Absolute\nError\n(%)",
+			"Jittered\nPercent\n(%)",
+			"Distance\n(degrees)",
+			"Resolution\n(degrees)"),
+	sub = list("Figure 4.35",cex=.8))
+}
+book.4.35()
+export.graph(Name = "GSD2",FileName = "G:\\currdata\\vizfigs\\vizdata_4_35.gif")
+
+book.4.36 <- 
+function()
+{
+	print(xyplot(error ~ distance | percent,
+		data = slope, 
+		aspect="xy",
+		layout = c(6,2),
+		panel = function(x, y) {
+	                panel.grid(v=2)
+	                panel.xyplot(x, y)
+	        },
+		xlab="Distance (degrees)",
+		ylab="Absolute Error (%)"),
+		position=c(0,.375,1,1), more=T)
+
+	print(plot(shingle(slope$percent), 
+		sub = list("Figure 4.36",cex=.8),
+		scales=list(x=list(cex=.7),y=list(cex=.7)),
+		xlab = "Percent (%)"),
+                position=c(0,.1,1,.425))
+        invisible()
+}
+book.4.36()
+export.graph(Name = "GSD2",FileName = "G:\\currdata\\vizfigs\\vizdata_4_36.gif")
+
+book.4.37 <- 
+function()
+{
+	print(xyplot(error ~ resolution | percent,
+		data = slope,
+		aspect="xy",
+		layout=c(6,2),
+		panel = function(x, y) {
+	                panel.grid(h=2, v=2)
+	                panel.xyplot(x, y)
+	        },
+		xlab="Resolution (degrees)",
+		ylab="Absolute Error (%)"),
+                position=c(0,.375,1,1), more=T)
+
+        print(plot(shingle(slope$percent),
+		sub = list("Figure 4.37",cex=.8),	
+		scales=list(x=list(cex=.7),y=list(cex=.7)),
+                xlab = "Percent (%)"),
+                position=c(0,.25,1,.55))
+        invisible()
+}
+book.4.37()
+export.graph(Name = "GSD2",FileName = "G:\\currdata\\vizfigs\\vizdata_4_37.gif")
+
+book.4.38 <- 
+function()
+{
+	attach(slope)
+	Resolution <- equal.count(resolution,8,1/4)
+	ans <- xyplot(error ~ percent | Resolution,
+		aspect=1,
+		layout=c(4,2),
+		panel = function(x, y) {
+	                panel.grid()
+	                panel.xyplot(x, y)
+	        },
+		xlab="Percent (%)",
+		ylab="Absolute Error (%)")
+	detach()
+	print(ans, position=c(0,.3,1,1), more=T)
+
+	print(plot(equal.count(slope$resolution,8,1/4), 
+		sub = list("Figure 4.38",cex=.8),
+		scales=list(x=list(cex=.7),y=list(cex=.7)),
+		xlab = "Resolution (degrees)"),
+		position=c(0,.1,1,.45))
+        invisible()
+}
+book.4.38()
+export.graph(Name = "GSD2",FileName = "G:\\currdata\\vizfigs\\vizdata_4_38.gif")
+
+book.4.39 <- 
+function()
+{
+	attach(slope)
+	wt <- rep(1,length(error))
+	for(i in 1:10){
+		slo.lm <- lm(error~percent+resolution,weights=wt)
+		wt <- wt.bisquare(slo.lm$res/median(abs(slo.lm$res)),c=6)
+	}
+	ans <- xyplot(residuals(slo.lm) ~ percent,
+		panel = function(x, y) {
+			panel.xyplot(x, y)
+			panel.loess(x, y, span=1/2)
+			panel.abline(h=0)
+		},
+		aspect=1,
+		sub = list("Figure 4.39",cex=.8),
+		xlab="Percent (%)",
+		ylab="Residual Absolute Error (%)")
+	detach()
+	ans
+}
+book.4.39()
+export.graph(Name = "GSD2",FileName = "G:\\currdata\\vizfigs\\vizdata_4_39.gif")
+
+book.4.40 <- 
+function()
+{
+	attach(slope)
+	wt <- rep(1,length(error))
+	for(i in 1:10){
+		slo.lm <- lm(error~percent+resolution,weights=wt)
+		wt <- wt.bisquare(slo.lm$res/median(abs(slo.lm$res)),c=6)
+	}
+	ans <- xyplot(residuals(slo.lm) ~ resolution,
+		panel = function(x, y) {
+			panel.xyplot(x, y)
+			panel.loess(x, y, span=1/2)
+			panel.abline(h=0)
+		},
+		aspect=1,
+		sub = list("Figure 4.40",cex=.8),
+		xlab="Resolution (degrees)",
+		ylab="Residual Absolute Error (%)")
+	detach()
+	ans
+}
+book.4.40()
+export.graph(Name = "GSD2",FileName = "G:\\currdata\\vizfigs\\vizdata_4_40.gif")
+
+book.4.41 <- 
+function()
+{
+	attach(slope)
+	wt <- rep(1,length(error))
+	for(i in 1:10){
+		slo.lm <- lm(error~percent+resolution,weights=wt)
+		wt <- wt.bisquare(slo.lm$res/median(abs(slo.lm$res)),c=6)
+	}
+	ans <- rfs(slo.lm, 
+		sub = list("Figure 4.41",cex=.8),
+		aspect = 1.5,
+		ylab="Residual Absolute Error (%)")
+	detach()
+	ans
+}
+book.4.41()
+export.graph(Name = "GSD2",FileName = "G:\\currdata\\vizfigs\\vizdata_4_41.gif")
+
+book.4.42 <- 
+function()
+{
+	attach(slope)
+	grid <- expand.grid(d = seq(0, 45, length = 46), 
+	                    p = seq(min(percent), max(percent), length = 11))
+	p <- grid$p
+	d <- grid$d
+	a <- 52.7 - 1.19 * asin(cos(d*pi/90) * (100 - p) / (100 + p)) * 180/pi - 0.48 * p
+	Percent <- p
+	ans <- xyplot(a ~ d | Percent,
+		aspect="xy",
+		layout=c(4,3),
+		panel = function(x, y) {
+	                panel.grid(v=2)
+	                panel.xyplot(x, y, type = "l")
+	        },
+		xlab="Distance (degrees)",
+		ylab="Absolute Error (%)")
+	detach()
+	print(ans, position=c(0,.375,1,1), more=T)
+
+	print(plot(shingle(seq(min(slope$percent), 
+		max(slope$percent), length = 11)), 
+		sub = list("Figure 4.42",cex=.8),
+		scales=list(x=list(cex=.7),y=list(cex=.7)),
+		xlab = "Percent (%)"),
+		position=c(0,.1,1,.425))
+        invisible()
+
+}
+book.4.42()
+export.graph(Name = "GSD2",FileName = "G:\\currdata\\vizfigs\\vizdata_4_42.gif")
+
+book.4.43 <- 
+function()
+{
+	attach(galaxy)
+	set.seed(19)
+	ans <- xyplot(jitter(north.south, .3) ~ jitter(east.west, .3),
+		aspect = diff(range(north.south))/diff(range(east.west)),
+		sub = list("Figure 4.43",cex=.8),
+		xlab = "Jittered East-West Coordinate (arcsec)",
+		ylab = "Jittered South-North Coordinate (arcsec)")
+	detach()
+	ans
+}
+book.4.43()
+export.graph(Name = "GSD2",FileName = "G:\\currdata\\vizfigs\\vizdata_4_43.gif")
+
+book.4.44 <- 
+function()
+{
+	attach(galaxy)
+	set.seed(19)
+	Velocity <- equal.count(velocity,15,1/4)
+	ans <- xyplot(jitter(north.south, .3) ~ jitter(east.west, .3) | Velocity,
+		layout = c(5, 3), 
+		panel = function(x, y) {
+			panel.grid(v=2)
+			panel.xyplot(x, y)
+		},
+		aspect=diff(range(north.south))/diff(range(east.west)),
+		xlab = "Jittered East-West Coordinate (arcsec)",
+		ylab = "Jittered South-North Coordinate (arcsec)")
+	detach()
+	print(ans, position=c(0,.375,1,1), more=T)
+
+	print(plot(equal.count(galaxy$velocity,15,1/4), 
+		sub = list("Figure 4.44",cex=.8),
+		scales=list(x=list(cex=.7),y=list(cex=.7)),
+		xlab = "Velocity (km/sec)"),
+		position=c(0,.1,1,.425))
+        invisible()
+}
+book.4.44()
+export.graph(Name = "GSD2",FileName = "G:\\currdata\\vizfigs\\vizdata_4_44.gif")
+
+book.4.45 <- 
+function()
+{
+	ans <- xyplot(velocity ~ radial.position | angle, 
+		data = galaxy,
+		prepanel=function(x,y) prepanel.loess(x, y, span = 1/2, degree = 2),
+		panel = function(x, y) {
+			panel.grid()
+			panel.xyplot(x, y)
+			panel.loess(x, y, span = 1/2, degree = 2)
+		},
+		layout = c(4, 2),
+		xlab = "Radial Position (arcsec)",
+		ylab = "Velocity (km/sec)")
+        print(ans, position=c(0,.375,1,1), more=T)
+
+	print(plot(shingle(galaxy$angle), 
+		sub = list("Figure 4.45",cex=.8),
+		scales=list(x=list(cex=.7),y=list(cex=.7)),
+		xlab = "Slit (degrees)"),
+                position=c(0,.1,1,.425))
+        invisible()
+}
+book.4.45()
+export.graph(Name = "GSD2",FileName = "G:\\currdata\\vizfigs\\vizdata_4_45.gif")
+
+book.4.46 <- 
+function()
+{
+	attach(galaxy)
+	gal.m <- loess(velocity ~ east.west * north.south, 
+		       span = 0.25, degree = 2, normalize = F, family = "symmetric")
+	slitfit <- fitted.values(gal.m)
+	ans <- xyplot(velocity ~ radial.position | angle,
+		prepanel = substitute(function(x, y, subscripts){
+			k <- order(x)
+			list(dx = diff(x[k]), dy = diff(slitfit[subscripts][k]))
+		}),
+		panel = substitute(function(x, y, subscripts) {
+			add.line <- trellis.par.get("add.line")
+			panel.grid()
+			panel.xyplot(x,y)
+	 		k <- order(x)
+			lines(x[k], slitfit[subscripts][k],
+				lwd = add.line$lwd, lty = add.line$lty, col = add.line$col)
+		}),
+		layout = c(4, 2),
+		xlab = "Radial Position (arcsec)",
+		ylab = "Velocity (km/sec)")
+	detach()
+        print(ans, position=c(0,.375,1,1), more=T)
+
+	print(plot(shingle(galaxy$angle), 
+		sub = list("Figure 4.46",cex=.8),
+		scales=list(x=list(cex=.7),y=list(cex=.7)),
+		xlab = "Slit (degrees)"),
+                position=c(0,.1,1,.425))
+        invisible()
+}
+book.4.46()
+export.graph(Name = "GSD2",FileName = "G:\\currdata\\vizfigs\\vizdata_4_46.gif")
+
+book.4.47 <- 
+function()
+{
+	ans <- xyplot(loess(velocity ~ east.west * north.south, 
+		span = 0.25,
+		degree = 2, normalize = F, 
+		family = "symmetric")$residuals ~ radial.position | angle,	
+		data = galaxy,
+		panel = function(x, y) {
+			panel.grid()
+			panel.xyplot(x, y)
+			panel.loess(x, y, span = 1, degree = 2)
+			panel.abline(h=0)
+		},
+		aspect=1,
+		layout = c(4, 2),
+		xlab = "Radial Position (arcsec)",
+		ylab = "Residual Velocity (km/sec)")
+        print(ans, position=c(0,.375,1,1), more=T)
+
+	print(plot(shingle(galaxy$angle), 
+		sub = list("Figure 4.47",cex=.8),
+		scales=list(x=list(cex=.7),y=list(cex=.7)),
+        	xlab = "Slit (degrees)"),
+                position=c(0,.1,1,.425))
+        invisible()
+}
+book.4.47()
+export.graph(Name = "GSD2",FileName = "G:\\currdata\\vizfigs\\vizdata_4_47.gif")
+
+book.4.48 <- 
+function()
+	qqmath(~loess(velocity ~ east.west * north.south, data = galaxy, 
+			span = 0.25, degree = 2, normalize = F, 
+			family = "symmetric")$residuals,
+		prepanel = prepanel.qqmathline,
+	        panel = function(x, y) {
+	                panel.qqmathline(y, distribution = qnorm)
+	                panel.qqmath(x, y)
+	        },
+		aspect=1,
+		sub = list("Figure 4.48",cex=.8),
+		xlab="Unit Normal Quantile",
+		ylab="Residual Velocity (km/sec)")
+book.4.48()
+export.graph(Name = "GSD2",FileName = "G:\\currdata\\vizfigs\\vizdata_4_48.gif")
+
+book.4.49 <- 
+function()
+	rfs(loess(velocity ~ east.west * north.south, data = galaxy,
+			span = 0.25, degree = 2, normalize = F, 
+			family = "symmetric"),
+		sub = list("Figure 4.49",cex=.8),
+		aspect=1.5,
+		ylab="Velocity (km/sec)")
+book.4.49()
+export.graph(Name = "GSD2",FileName = "G:\\currdata\\vizfigs\\vizdata_4_49.gif")
+
+book.4.50 <- 
+function()
+{
+	attach(galaxy)
+	galaxy.marginal <- list(east.west = seq(-25, 25,length=101),
+		north.south = seq(-45, 45,length=181))
+	galaxy.grid <- expand.grid(galaxy.marginal)
+	gal.m <- loess(velocity ~ east.west * north.south, span = 0.25, 
+		degree = 2, normalize = F, family = "symmetric")
+	galaxy.fit <- predict(gal.m, galaxy.grid)
+	x <- range(galaxy.marginal$east.west)
+	y <- range(galaxy.marginal$north.south)
+	ans <- contourplot(galaxy.fit ~ galaxy.grid$east.west * galaxy.grid$north.south,
+		at = seq(1435, 1755, by = 5),
+		panel = function(..., at) {
+			ref <- trellis.par.get("reference.line")
+			panel.contourplot(..., labels = F,
+				at = at,
+				lty = ref$lty, lwd = ref$lwd, col = ref$col)
+			panel.contourplot(..., labels = F,
+				at = seq(1460, 1740, by = 40))
+			panel.contourplot(...,
+				at = seq(1440, 1760, by = 40))
+		},	
+		aspect = diff(range(y))/diff(range(x)),
+		sub = list("Figure 4.50",cex=.8),
+		xlab = "East-West Coordinate (arcsec)",
+		ylab = "South-North Coordinate (arcsec)")
+	detach()
+	ans
+}
+book.4.50()
+export.graph(Name = "GSD2",FileName = "G:\\currdata\\vizfigs\\vizdata_4_50.gif")
+
+# no figs for 4.51 - 4.54
+
+book.4.55 <- 
+function()
+{
+	attach(galaxy)
+	galaxy.marginal <- list(east.west = seq(-25, 25,length=101),
+		north.south = seq(-45, 45,length=181))
+	galaxy.grid <- expand.grid(galaxy.marginal)
+	gal.m <- loess(velocity ~ east.west * north.south, span = 0.25, 
+		degree = 2, normalize = F, family = "symmetric")
+	galaxy.fit <- predict(gal.m, galaxy.grid)
+	n.level <- 48
+	given <- seq(min(galaxy.fit),max(galaxy.fit),length=n.level+1)
+	Velocity <- shingle(as.vector(galaxy.fit), 
+		cbind(given[-(n.level+1)],given[-1]))
+	ans <- xyplot(galaxy.grid$n ~ galaxy.grid$e | Velocity,
+		layout = c(8, 6),
+		panel = function(x, y) {
+			panel.grid(v=2, h=2)
+			panel.xyplot(x, y, pch = ".")
+		},
+		aspect=diff(range(galaxy.grid$n))/diff(range(galaxy.grid$e)),
+		xlab = "East-West Coordinate (arcsec)",
+		ylab = "South-North Coordinate (arcsec)")
+	detach()
+        print(ans, position=c(0,.3,1,1), more=T)
+
+	attach(galaxy)
+	galaxy.marginal <- list(east.west = seq(-25, 25,length=101),
+		north.south = seq(-45, 45,length=181))
+	galaxy.grid <- expand.grid(galaxy.marginal)
+	gal.m <- loess(velocity ~ east.west * north.south, span = 0.25, 
+		degree = 2, normalize = F, family = "symmetric")
+	galaxy.fit <- predict(gal.m, galaxy.grid)
+	given <- seq(min(galaxy.fit),max(galaxy.fit),length=49)
+	ans <- plot(shingle(as.vector(galaxy.fit), 
+		intervals = cbind(given[-length(given)], given[-1])),
+                cex=.7,
+                scales=list(x=list(cex=.7),y=list(at=seq(10,40,10),cex=.7)),
+		sub = list("Figure 4.55",cex=.8),
+		ylab="",
+		xlab = "Velocity (km/sec)")
+	detach()
+        print(ans, position=c(0,.05,1,.35))
+        invisible()
+}
+book.4.55()
+export.graph(Name = "GSD2",FileName = "G:\\currdata\\vizfigs\\vizdata_4_55.gif")
+
+book.4.56 <- 
+function()
+{
+	attach(galaxy)
+	galaxy.marginal <- list(east.west = seq(-25, 25, by = 2), 
+		north.south = seq(-45, 45, by = 2))
+	galaxy.grid <- expand.grid(galaxy.marginal)
+	galaxy.fit <- predict(loess(velocity ~ east.west * north.south, 
+		span = 0.25, degree = 2, normalize = F, family = "symmetric"),
+		galaxy.grid)
+	ar <- diff(range(galaxy.grid$north.south))/diff(range(galaxy.grid$east.west))
+	ans <- wireframe(galaxy.fit ~ galaxy.grid$east.west * galaxy.grid$north.south,
+		screen = list(z = 30, x = -60, y = 0),
+		aspect = c(ar, 1.3),
+		sub = list("Figure 4.56",cex=.8),
+		xlab = "East-West",
+		ylab = "South-North",
+		zlab = "Velocity")
+	detach()
+	ans
+}
+book.4.56()
+export.graph(Name = "GSD2",FileName = "G:\\currdata\\vizfigs\\vizdata_4_56.gif")
+
+book.4.57 <- 
+function()
+{
+	attach(galaxy)
+	galaxy.marginal <- list(east.west = seq(-25, 25, by = 2), 
+		north.south = seq(-45, 45, by = 2))
+	galaxy.grid <- expand.grid(galaxy.marginal)
+	galaxy.fit <- predict(loess(velocity ~ east.west * north.south, 
+		span = 0.25, degree = 2, normalize = F, family = "symmetric"),
+		galaxy.grid)
+	ar <- diff(range(galaxy.grid$north.south))/diff(range(galaxy.grid$east.west))
+	ans <- wireframe(galaxy.fit ~ galaxy.grid$east.west * galaxy.grid$north.south,
+		screen = list(z = 120, x = -60, y = 0),
+		aspect = c(ar, 1.3),
+		sub = list("Figure 4.57",cex=.8),
+		xlab = "East-West",
+		ylab = "South-North",
+		zlab = "Velocity")
+	detach()
+	ans
+}
+book.4.57()
+export.graph(Name = "GSD2",FileName = "G:\\currdata\\vizfigs\\vizdata_4_57.gif")
+
+book.4.58 <- 
+function()
+{
+	attach(galaxy)
+	galaxy.marginal <- list(east.west = seq(-25, 25, by = 2), 
+		north.south = seq(-45, 45, by = 2))
+	galaxy.grid <- expand.grid(galaxy.marginal)
+	galaxy.fit <- predict(loess(velocity ~ east.west * north.south, 
+		span = 0.25, degree = 2, normalize = F, family = "symmetric"),
+		galaxy.grid)
+	ar <- diff(range(galaxy.grid$north.south))/diff(range(galaxy.grid$east.west))
+	ans <- wireframe(galaxy.fit ~ galaxy.grid$east.west * galaxy.grid$north.south,
+		screen = list(z = 210, x = -60, y = 0),
+		aspect = c(ar, 1.3),
+		sub = list("Figure 4.58",cex=.8),
+		xlab = "East-West",
+		ylab = "South-North",
+		zlab = "Velocity")
+	detach()
+	ans
+}
+book.4.58()
+export.graph(Name = "GSD2",FileName = "G:\\currdata\\vizfigs\\vizdata_4_58.gif")
+
+book.4.59 <- 
+function()
+{
+	attach(galaxy)
+	galaxy.marginal <- list(east.west = seq(-25, 25, by = 2), 
+		north.south = seq(-45, 45, by = 2))
+	galaxy.grid <- expand.grid(galaxy.marginal)
+	galaxy.fit <- predict(loess(velocity ~ east.west * north.south, 
+		span = 0.25, degree = 2, normalize = F, family = "symmetric"),
+		galaxy.grid)
+	ar <- diff(range(galaxy.grid$north.south))/diff(range(galaxy.grid$east.west))
+	ans <- wireframe(galaxy.fit ~ galaxy.grid$east.west * galaxy.grid$north.south,
+		screen = list(z = 300, x = -60, y = 0),
+		aspect = c(ar, 1.3),
+		sub = list("Figure 4.59",cex=.8),
+		xlab = "East-West",
+		ylab = "South-North",
+		zlab = "Velocity")
+	detach()
+	ans
+}
+book.4.59()
+export.graph(Name = "GSD2",FileName = "G:\\currdata\\vizfigs\\vizdata_4_59.gif")
+
+book.4.60 <- 
+function()
+{
+	attach(ethanol)
+	eth.m <- loess(NOx ~ C * E, span = 1/3, degree = 2,
+		parametric = "C", drop.square = "C", family = "s")
+	eth.marginal <- list(C = seq(min(C), max(C), length = 6), 
+		E = seq(min(E), max(E), length = 25))
+	eth.grid <- expand.grid(eth.marginal)
+	eth.fit <- predict(eth.m, eth.grid)
+	ans <- wireframe(eth.fit ~ eth.grid$C * eth.grid$E, 
+		screen = list(z = 94, x = -95, y = 0),
+		distance = .3,
+		sub = list("Figure 4.60",cex=.8),
+		xlab = "C",
+		ylab = "E",
+		zlab = "NOx")
+	detach()
+	ans
+}
+book.4.60()
+export.graph(Name = "GSD2",FileName = "G:\\currdata\\vizfigs\\vizdata_4_60.gif")
+
+book.4.61 <- 
+function()
+{
+	attach(ethanol)
+	eth.m <- loess(NOx ~ C * E, span = 1/3, degree = 2, parametric = "C", 
+		drop.square = "C", family="s")
+	eth.marginal <- list(C = seq(min(C), max(C), length = 25), 
+		E = seq(min(E), max(E), length = 25))
+	eth.grid <- expand.grid(eth.marginal)
+	eth.fit <- predict(eth.m, eth.grid)
+	ans <- wireframe(eth.fit ~ eth.grid$C * eth.grid$E, 
+		screen = list(z = 30, x = -60, y=0),
+		distance = .3,
+		sub = list("Figure 4.61",cex=.8),
+		xlab = "C",
+		ylab = "E",
+		zlab = "NOx")
+	detach()
+	ans
+}
+book.4.61()
+export.graph(Name = "GSD2",FileName = "G:\\currdata\\vizfigs\\vizdata_4_61.gif")
+
+book.4.62 <- 
+function()
+{
+	attach(ethanol)
+	eth.m <- loess(NOx ~ C * E, span = 1/3, degree = 2,
+		parametric = "C", drop.square = "C",family="s")
+	eth.marginal <- list(C = seq(min(C), max(C), length = 6), 
+		E = seq(min(E), max(E), length = 25))
+	eth.grid <- expand.grid(eth.marginal)
+	eth.fit <- predict(eth.m, eth.grid)
+	ans <- wireframe(eth.fit ~ eth.grid$C * eth.grid$E, 
+		screen = list(z = 90, x = -90, y = 0),
+		perspective = F,
+		distance =.3,
+		sub = list("Figure 4.62",cex=.8),
+		xlab = "",
+		ylab = "E",
+		zlab = "NOx")
+	detach()
+	ans
+}
+book.4.62()
+export.graph(Name = "GSD2",FileName = "G:\\currdata\\vizfigs\\vizdata_4_62.gif")
+
+book.4.63 <- 
+function()
+{
+	ar <- diff(range(galaxy$north.south))/diff(range(galaxy$east.west))
+	left <- cloud(velocity ~ east.west*north.south,
+		data = galaxy,
+		screen=list(z=123, x=-60, y=0),
+		perspective=F,
+		aspect = c(ar, 1.6),
+		sub = list("Figure 4.63",cex=.8),
+		scales=list(cex=.7),
+		xlab=list("East-West",cex=.4),
+		ylab=list("South-North",cex=.4),
+		zlab=list("Velocity",cex=.4))
+	right <- update(left, screen=list(z=117,x =-60, y=0), sub="")
+	print(left, split = c(1,1,2,1), more = T)
+	print(right, split = c(2,1,2,1))
+	invisible()
+}
+book.4.63()
+export.graph(Name = "GSD2",FileName = "G:\\currdata\\vizfigs\\vizdata_4_63.gif")
+
+book.4.64 <- 
+function()
+	xyplot(northing ~ easting, 
+		data = soil,
+		panel = function(x, y) points(x, y, pch=".", cex=.75),
+		aspect=diff(range(soil$northing))/diff(range(soil$easting)),
+		ylab= "Northing (km)",
+		sub = list("Figure 4.64",cex=.8),
+		xlab= "Easting (km)")
+book.4.64()
+export.graph(Name = "GSD2",FileName = "G:\\currdata\\vizfigs\\vizdata_4_64.gif")
+
+book.4.65 <- 
+function()
+	xyplot(northing ~ resistivity | track,
+		data = soil,
+		subset = is.ns,
+		layout=c(4,2),
+		panel=function(x, y) {
+	                panel.grid(v=2)
+	                points(x, y, pch=".", cex=1.25)
+	        },
+		sub = list("Figure 4.65",cex=.8),
+		xlab="Resistivity (ohm-cm)",
+		ylab="Northing (km)")
+book.4.65()
+export.graph(Name = "GSD2",FileName = "G:\\currdata\\vizfigs\\vizdata_4_65.gif")
+
+book.4.66 <- 
+function()
+	xyplot(resistivity[!is.ns] ~ easting[!is.ns] | track[!is.ns],
+		data = soil,
+		layout=c(4,10),
+		panel=function(x, y) {
+	                panel.grid(h=2)
+	                points(x, y, pch=".", cex=1.25)
+	        },
+		sub = list("Figure 4.66",cex=.8),
+		xlab="Easting (km)",
+		ylab="Resistivity (ohm-cm)")
+book.4.66()
+export.graph(Name = "GSD2",FileName = "G:\\currdata\\vizfigs\\vizdata_4_66.gif")
+
+book.4.67 <- 
+function()
+{
+	attach(soil)
+	soi.marginal <- list(easting = seq(.15, 1.410, by = .015),
+		northing = seq(.150, 3.645, by = .015))
+	soi.grid <-  expand.grid(soi.marginal)
+	soi.m <- loess(resistivity~easting*northing, span = 0.25, degree = 2)
+	soi.fit <- predict(soi.m, soi.grid)
+	given <- seq(min(soi.fit), max(soi.fit), length = 29)
+	Resistivity <- shingle(as.vector(soi.fit), cbind(given[-29],given[-1]))
+	ans <- xyplot(soi.grid$n ~ soi.grid$e | Resistivity,
+		layout = c(7, 4),
+		panel = function(x, y) {
+	                panel.grid(v=2)
+	                points(x, y, pch = ".")
+	        },
+		aspect=diff(range(soi.grid$n))/diff(range(soi.grid$e)),
+		xlab = "Easting (km)",
+		ylab = "Northing (km)")
+	detach()
+	print(ans, position=c(0,.25,1,1), more=T)
+
+
+	attach(soil)
+	soi.marginal <- list(easting = seq(.15, 1.410, by = .015),
+		northing = seq(.150, 3.645, by = .015))
+	soi.grid <-  expand.grid(soi.marginal)
+	soi.m <- loess(resistivity~easting*northing, span = 0.25, degree = 2)
+	soi.fit <- predict(soi.m, soi.grid)
+	given <- seq(min(soi.fit), max(soi.fit), length = 29)
+	ans <- plot(shingle(as.vector(soi.fit), 
+		intervals = cbind(given[-29],given[-1])), 
+		cex=.7,
+		sub = list("Figure 4.67", cex = 0.8),
+		scales=list(x=list(cex=.7),
+			y=list(cex=.7,at=seq(5,25,5))),
+		xlab = "Resistivity (ohm-cm)")
+	detach()
+	print(ans, position=c(0,.05,1,.3))
+
+	invisible()
+}
+book.4.67()
+export.graph(Name = "GSD2",FileName = "G:\\currdata\\vizfigs\\vizdata_4_67.gif")
+
+book.4.68 <- 
+function()
+{
+	attach(soil)
+	soi.grid <- expand.grid(easting = seq(.15, 1.410, by = .015),
+		northing = seq(.150, 3.645, by = .015))
+	soi.fit <- predict(loess(resistivity~easting*northing, span = 0.25, 
+		degree = 2), soi.grid)
+	ans <- levelplot(soi.fit ~ soi.grid$easting * soi.grid$northing,
+		cuts = 9,
+		colorkey = list(labels = list(at = c(20, 40, 60, 80)), 
+			width = 5),
+		aspect=diff(range(soi.grid$n))/diff(range(soi.grid$e)),
+		sub = list("Figure 4.68",cex=.8),
+		xlab = "Easting (km)",
+		ylab = "Northing (km)")
+	detach()
+	ans
+}
+book.4.68()
+export.graph(Name = "GSD2",FileName = "G:\\currdata\\vizfigs\\vizdata_4_68.gif")
+
+book.5.1 <- 
+function()
+{
+	env <- environmental
+	env$ozone <- env$ozone ^ (1/3)
+	splom(~env,
+		sub = list("Figure 5.1",cex=.8),
+		varnames = c("Cube Root\nOzone\n(cube root ppb)",
+			"Solar\nRadiation\n(langleys)",
+			"Temperature\n(Degrees Fahrenheit)",
+			"Wind Speed\n(mph)"))
+}
+book.5.1()
+export.graph(Name = "GSD2",FileName = "G:\\currdata\\vizfigs\\vizdata_5_01.gif")
+
+book.5.2 <- 
+function()
+{
+	attach(environmental)
+	Temperature <- equal.count(temperature, 4, 1/2)
+	Wind <- equal.count(wind, 4, 1/2)
+	ans <- xyplot((environmental$ozone^(1/3)) ~ radiation | Temperature * Wind,
+		prepanel = function(x, y) 
+			prepanel.loess(x, y, span = 1),
+		panel = function(x, y){
+			panel.grid(h = 2, v = 2)
+			panel.xyplot(x, y, cex = 1)
+			panel.loess(x, y, span = 1)
+		},
+		aspect = 2,
+		sub = list("Figure 5.2",cex=.8),
+		xlab = "Solar Radiation (langleys)",
+		ylab = "Cube Root Ozone (cube root ppb)")
+	detach()
+	ans
+}
+book.5.2()
+export.graph(Name = "GSD2",FileName = "G:\\currdata\\vizfigs\\vizdata_5_02.gif")
+
+book.5.3 <- 
+function()
+{
+	attach(environmental)
+	Temperature <- equal.count(temperature, 4, 1/2)
+	Wind <- equal.count(wind, 4, 1/2)
+	ans <- xyplot((environmental$ozone^(1/3)) ~ radiation | Temperature * Wind,
+		prepanel = function(x, y) 
+			prepanel.loess(x, y, span = 1),
+		panel = function(x, y){
+			panel.grid(h = 2, v = 2)
+			panel.xyplot(x, y, cex = 1)
+			panel.loess(x, y, span = 1)
+		},
+		aspect = 2,
+		sub = list("Figure 5.3",cex=.8),
+		xlab = "Solar Radiation (langleys)",
+		ylab = "Cube Root Ozone (cube root ppb)")
+	detach()
+	ans
+}
+book.5.3()
+export.graph(Name = "GSD2",FileName = "G:\\currdata\\vizfigs\\vizdata_5_03.gif")
+
+
+book.5.4 <- 
+function()
+{
+	attach(environmental)
+	Radiation <- equal.count(radiation, 4, 1/2)
+	Temperature <- equal.count(temperature, 4, 1/2)
+	ans <- xyplot((environmental$ozone^(1/3)) ~ wind | Radiation * Temperature,
+		prepanel = function(x, y) 
+			prepanel.loess(x, y, span = 1),
+	        panel = function(x, y){
+	                panel.grid(h = 2, v = 2)
+	                panel.xyplot(x, y, cex = 1)
+	                panel.loess(x, y, span = 1)
+	        },
+		aspect = 2,
+		sub = list("Figure 5.4",cex=.8),
+		xlab = "Wind Speed (mph)",
+		ylab = "Cube Root Ozone (cube root ppb)")
+	detach()
+	ans
+}
+book.5.4()
+export.graph(Name = "GSD2",FileName = "G:\\currdata\\vizfigs\\vizdata_5_04.gif")
+
+
+
+book.5.5 <- 
+function()
+{
+	attach(environmental)
+	Radiation <- equal.count(radiation, 4, 1/2)
+	Wind <- equal.count(wind, 4, 1/2)
+	ans <- xyplot((environmental$ozone^(1/3)) ~ temperature | Radiation * Wind,
+		prepanel = function(x, y)
+			prepanel.loess(x, y, span = 1),
+	        panel = function(x, y) {
+	                panel.grid(h = 2, v = 2)
+	                panel.xyplot(x, y, cex = 1)
+	                panel.loess(x, y, span = 1)
+	        },
+		aspect = 2,
+		sub = list("Figure 5.5",cex=.8),
+		xlab = "Temperature (degrees F)",
+		ylab = "Cube Root Ozone (cube root ppb)")
+	detach()
+	ans
+}
+book.5.5()
+export.graph(Name = "GSD2",FileName = "G:\\currdata\\vizfigs\\vizdata_5_05.gif")
+
+
+book.5.6 <- 
+function()
+{
+	attach(environmental)
+	env.tm <- loess((environmental$ozone^(1/3))~wind,span=2/3,degree=1,surface="d")
+	ws <- seq(min(wind),35,length=50)
+	env.wfit <- predict(env.tm, ws)
+	xlim <- range(ws)
+	ylim <- range(env.wfit, environmental$ozone^(1/3))
+	ans <- xyplot((environmental$ozone^(1/3)) ~ wind, 
+		prepanel = substitute(function(x, y)
+			list(dx = diff(ws), dy = diff(env.wfit))),
+		panel = substitute(function(x,y){
+			add.line <- trellis.par.get("add.line")
+			panel.xyplot(x,y)
+			lines(ws, env.wfit, lwd = add.line$lwd, 
+				lty = add.line$lty, col = add.line$col)
+		}),
+		xlim = xlim, 
+		ylim = ylim,
+		aspect = 1,
+		sub = list("Figure 5.6",cex=.8),
+		xlab="Wind Speed (mph)",
+		ylab="Cube Root Ozone (cube root ppb)")
+	detach()
+	ans
+}
+book.5.6()
+export.graph(Name = "GSD2",FileName = "G:\\currdata\\vizfigs\\vizdata_5_06.gif")
+
+book.5.7 <- 
+function()
+{
+	left <- xyplot(environmental$r ~ environmental$t,
+		aspect=1,
+		panel=function(x,y){
+			panel.xyplot(x,y)
+			panel.abline(h=range(y))
+		},
+		sub = list("Figure 5.7",cex=.8),
+		xlab = "Temperature (degrees F)",
+		ylab = "Radiation (langleys)")
+	right <- xyplot(environmental$t ~ environmental$w,
+		aspect=1,
+		panel=function(x,y){
+			panel.xyplot(x,y)
+			panel.abline(v=c(4,16),h=c(61,92))
+			panel.abline(112,-2)
+			panel.abline(87,-2)
+		},
+		sub = list("Figure 5.7",cex=.8),
+		xlab = "Wind Speed (mph)",
+		ylab = "Temperature (degrees F)")
+	print(left, split = c(1,1,2,1), more = T)
+	print(right, split = c(2,1,2,1))
+	invisible()
+}
+book.5.7()
+export.graph(Name = "GSD2",FileName = "G:\\currdata\\vizfigs\\vizdata_5_07.gif")
+
+book.5.8 <- 
+function()
+{
+	attach(environmental)
+	ind <- (wind > 4)&
+		(wind < 16)&
+		(temperature < (-2 * wind + 112))&
+		(temperature > (-2 * wind + 87))&
+		(temperature > 61)&
+		(temperature < 92)
+	splom(~environmental[ind, 2:4],
+		 sub = list("Figure 5.8",cex=.8),
+		varnames = c("Solar\nRadiation\n(langleys)",
+			"Temperature\n(Degrees Fahrenheit)",
+			"Wind Speed\n(mph)"))
+}
+book.5.8()
+export.graph(Name = "GSD2",FileName = "G:\\currdata\\vizfigs\\vizdata_5_08.gif")
+
+book.5.9 <- 
+function()
+{
+	attach(environmental)
+	env.m <- loess((environmental$ozone^(1/3))~radiation*temperature*wind,
+		parametric=c("radiation","wind"),
+		span = 1,
+		degree = 2)
+	r.marginal <- seq(min(radiation),max(radiation),length=50)
+	t.marginal <- seq(61,92,length=5)
+	w.marginal <- seq(4,16,length=5)
+	twr.marginal <- list(temperature=t.marginal,wind=w.marginal,radiation=r.marginal)
+	twr.grid <- expand.grid(twr.marginal)
+	env.fit <- predict(env.m,twr.grid)
+	ind <- (twr.grid$wind>=4)&
+		(twr.grid$wind<=16)&
+		(twr.grid$temperature<(-2*twr.grid$wind+112))&
+		(twr.grid$temperature>(-2*twr.grid$wind+87))&
+		(twr.grid$temperature>=61)&
+		(twr.grid$temperature<=92)
+	env.fit[!ind] <- NA
+	Temp <- twr.grid$temperature
+	Wind <- twr.grid$wind
+	ans <- xyplot(env.fit ~ twr.grid$radiation | Temp * Wind,
+		panel = function(x, y)
+			if(!all(is.na(y))) {
+				panel.grid(h = 2, v = 2)
+				panel.xyplot(x, y, type = "l")
+			},
+		aspect = 2,
+		sub = list("Figure 5.9",cex=.8),
+		xlab = "Solar Radiation (langleys)",
+		ylab = "Cube Root Ozone (cube root ppb)")
+	detach()
+	ans
+}
+book.5.9()
+export.graph(Name = "GSD2",FileName = "G:\\currdata\\vizfigs\\vizdata_5_09.gif")
+
+
+book.5.10 <- 
+function()
+{
+	attach(environmental)
+	env.m <- loess((environmental$ozone^(1/3))~radiation*temperature*wind,
+		parametric=c("radiation","wind"),
+		span = 1,
+		degree = 2)
+	r.marginal <- seq(min(radiation),max(radiation),length=5)
+	t.marginal <- seq(61,92,length=5)
+	w.marginal <- seq(4,16,length=50)
+	twr.marginal <- list(temperature=t.marginal,wind=w.marginal,radiation=r.marginal)
+	twr.grid <- expand.grid(twr.marginal)
+	env.fit <- predict(env.m,twr.grid)
+	ind <- (twr.grid$wind>=4)&
+		(twr.grid$wind<=16)&
+		(twr.grid$temperature<(-2*twr.grid$wind+112))&
+		(twr.grid$temperature>(-2*twr.grid$wind+87))&
+		(twr.grid$temperature>=61)&
+		(twr.grid$temperature<=92)
+	env.fit[!ind] <- NA
+	Radiation <- twr.grid$radiation
+	Temp <- twr.grid$temperature
+	ans <- xyplot(env.fit ~ twr.grid$wind | Radiation * Temp,
+	        panel=function(x, y) {
+			panel.grid(h = 2, v = 2)
+			panel.xyplot(x, y, type = "l")
+	        },
+		aspect = 2,
+		sub = list("Figure 5.10",cex=.8),
+		xlab = "Wind Speed (mph)",
+		ylab = "Cube Root Ozone (cube root ppb)")
+	detach()
+	ans
+}
+book.5.10()
+export.graph(Name = "GSD2",FileName = "G:\\currdata\\vizfigs\\vizdata_5_10.gif")
+
+book.5.11 <- 
+function()
+{
+	attach(environmental)
+	env.m <- loess((environmental$ozone^(1/3))~wind*radiation*temperature,
+		parametric=c("radiation","wind"),
+		span = 1,
+		degree = 2)
+	r.marginal <- seq(min(radiation),max(radiation),length=5)
+	t.marginal <- seq(61,92,length=50)
+	w.marginal <- seq(4,16,length=5)
+	#r.marginal <- seq(50,275,length=50)
+	twr.marginal <- list(temperature=t.marginal,wind=w.marginal,radiation=r.marginal)
+	twr.grid <- expand.grid(twr.marginal)
+	env.fit <- predict(env.m,twr.grid)
+	ind <- (twr.grid$wind>=4)&
+		(twr.grid$wind<=16)&
+		(twr.grid$temperature<(-2*twr.grid$wind+112))&
+		(twr.grid$temperature>(-2*twr.grid$wind+87))&
+		(twr.grid$temperature>=61)&
+		(twr.grid$temperature<=92)
+	env.fit[!ind] <- NA
+	Radiation <- twr.grid$radiation
+	Wind <- twr.grid$wind
+	ans <- xyplot(env.fit ~ twr.grid$temperature | Radiation * Wind,
+	        panel = function(x, y) {
+	          panel.grid(h = 2, v = 2)
+	          panel.xyplot(x, y, type = "l")
+	        },
+		aspect = 2,
+		sub = list("Figure 5.11",cex=.8),
+		xlab = "Temperature (Degrees Fahrenheit)",
+		ylab = "Cube Root Ozone (cube root ppb)")
+	detach()
+	ans
+}
+book.5.11()
+export.graph(Name = "GSD2",FileName = "G:\\currdata\\vizfigs\\vizdata_5_11.gif")
+
+book.5.12 <- 
+function()
+{
+	attach(environmental)
+	env.m <- loess(environmental$ozone ~ radiation * temperature * wind,
+		parametric = c("radiation", "wind"), span = 1, degree = 2)
+	ans <- xyplot(sqrt(abs(residuals(env.m))) ~ fitted.values(env.m),
+	        panel = function(x, y){
+			panel.xyplot(x, y)
+			panel.loess(x, y, span = 1, family = "g")
+		},
+		aspect = 1,
+		las = 0, # tick labels parallel to axis
+		sub = list("Figure 5.12",cex=.8),
+		xlab = "Fitted Ozone (ppb)",
+		ylab = "Square Root Absolute Residual Ozone (square root ppb)")
+	detach()
+	ans
+}
+book.5.12()
+export.graph(Name = "GSD2",FileName = "G:\\currdata\\vizfigs\\vizdata_5_12.gif")
+
+book.5.13 <- 
+function()
+{
+	attach(environmental)
+	env.m <- loess(logb(environmental$ozone,2) ~ radiation * temperature * wind,
+		parametric = c("radiation", "wind"), span = 1, degree = 2)
+	ans <- xyplot(sqrt(abs(residuals(env.m))) ~ fitted.values(env.m),
+		panel = function(x, y){
+			panel.xyplot(x, y)
+			panel.loess(x, y, span = 1, family = "g")
+		},
+		aspect = 1,
+		las = 0, # tick labels parallel to axis
+		sub = list("Figure 5.13",cex=.8),
+		xlab = "Fitted Log Ozone (log 2 ppb)",
+		ylab = "Square Root Absolute Residual\nLog Ozone (square root absolute log 2 ppb)")
+	detach()
+	ans
+}
+book.5.13()
+export.graph(Name = "GSD2",FileName = "G:\\currdata\\vizfigs\\vizdata_5_13.gif")
+
+book.5.14 <- 
+function()
+{
+	attach(environmental)
+	env.m <- loess((environmental$ozone^(1/3)) ~ radiation * temperature * wind,
+		parametric = c("radiation", "wind"), span = 1, degree = 2, surface = "d")
+	ans <- xyplot(sqrt(abs(residuals(env.m))) ~ fitted.values(env.m),
+		panel = function(x, y){
+			panel.xyplot(x, y)
+			panel.loess(x, y, span = 1, family = "g")
+		},
+		aspect = 1,
+		las = 0, # tick labels parallel to axis
+		ylim = c(0, 1.2),
+		sub = list("Figure 5.14",cex=.8),
+		xlab = "Fitted Cube Root Ozone (cube root ppb)",
+		ylab = "Square Root Absolute Residual\nCube Root Ozone (sixth root ppb)")
+	detach()
+	ans
+}
+book.5.14()
+export.graph(Name = "GSD2",FileName = "G:\\currdata\\vizfigs\\vizdata_5_14.gif")
+
+book.5.15 <- 
+function()
+	qqmath(~loess((ozone^(1/3))~radiation*temperature*wind,
+			data=environmental, parametric=c("radiation","wind"), 
+			span = 1, degree = 2)$residuals,
+		prepanel = prepanel.qqmathline, 
+	        panel = function(x, y){
+			panel.xyplot(x,y)
+			panel.qqmathline(y, distribution = qnorm)
+		},
+		aspect=1,
+		sub = list("Figure 5.15",cex=.8),
+		xlab = "Unit Normal Quantile",
+		ylab = "Cube Root Ozone (cube root ppb)")
+book.5.15()
+export.graph(Name = "GSD2",FileName = "G:\\currdata\\vizfigs\\vizdata_5_15.gif")
+
+book.5.16 <- 
+function()
+	rfs(loess((ozone^(1/3))~radiation*temperature*wind,
+			data = environmental, parametric=c("radiation","wind"),
+			span=1, degree=2),
+	        panel = function(x, y){
+		        panel.grid()
+		        panel.xyplot(x,y)
+		},
+		sub = list("Figure 5.16",cex=.8),
+		aspect=1.5,
+		ylab="Cube Root Ozone (cube root ppb)")
+book.5.16()
+export.graph(Name = "GSD2",FileName = "G:\\currdata\\vizfigs\\vizdata_5_16.gif")
+		
+book.5.17 <- 
+function()
+{
+	weight <- unlist(logb(hamster,2))
+	organ <- factor(unlist(col(hamster)),labels=names(hamster))
+	organ <- reorder.factor(organ,weight,median)
+	bwplot(organ ~ weight,
+		aspect = 0.3,
+		sub = list("Figure 5.17",cex=.8),
+		xlab="Log Organ Weight (Log 2 grams)")
+}
+book.5.17()
+export.graph(Name = "GSD2",FileName = "G:\\currdata\\vizfigs\\vizdata_5_17.gif")
+
+book.5.18 <- 
+function()
+	splom(~logb(hamster,2),
+	sub = list("Figure 5.18",cex=.8), varnames = names(hamster))
+book.5.18()
+export.graph(Name = "GSD2",FileName = "G:\\currdata\\vizfigs\\vizdata_5_18.gif")
+
+book.5.19 <- 
+function()
+	splom(~logb(hamster, 2), 
+		varnames = names(hamster),
+		sub = list("Figure 5.19",cex=.8),
+		panel = function(x, y){
+			plot.symbol <- trellis.par.get("plot.symbol")
+			panel.xyplot(x[-38], y[-38])
+			points(x[38], y[38], pch = "+", cex = 1.5,
+				font = plot.symbol$font, col = plot.symbol$col)
+		})
+book.5.19()
+export.graph(Name = "GSD2",FileName = "G:\\currdata\\vizfigs\\vizdata_5_19.gif")
+
+# HELP 
+if (F) {
+
+book.5.20 <- 
+function()
+{
+	new.iris <- array(aperm(iris,c(1,3,2)),c(150,4))
+	set.seed(19)
+	for(i in 1:4)
+		new.iris[,i] <- jitter(new.iris[,i])
+	variety <- factor(rep(dimnames(iris)[[3]],rep(50,3)))
+	n <- length(levels(variety))
+	splom(~new.iris,
+		varnames = c("Sepal Length\n(cm)", "Sepal Width\n(cm)",
+	  		   "Petal Length\n(cm)", "Petal Width\n(cm)"),
+		panel = panel.superpose,
+		groups = variety,
+		sub = list("Figure 5.20",cex=.8),
+		key = list(points = Rows(trellis.par.get("superpose.symbol"), 1:n),
+			text = list(paste("Iris", levels(variety))), 
+			columns = n))
+}
+book.5.20()
+export.graph(Name = "GSD2",FileName = "G:\\currdata\\vizfigs\\vizdata_5_20.gif")
+
+book.5.21 <- 
+function()
+{
+	set.seed(19)
+	petal.length <- iris[,3,]
+	petal.width <- iris[,4,]
+	variety <- factor(rep(dimnames(iris)[[3]],rep(50,3)))
+	n <- length(levels(variety))
+	mea <- (logb(petal.length,2)+logb(petal.width,2))/2
+	dif <- jitter(logb(petal.length,2)-logb(petal.width,2), 2)
+	xyplot(dif ~ mea,
+		panel = function(...){
+			panel.superpose(...)
+			panel.abline(v = c(0.4, 1.46))
+		},
+		groups = variety,
+		aspect = 1,
+		sub = list("Figure 5.21",cex=.8),
+		xlab = "Size (log 2 cm)", 
+		ylab = "Jittered Elongation (log 2 ratio)",
+	        key = list(points = Rows(trellis.par.get("superpose.symbol"), 1:n),
+			text = list(paste("Iris", levels(variety))),
+			columns = n))
+}
+book.5.21()
+export.graph(Name = "GSD2",FileName = "G:\\currdata\\vizfigs\\vizdata_5_21.gif")
+}
+
+
+book.6.1 <- 
+function()
+{
+	attach(livestock)
+	logcount <- log10(count)
+	new.country <- reorder.factor(country, logcount, median)
+	new.livestock <- reorder.factor(livestock.type, logcount, median)
+	ans <- dotplot(new.country ~ logcount | new.livestock,
+		sub = list("Figure 6.1",cex=.8),
+		xlab = "Log 10 Number of Livestock",
+		layout=c(3,2))
+	detach()
+	ans
+}
+book.6.1()
+export.graph(Name = "GSD2",FileName = "G:\\currdata\\vizfigs\\vizdata_6_01.gif")
+
+book.6.2 <- 
+function()
+{
+	attach(livestock)
+	logcount <- log10(count)
+	new.country <- reorder.factor(country, logcount, median)
+	new.livestock <- reorder.factor(livestock.type, logcount, median)
+	ans <- dotplot(new.livestock ~ logcount | new.country,
+		sub = list("Figure 6.2",cex=.8),
+		xlab = "Log 10 Number of Livestock",
+		layout=c(4,7),
+		aspect=1/2)
+	detach()
+	ans
+}
+book.6.2()
+export.graph(Name = "GSD2",FileName = "G:\\currdata\\vizfigs\\vizdata_6_02.gif")
+
+book.6.3 <- 
+function()
+{
+	attach(livestock)
+	logcount <- log10(count)
+	new.country <- ordered(country, rev(sort(levels(country))))
+	new.livestock <- ordered(livestock.type,
+			c("Sheep","Poultry","Pigs","Horses","Cattle"))
+	ans <- dotplot(new.country ~ logcount | new.livestock,
+		sub = list("Figure 6.3",cex=.8),
+		xlab = "Log 10 Number of Livestock",
+		layout=c(3,2))
+	detach()
+	ans
+}
+book.6.3()
+export.graph(Name = "GSD2",FileName = "G:\\currdata\\vizfigs\\vizdata_6_03.gif")
+
+book.6.4 <- 
+function()
+{
+	attach(livestock)
+	logcount <- log10(count)
+	wt <- rep(1,length(logcount))
+	for(i in 1:10){
+	        liv.lm <- lm(logcount~livestock.type+country,weights=wt)
+	        wt <- wt.bisquare(liv.lm$res/median(abs(liv.lm$res)),c=6)
+	}
+	liv.effects <- dummy.coef(liv.lm)
+	liv.effects <- sapply(liv.effects,sort)
+	all.effects <- c(liv.effects$livestock.type,NA,liv.effects$country)
+	ans <- dotplot(all.effects,
+		aspect=1,
+		sub = list("Figure 6.4",cex=.8),
+		xlab = "Log Livestock Effects (log 10 count)")
+	detach()
+	ans
+}
+book.6.3()
+export.graph(Name = "GSD2",FileName = "G:\\currdata\\vizfigs\\vizdata_6_03.gif")
+
+# no 6.4
+
+book.6.5 <- 
+function()
+{
+	attach(livestock)
+	logcount <- log10(count)
+	wt <- rep(1,length(logcount))
+	for(i in 1:10){
+	        liv.lm <- lm(logcount~livestock.type+country,weights=wt)
+	        wt <- wt.bisquare(liv.lm$res/median(abs(liv.lm$res)),c=6)
+	}
+	liv.effects <- dummy.coef(liv.lm)
+	liv.effects <- sapply(liv.effects,"sort")
+	new.country <- ordered(country,names(liv.effects$country))
+	new.livestock <- ordered(livestock.type,names(liv.effects$livestock.type))
+	ans <- dotplot(new.country ~ logcount | new.livestock,
+		sub = list("Figure 6.5",cex=.8),
+		xlab = "Log 10 Number of Livestock",
+		layout=c(3,2))
+	detach()
+	ans
+}
+book.6.5()
+export.graph(Name = "GSD2",FileName = "G:\\currdata\\vizfigs\\vizdata_6_05.gif")
+
+book.6.6 <- 
+function()
+{
+	attach(livestock)
+	logcount <- log10(count)
+	wt <- rep(1,length(logcount))
+	for(i in 1:10){
+		liv.lm <- lm(logcount~livestock.type+country,weights=wt)
+		wt <- wt.bisquare(liv.lm$res/median(abs(liv.lm$res)),c=6)
+	}
+	liv.effects <- dummy.coef(liv.lm)
+	liv.effects <- sapply(liv.effects,"sort")
+	new.country <- ordered(country,names(liv.effects$country))
+	new.livestock <- ordered(livestock.type,names(liv.effects$livestock.type))
+	ans <- dotplot(new.livestock ~ logcount | new.country,
+		sub = list("Figure 6.6",cex=.8),
+		xlab = "Log 10 Number of Livestock",
+		layout=c(4,7),
+		aspect=1)
+	detach()
+	ans
+}
+book.6.6()
+export.graph(Name = "GSD2",FileName = "G:\\currdata\\vizfigs\\vizdata_6_06.gif")
+
+book.6.7 <- 
+function()
+{
+	attach(livestock)
+	logcount <- log10(count)
+	wt <- rep(1,length(logcount))
+	for(i in 1:10){
+	        liv.lm <- lm(logcount~livestock.type+country,weights=wt)
+	        wt <- wt.bisquare(liv.lm$res/median(abs(liv.lm$res)),c=6)
+	}
+	liv.effects <- dummy.coef(liv.lm)
+	liv.effects <- sapply(liv.effects,"sort")
+	new.country <- ordered(country,names(liv.effects$country))
+	new.livestock <- ordered(livestock.type,names(liv.effects$livestock.type))
+	ans <- dotplot(new.country ~ fitted.values(liv.lm) | new.livestock,
+		sub = list("Figure 6.7",cex=.8),
+	        xlab = "Fitted Log 10 Number of Livestock",
+	        layout=c(3,2))
+	detach()
+	ans
+}
+book.6.7()
+export.graph(Name = "GSD2",FileName = "G:\\currdata\\vizfigs\\vizdata_6_07.gif")
+
+book.6.8 <- 
+function()
+{
+	attach(livestock)
+	logcount <- log10(count)
+	wt <- rep(1,length(logcount))
+	for(i in 1:10){
+	        liv.lm <- lm(logcount~livestock.type+country,weights=wt)
+	        wt <- wt.bisquare(liv.lm$res/median(abs(liv.lm$res)),c=6)
+	}
+	liv.effects <- dummy.coef(liv.lm)
+	liv.effects <- sapply(liv.effects,"sort")
+	new.country <- ordered(country,names(liv.effects$country))
+	new.livestock <- ordered(livestock.type,names(liv.effects$livestock.type))
+	ans <- dotplot(new.livestock ~ fitted.values(liv.lm) | new.country,
+		sub = list("Figure 6.8",cex=.8),
+		xlab = "Fitted Log 10 Number of Livestock",
+		layout=c(4,7),
+	        aspect=1)
+	detach()
+	ans
+}
+book.6.8()
+export.graph(Name = "GSD2",FileName = "G:\\currdata\\vizfigs\\vizdata_6_08.gif")
+
+book.6.9 <- 
+function()
+{
+	attach(livestock)
+	logcount <- logb(count,2)
+	wt <- rep(1,length(logcount))
+	for(i in 1:10){
+	        liv.lm <- lm(logcount~livestock.type+country,weights=wt)
+	        wt <- wt.bisquare(liv.lm$res/median(abs(liv.lm$res)),c=6)
+	}
+	liv.effects <- dummy.coef(liv.lm)
+	liv.effects <- sapply(liv.effects,"sort")
+	new.country <- ordered(country,names(liv.effects$country))
+	new.livestock <- ordered(livestock.type,names(liv.effects$livestock.type))
+	liv.res <- residuals(liv.lm)
+	liv.res[(livestock.type=="Pigs")&(country=="Turkey")] <- NA
+	ans <- dotplot(new.country ~ liv.res | new.livestock,
+		panel = function(x, y) {
+			panel.dotplot(x, y)
+	                panel.abline(v=0)
+		},
+		layout=c(3,2),
+		sub = list("Figure 6.9",cex=.8),
+		xlab = "Residual Log 2 Number of Livestock")
+	detach()
+	ans
+}
+book.6.9()
+export.graph(Name = "GSD2",FileName = "G:\\currdata\\vizfigs\\vizdata_6_09.gif")
+
+book.6.10 <- 
+function()
+{
+	attach(livestock)
+	logcount <- logb(count,2)
+	wt <- rep(1,length(logcount))
+	for(i in 1:10){
+	        liv.lm <- lm(logcount~livestock.type+country,weights=wt)
+	        wt <- wt.bisquare(liv.lm$res/median(abs(liv.lm$res)),c=6)
+	}
+	liv.effects <- dummy.coef(liv.lm)
+	liv.effects <- sapply(liv.effects,"sort")
+	new.country <- ordered(country,names(liv.effects$country))
+	new.livestock <- ordered(livestock.type,names(liv.effects$livestock.type))
+	liv.res <- residuals(liv.lm)
+	liv.res[(livestock.type=="Pigs")&(country=="Turkey")] <- NA
+	ans <- dotplot(new.livestock ~ liv.res | new.country,
+		panel = function(x, y) {
+			panel.dotplot(x, y)
+			panel.abline(v=0)
+		},
+		aspect=1,
+		layout=c(4,7),
+		sub = list("Figure 6.10",cex=.8),
+		xlab = "Residual Log 2 Number of Livestock")
+	detach()
+	ans
+}
+book.6.10()
+export.graph(Name = "GSD2",FileName = "G:\\currdata\\vizfigs\\vizdata_6_10.gif")
+
+book.6.11 <- 
+function()
+{
+# requires map library -- with the world database (available from statlib)
+	attach(livestock)
+	library(maps)
+	xlim <- c(-10,32)
+	ylim <- c(35,70)
+	 map.ar <- diff(ylim)/(diff(xlim) * cos(abs(mean(ylim))*pi/180))
+	"map.xy"<-
+	list(x = c(20.0565758, 9.55326843, 21.5958538, 25.9420471, 14.9860134, 
+		8.19508266, -8.19369793, 14.7143764, 9.19108582, 19.241663, 
+		4.75434399, -7.74096918 , 25.0365906, 17.159111, 5.38816404, 
+		12.4507322, 19.241663, 12.5412788, -3.39477348
+		, 19.0605717, 24.9460449, -1.67440414, 2.67179179, 8.28562832, 
+		29.835516, 28.2962379), 
+		y = c(40.9712944, 61.4110756, 39.8017159, 62.6363487, 
+		62.7477379, 46.9862709, 40.0801888, 47.7102966, 56.1758194, 
+		47.0419655, 50.7734795, 53.2797165, 42.7535095, 49.4368172, 
+		51.8873634, 52.4443054, 44.1458664, 42.8648987, 40.1358795, 
+		52.1101379, 45.9280815, 52.6113892, 46.8748817, 50.439312, 
+		38.799221, 54.4492989))
+	country.names <- levels(country)
+	names(map.xy$y) <- names(map.xy$x) <-country.names
+	europe <- map("world.thin", xlim = xlim, ylim = ylim, plot = F)
+	logcount <- logb(count,2)
+	wt <- rep(1,length(logcount))
+	for(i in 1:10){
+	        liv.lm <- lm(logcount~livestock.type+country,weights=wt)
+	        wt <- wt.bisquare(liv.lm$res/median(abs(liv.lm$res)),c=6)
+	}
+	residual.sheep <- residuals(liv.lm)[livestock.type=="Sheep"]
+	names(residual.sheep) <- as.character(country[livestock.type=="Sheep"])
+	residual.sheep <- residual.sheep[country.names]
+	residual.sheep <- equal.count(residual.sheep, number = 3, overlap = 1/4)
+	ans <- xyplot(map.xy$y ~ map.xy$x | residual.sheep,
+		panel = substitute(function(x, y){
+			do.call("lines", c(list(x = europe), 
+			trellis.par.get("reference.line")))
+			do.call("panel.xyplot", c(list(x = x, y = y), 
+			trellis.par.get("dot.symbol")))
+		}),
+		layout = c(3, 1),
+	        aspect = map.ar, 
+		xlim = c(-10, 32),
+		ylim = c(35, 70),
+		xlab = "", 
+		ylab = "")
+	print(ans, position=c(0,.375,1,1), more=T)
+
+	logcount <- logb(count,2)
+	wt <- rep(1,length(logcount))
+	for(i in 1:10){
+	        liv.lm <- lm(logcount~livestock.type+country,weights=wt)
+	        wt <- wt.bisquare(liv.lm$res/median(abs(liv.lm$res)),c=6)
+	}
+	residual.sheep <- residuals(liv.lm)[livestock.type=="Sheep"]
+	ans <- plot(equal.count(residual.sheep, number = 3, overlap = 1/4),
+		xlab = "Residual Log 2 Sheep Count\n\nFigure 6.11")
+	print(ans, position=c(0,.2,1,.5))
+
+	detach()
+	invisible()
+}
+book.6.11()
+export.graph(Name = "GSD2",FileName = "G:\\currdata\\vizfigs\\vizdata_6_11.gif")
+
+book.6.12 <- 
+function()
+	dotplot(algorithm ~ logb(time,2) | machine * input, 
+		data = run.time,
+		aspect = "xy",
+		sub = list("Figure 6.12",cex=.8),
+		xlab = "Log Run Time (log 2 seconds)")
+book.6.12()
+export.graph(Name = "GSD2",FileName = "G:\\currdata\\vizfigs\\vizdata_6_12.gif")
+		
+book.6.13 <- 
+function()
+{
+	Machine <- levels(run.time$machine)
+	dotplot(algorithm ~ logb(time, 2) | input, 
+		data = run.time,
+		panel = function(x, y, subscripts, ...) {
+			do.call("abline", c(list(h = y), trellis.par.get("dot.line")))
+			panel.superpose(x, y, subscripts, ...)
+		},
+		groups = machine,
+		aspect = "xy",
+		layout = c(2, 3),
+		sub = list("Figure 6.13",cex=.8),
+		xlab = "Log Run Time (log 2 seconds)",
+		key = list(points = Rows(trellis.par.get("superpose.symbol"), 1:length(Machine)),
+			text = list(Machine),
+			columns = length(Machine)))
+}
+book.6.13()
+export.graph(Name = "GSD2",FileName = "G:\\currdata\\vizfigs\\vizdata_6_13.gif")
+
+book.6.14 <- 
+function()
+{
+	Machine <- levels(run.time$machine)
+	dotplot(input ~ logb(time, 2) | algorithm,
+		data = run.time,
+		panel = function(x, y, subscripts, ...) {
+			do.call("abline", c(list(h = y), trellis.par.get("dot.line")))
+			panel.superpose(x, y, subscripts, ...)
+		},
+		groups = machine,
+		aspect = .5,	
+		layout = c(1,3),
+		sub = list("Figure 6.14",cex=.8),
+		xlab = "Log Run Time (log 2 seconds)",
+		key = list(points = Rows(trellis.par.get("superpose.symbol"), 1:length(Machine)),
+			text = list(Machine),
+			columns = length(Machine)))
+}
+book.6.14()
+export.graph(Name = "GSD2",FileName = "G:\\currdata\\vizfigs\\vizdata_6_14.gif")
+
+book.6.15 <- 
+function()
+{
+	differences <- run.time
+	differences$time <- logb(differences$time,2)
+	new.vax <- differences$time[(differences$algorithm=="new")&
+		(differences$machine=="vax")]
+	new.mips <- differences$time[(differences$algorithm=="new")&
+		(differences$machine=="mips")]
+	differences$time <- differences$time - c(rep(new.vax,3),rep(new.mips,3))
+	differences <- differences[differences$algorithm!="new",]
+	differences$algorithm <- ordered(differences$algorithm,
+		names(sort(tapply(differences$time,differences$algorithm,mean))))
+	differences$machine <- ordered(differences$machine,
+		names(sort(tapply(differences$time,differences$machine,mean))))
+	differences$input <- ordered(differences$input,
+		names(sort(tapply(differences$time,differences$input,mean))))
+	Algorithm <- levels(differences$algorithm)
+	dotplot(input ~ time | machine,
+		data = differences, 
+		panel = function(x, y, subscripts, ...){
+			do.call("abline", c(list(h = y), trellis.par.get("dot.line")))
+			panel.superpose(x, y, subscripts, ...)
+		},
+		groups = algorithm,
+		aspect = .5,
+		layout = c(2, 1),
+		xlim = c(0, 4),
+		sub = list("Figure 6.15",cex=.8),
+		xlab = "Improvement (log 2 seconds)",
+		key = list(y = 1.3,
+			points = Rows(trellis.par.get("superpose.symbol"), 1:length(Algorithm)),
+			text = list(Algorithm),
+			columns = length(Algorithm)))
+}
+book.6.15()
+export.graph(Name = "GSD2",FileName = "G:\\currdata\\vizfigs\\vizdata_6_15.gif")
+
+book.6.16 <- 
+function()
+{
+	differences <- run.time
+	differences$time <- logb(differences$time,2)
+	new.vax <- differences$time[(differences$algorithm=="new")&
+		(differences$machine=="vax")]
+	new.mips <- differences$time[(differences$algorithm=="new")&
+		(differences$machine=="mips")]
+	differences$time <- differences$time - c(rep(new.vax,3),rep(new.mips,3))
+	differences <- differences[differences$algorithm!="new",]
+	differences$algorithm <- ordered(differences$algorithm,
+		names(sort(tapply(differences$time,differences$algorithm,mean))))
+	differences$machine <- ordered(differences$machine,
+		names(sort(tapply(differences$time,differences$machine,mean))))
+	differences$input <- ordered(differences$input,
+		names(sort(tapply(differences$time,differences$input,mean))))
+	attach(differences)
+	runtime.lm <- lm(time~(input+algorithm)*machine)
+	ans <- dotplot(input ~ residuals(runtime.lm) | machine * algorithm, 
+		panel = function(x, y) {
+			panel.dotplot(x, y)
+			panel.abline(v = 0)
+		},
+		aspect = 2/3,
+		layout = c(2, 2),
+		sub = list("Figure 6.16",cex=.8),
+		xlab = "Residual Improvement (log 2 seconds)")
+	detach()
+	ans
+}
+book.6.16()
+export.graph(Name = "GSD2",FileName = "G:\\currdata\\vizfigs\\vizdata_6_16.gif")
+
+book.6.17 <- 
+function()
+{
+	differences <- run.time
+	differences$time <- logb(differences$time,2)
+	new.vax <- differences$time[(differences$algorithm=="new")&
+		(differences$machine=="vax")]
+	new.mips <- differences$time[(differences$algorithm=="new")&
+		(differences$machine=="mips")]
+	differences$time <- differences$time - c(rep(new.vax,3),rep(new.mips,3))
+	differences <- differences[differences$algorithm!="new",]
+	differences$algorithm <- ordered(differences$algorithm,
+		names(sort(tapply(differences$time,differences$algorithm,mean))))
+	differences$machine <- ordered(differences$machine,
+		names(sort(tapply(differences$time,differences$machine,mean))))
+	differences$input <- ordered(differences$input,
+		names(sort(tapply(differences$time,differences$input,mean))))
+	rfs(lm(time~(input+algorithm)*machine, data = differences),
+		sub = list("Figure 6.17",cex=.8),
+		aspect = 2, 
+		ylab = "Log Run Time (log 2 seconds)")
+}
+book.6.17()
+export.graph(Name = "GSD2",FileName = "G:\\currdata\\vizfigs\\vizdata_6_17.gif")
+
+book.6.18 <- 
+function()
+{
+	differences <- run.time
+	differences$time <- logb(differences$time,2)
+	new.vax <- differences$time[(differences$algorithm=="new")&
+		(differences$machine=="vax")]
+	new.mips <- differences$time[(differences$algorithm=="new")&
+		(differences$machine=="mips")]
+	differences$time <- differences$time - c(rep(new.vax,3),rep(new.mips,3))
+	differences <- differences[differences$algorithm!="new",]
+	differences$algorithm <- ordered(differences$algorithm,
+		names(sort(tapply(differences$time,differences$algorithm,mean))))
+	differences$machine <- ordered(differences$machine,
+		names(sort(tapply(differences$time,differences$machine,mean))))
+	differences$input <- ordered(differences$input,
+		names(sort(tapply(differences$time,differences$input,mean))))
+	attach(differences)
+	runtime.lm <- lm(time~(input+algorithm)*machine)
+	which <- algorithm == "7th"
+	ans <- dotplot(input[which] ~ fitted(runtime.lm)[which] | machine[which],
+		aspect = 1/4,
+		layout = c(1, 2),
+		sub = list("Figure 6.18",cex=.8),
+		xlab = "Fitted Improvement (log 2 seconds)")
+	detach()
+	ans
+}
+book.6.18()
+export.graph(Name = "GSD2",FileName = "G:\\currdata\\vizfigs\\vizdata_6_18.gif")
+
+book.6.19 <- 
+function()
+{
+	differences <- run.time
+	differences$time <- logb(differences$time,2)
+	new.vax <- differences$time[(differences$algorithm=="new")&
+		(differences$machine=="vax")]
+	new.mips <- differences$time[(differences$algorithm=="new")&
+		(differences$machine=="mips")]
+	differences$time <- differences$time - c(rep(new.vax,3),rep(new.mips,3))
+	differences <- differences[differences$algorithm!="new",]
+	differences$algorithm <- ordered(differences$algorithm,
+		names(sort(tapply(differences$time,differences$algorithm,mean))))
+	differences$machine <- ordered(differences$machine,
+		names(sort(tapply(differences$time,differences$machine,mean))))
+	differences$input <- ordered(differences$input,
+		names(sort(tapply(differences$time,differences$input,mean))))
+	attach(differences)
+	runtime.lm.fitted <- 2^fitted(lm(time~(input+algorithm)*machine))
+	which <- algorithm == "7th"
+	ans <- dotplot(input ~ runtime.lm.fitted | machine,
+		subset = algorithm == "7th",
+		aspect = 1/4,
+		layout = c(1, 2),
+		sub = list("Figure 6.19",cex=.8),
+		xlab = "Fitted Improvement Factor")
+	detach()
+	ans
+}
+book.6.19()
+export.graph(Name = "GSD2",FileName = "G:\\currdata\\vizfigs\\vizdata_6_19.gif")
+
+book.6.20 <- 
+function()
+	dotplot(variety ~ yield | year * site,
+		data = barley,
+		aspect=.4,
+		sub = list("Figure 6.20",cex=.8),
+		xlab = "Barley Yield (bushels/acre)")
+book.6.20()
+export.graph(Name = "GSD2",FileName = "G:\\currdata\\vizfigs\\vizdata_6_20.gif")
+
+book.6.21 <- 
+function()
+{
+	attach(barley)
+	morris31 <- yield[(site=="Morris")&(year=="1931")]
+	morris32 <- yield[(site=="Morris")&(year=="1932")]
+	new.yield <- yield
+	new.yield[(site=="Morris")&(year=="1931")] <- morris32
+	new.yield[(site=="Morris")&(year=="1932")] <- morris31
+	ans <- dotplot(variety ~ new.yield | year * site, 
+		sub = list("Figure 6.21",cex=.8),
+		xlab = "Barley Yield (bushels/acre)",
+		aspect=.4)
+	detach()
+	ans
+}
+book.6.21()
+export.graph(Name = "GSD2",FileName = "G:\\currdata\\vizfigs\\vizdata_6_21.gif")
+
+book.6.22 <- 
+function()
+{
+	attach(barley)
+	morris31 <- yield[(site=="Morris")&(year=="1931")]
+	morris32 <- yield[(site=="Morris")&(year=="1932")]
+	new.yield <- yield
+	new.yield[(site=="Morris")&(year=="1931")] <- morris32
+	new.yield[(site=="Morris")&(year=="1932")] <- morris31
+	which <- year=="1931"
+	new.yield.diff <- new.yield[which]-new.yield[!which]
+	ans <- dotplot(variety[which] ~ new.yield.diff | site[which], 
+		sub = list("Figure 6.22",cex=.8),
+		xlab = "Differences of Barley Yield (bushels/acre)",
+		layout = c(1,6),
+		aspect=.4)
+	detach()
+	ans
+}
+book.6.22()
+export.graph(Name = "GSD2",FileName = "G:\\currdata\\vizfigs\\vizdata_6_22.gif")
+
+book.6.23 <- 
+function()
+{
+	attach(barley)
+	morris31 <- yield[(site=="Morris")&(year=="1931")]
+	morris32 <- yield[(site=="Morris")&(year=="1932")]
+	new.yield <- yield
+	new.yield[(site=="Morris")&(year=="1931")] <- morris32
+	new.yield[(site=="Morris")&(year=="1932")] <- morris31
+	wt <- rep(1,length(yield))
+	for(i in 1:10){
+	        barley.lm <- lm(new.yield~variety+year*site,weights=wt)
+	        wt <- wt.bisquare(barley.lm$res/median(abs(barley.lm$res)),c=6)
+	}
+	ans <- rfs(barley.lm, 
+		sub = list("Figure 6.23",cex=.8),
+		aspect=2,
+		ylab = "Yield (bushels/acre)")
+	detach()
+	ans
+}
+book.6.23()
+export.graph(Name = "GSD2",FileName = "G:\\currdata\\vizfigs\\vizdata_6_23.gif")
+
+book.6.24 <- 
+function()
+{
+	attach(barley)
+	morris31 <- yield[(site=="Morris")&(year=="1931")]
+	morris32 <- yield[(site=="Morris")&(year=="1932")]
+	new.yield <- yield
+	new.yield[(site=="Morris")&(year=="1931")] <- morris32
+	new.yield[(site=="Morris")&(year=="1932")] <- morris31
+	wt <- rep(1,length(yield))
+	for(i in 1:10){
+	        barley.lm <- lm(new.yield~variety+year*site,weights=wt)
+	        wt <- wt.bisquare(barley.lm$res/median(abs(barley.lm$res)),c=6)
+	}
+	barley.effects <- dummy.coef(barley.lm)
+	ys.effects <- c(barley.effects$"year:site" + outer(
+		barley.effects$year,barley.effects$site,"+"))
+	ys.year <- ordered(rep(levels(year),6),levels(year))
+	ys.site <- ordered(rep(levels(site),rep(2,6)),levels(site))
+	n <- length(levels(ys.year))
+	ans <- dotplot(ys.site ~ ys.effects,
+		panel = function(x, y, subscripts, ...) {
+			do.call("abline", c(list(h = y), trellis.par.get("dot.line")))
+			panel.superpose(x, y, subscripts, ...)
+		},
+		groups = ys.year,
+		aspect = 2/3,
+		sub = list("Figure 6.24",cex=.8),
+		xlab = "Site by Year Effects (bushels/acre)",
+		key = list(
+			points = Rows(trellis.par.get("superpose.symbol"), 1:n),
+			text = list(levels(ys.year)),
+			columns = n))
+	detach()
+	ans
+}
+book.6.24()
+export.graph(Name = "GSD2",FileName = "G:\\currdata\\vizfigs\\vizdata_6_24.gif")
+
+book.6.25 <- 
+function()
+{
+	attach(barley)
+	morris31 <- yield[(site=="Morris")&(year=="1931")]
+	morris32 <- yield[(site=="Morris")&(year=="1932")]
+	new.yield <- yield
+	new.yield[(site=="Morris")&(year=="1931")] <- morris32
+	new.yield[(site=="Morris")&(year=="1932")] <- morris31
+	wt <- rep(1,length(yield))
+	for(i in 1:10){
+	        barley.lm <- lm(new.yield~variety+year*site,weights=wt)
+	        wt <- wt.bisquare(barley.lm$res/median(abs(barley.lm$res)),c=6)
+	}
+	barley.effects <- dummy.coef(barley.lm)
+	ans <- dotplot(sort(barley.effects$variety),
+		sub = list("Figure 6.25",cex=.8),
+		xlab = "Variety Effects (bushels/acre)", 
+		aspect=2/3)
+	detach()
+	ans
+}
+book.6.25()
+export.graph(Name = "GSD2",FileName = "G:\\currdata\\vizfigs\\vizdata_6_25.gif")
+
+book.6.26 <- 
+function()
+{
+	attach(barley)
+	morris31 <- yield[(site=="Morris")&(year=="1931")]
+	morris32 <- yield[(site=="Morris")&(year=="1932")]
+	new.yield <- yield
+	new.yield[(site=="Morris")&(year=="1931")] <- morris32
+	new.yield[(site=="Morris")&(year=="1932")] <- morris31
+	wt <- rep(1,length(yield))
+	for(i in 1:10){
+	        barley.lm <- lm(new.yield~variety+year*site,weights=wt)
+	        wt <- wt.bisquare(barley.lm$res/median(abs(barley.lm$res)),c=6)
+	}
+	ans <- dotplot(site ~ residuals(barley.lm) | year * variety,
+		layout=c(4,5),
+		aspect=2/3,
+		panel = function(x, y) {
+			panel.dotplot(x, y)
+			panel.abline(v=0)
+		},
+		sub = list("Figure 6.26",cex=.8),
+		xlab = "Residual Barley Yield (bushels/acre)")
+	detach()
+	ans
+}
+book.6.26()
+export.graph(Name = "GSD2",FileName = "G:\\currdata\\vizfigs\\vizdata_6_26.gif")
+
+book.6.27 <- 
+function()
+{
+	attach(barley)
+	morris31 <- yield[(site=="Morris")&(year=="1931")]
+	morris32 <- yield[(site=="Morris")&(year=="1932")]
+	new.yield <- yield
+	new.yield[(site=="Morris")&(year=="1931")] <- morris32
+	new.yield[(site=="Morris")&(year=="1932")] <- morris31
+	wt <- rep(1,length(yield))
+	for(i in 1:10){
+	        barley.lm <- lm(new.yield~variety+year*site,weights=wt)
+	        wt <- wt.bisquare(barley.lm$res/median(abs(barley.lm$res)),c=6)
+	}
+	ans <- dotplot(variety ~ residuals(barley.lm) | year * site,
+		layout = c(2,6),
+		aspect=2/3,
+		panel = function(x, y) {
+			panel.dotplot(x, y)
+			panel.abline(v=0)
+		},
+		sub = list("Figure 6.27",cex=.8),
+		xlab = "Residual Barley Yield (bushels/acre)")
+	detach()
+	ans
+}
+book.6.27()
+export.graph(Name = "GSD2",FileName = "G:\\currdata\\vizfigs\\vizdata_6_27.gif")
+
