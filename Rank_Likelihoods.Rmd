@@ -20,7 +20,8 @@ Xmean <- 0
 Ymean <- 0
 Xsd <- 1
 Ysd <- 1
-XYcor <- 0.65
+#XYcor <- 0.65
+XYcor <- 0.4
 
 # Derived variables
 XYmean <- c(Xmean, Ymean)
@@ -33,7 +34,7 @@ require(MASS)
 set.seed(2)
  
 # Don't make sample too large here, car scatterplot can be slow
-myDraws <- mvrnorm(1e5, mu=XYmean, Sigma=XYcov)
+myDraws <- mvrnorm(1e4, mu=XYmean, Sigma=XYcov)
 myDraws <- data.frame(myDraws)
 colnames(myDraws) <- c("X", "Y")
 
@@ -52,10 +53,22 @@ Simulate Multiple Populations
 
 ```{r simulation}
 Sys.time()
+# These values take about 15 minutes
+# numRuns <- 1e4
+# popSize <- 1e5
 numRuns <- 1e4
 popSize <- 1e5
 
+# Quick version for debugging
+# numRuns <- 1e2
+# popSize <- 1e4
+
+# Also record X for a top portion of Y
+topProp <- 0.001 # Try 0.1%
+topN <- popSize*topProp
+
 XOfLargestY <- 1:numRuns
+XOfTopPropY <- 1:(numRuns*topN)
 
 #make this reproducible
 set.seed(2)
@@ -64,6 +77,7 @@ for (i in 1:numRuns) {
   myDraws <- data.frame(myDraws)
   colnames(myDraws) <- c("X", "Y")
   XOfLargestY[i] <- myDraws$X[which.max(myDraws$Y)]
+  XOfTopPropY[((i-1)*topN+1):(i*topN)] <- myDraws$X[head(order(myDraws$Y, decreasing=TRUE), n=topN)]
 }
 Sys.time()
 ```
@@ -95,6 +109,51 @@ xyplot(log10(y) ~ x, prob, type="l")
 
 I believe the somewhat anomalous results at the extremes are due to sampling error.  For example, when I increased the popSize from 1e4 to 1e5 (numRuns = 1e2) the peak and dip at the right moved right by about 0.7 to correspond.  Then when I increased popSize to 1e6 the peak moved another ~0.3 right.  The center of the XOfLargestY distribution also shifted right and the probabilities for 3-4SD X decreased.
 
+Now Look at the Top `r topProp*100`% of Y
+-----------------------------------------
+
+How often does the top `r topProp*100`% of Y have a given X value?
+
+```{r}
+densityplot(XOfTopPropY)
+```
+
+How likely is it that any given person at level X will be in the top `r topProp*100`% of Y?
+
+```{r}
+obs_dvals1 <- density(XOfTopPropY)
+dvals1 <- dnorm(obs_dvals1$x,mean=0,sd=1)
+prob1 <- data.frame(x = obs_dvals1$x,
+                    y = obs_dvals1$y / dvals1 / popSize * topN # Attempt to normalize this to prob.
+                    )
+
+xyplot(y ~ x, prob1, type="l")
+xyplot(log10(y) ~ x, prob1, type="l")
+```
+
+Plot the densities together.
+
+```{r}
+plot(density(XOfLargestY), xlim=c(min(XOfTopPropY), max(XOfTopPropY)), col="red",
+#plot(density(XOfLargestY), xlim=c(min(XOfLargestY), max(XOfLargestY)), col="red",
+     main=paste("Compare Densities of Largest and Top", topProp*100, "% of Y"),
+     xlab="X")
+lines(density(XOfTopPropY))
+legend("topright", legend=c("Largest", paste("Top", topProp*100, "%")), lty=1, col=c("red", "black"))
+```
+
+Note limiting of X axis.  I think this is the valid range for inference.
+
+```{r}
+#plot(prob$x, log10(prob$y), xlim=c(min(XOfTopPropY), max(XOfTopPropY)),
+plot(prob$x, log10(prob$y), xlim=c(min(XOfLargestY), max(XOfLargestY)),
+     ylim=c(min(log10(prob1$y)),max(log10(prob1$y))),
+     col="red",
+     main=paste("Compare Per-Person Likelihood of Largest and Top", topProp*100, "% of Y"),
+     xlab="X", ylab="log10(probability)", type="l")
+lines(prob1$x, log10(prob1$y))
+legend("topleft", legend=c("Largest", paste("Top", topProp*100, "%")), lty=1, col=c("red", "black"))
+```
 
 Comments
 --------
