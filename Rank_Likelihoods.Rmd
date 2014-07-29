@@ -90,6 +90,11 @@ How often does the largest Y have a given X value?
 ```{r}
 require(lattice)
 densityplot(XOfLargestY)
+
+# Take a closer look at this distribution
+summary(XOfLargestY)
+mean(XOfLargestY)
+sd(XOfLargestY)
 ```
 
 How likely is it that any given person at level X will have the best Y?
@@ -116,6 +121,11 @@ How often does the top `r topProp*100`% of Y have a given X value?
 
 ```{r}
 densityplot(XOfTopPropY)
+
+# Take a closer look at this distribution
+summary(XOfTopPropY)
+mean(XOfTopPropY)
+sd(XOfTopPropY)
 ```
 
 How likely is it that any given person at level X will be in the top `r topProp*100`% of Y?
