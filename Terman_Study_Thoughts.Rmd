@@ -8,14 +8,16 @@ output: html_document
 Emil Kirkegaard posted mean and SD for participants in the Terman study in a comment to http://infoproc.blogspot.com/2014/07/success-ability-and-all-that.html  
 "The average Termite was 152, sd=15."
 
-This seemed high if IQ is a normal distribution and Terman Study participants can be just viewed as a truncated sample of it over 135 so I decided to simulate that and see how the numbers compared.
+This seemed high if IQ is a normal distribution and Terman Study participants can be just viewed as a truncated sample of it over 135 so I decided to simulate that and see how the numbers compared.  This was apparently a mistake.  Changed cutoff to 140.
 
 ```{r}
+cutoff <- 140
+
 #make this reproducible
 set.seed(2)
 iq <- rnorm(1e6, mean=100, sd=15)
 summary(iq)
-studyIQ <- iq[iq>135]
+studyIQ <- iq[iq>cutoff]
 summary(studyIQ)
 mean(studyIQ)
 sd(studyIQ)
@@ -37,7 +39,7 @@ iql <- m * rlnorm(1e6, meanlog=ml, sdlog=sl)
 mean(iql)
 sd(iql)
 summary(iql)
-studyIQL <- iql[iql>135]
+studyIQL <- iql[iql>cutoff]
 summary(studyIQL)
 mean(studyIQL)
 sd(studyIQL)
