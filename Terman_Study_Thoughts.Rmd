@@ -1,0 +1,48 @@
+---
+title: "Terman Study Thoughts"
+author: "Rich Seiter"
+date: "Monday, July 28, 2014"
+output: html_document
+---
+
+Emil Kirkegaard posted mean and SD for participants in the Terman study in a comment to http://infoproc.blogspot.com/2014/07/success-ability-and-all-that.html  
+"The average Termite was 152, sd=15."
+
+This seemed high if IQ is a normal distribution and Terman Study participants can be just viewed as a truncated sample of it over 135 so I decided to simulate that and see how the numbers compared.
+
+```{r}
+#make this reproducible
+set.seed(2)
+iq <- rnorm(1e6, mean=100, sd=15)
+summary(iq)
+studyIQ <- iq[iq>135]
+summary(studyIQ)
+mean(studyIQ)
+sd(studyIQ)
+
+plot(density(studyIQ), xlab="IQ", main="Simulated IQ Density for Terman Study")
+abline(v=mean(studyIQ))
+```
+
+Let's try a lognormal distribution.  See http://en.wikipedia.org/wiki/Log-normal_distribution for details of how this is parameterized.  I'm not sure I have the right distribution...
+
+```{r}
+m <- 100
+v <- 15^2
+ml <- log(m^2 / (v + m^2))
+sl <- sqrt(log(1+v/m^2))
+#make this reproducible
+set.seed(2)
+iql <- m * rlnorm(1e6, meanlog=ml, sdlog=sl)
+mean(iql)
+sd(iql)
+summary(iql)
+studyIQL <- iql[iql>135]
+summary(studyIQL)
+mean(studyIQL)
+sd(studyIQL)
+
+plot(density(studyIQL), xlab="IQ", main="Simulated Lognormal IQ Density for Terman Study")
+abline(v=mean(studyIQL))
+```
+
