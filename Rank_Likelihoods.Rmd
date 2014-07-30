@@ -5,7 +5,8 @@ date: "Sunday, July 27, 2014"
 output: html_document
 ---
 
-Based on idea described in my comment at http://infoproc.blogspot.com/2014/07/success-ability-and-all-that.html
+Based on idea described in my comment at http://infoproc.blogspot.com/2014/07/success-ability-and-all-that.html  
+Also see the [original LessWrong post](http://lesswrong.com/lw/km6/why_the_tails_come_apart/)
 
 Given a contributing factor X and a related outcome variable Y (with correlation r).  Calculate likelihood that a given X will have the largest Y.  An example case might be height as X and basketball ability as Y.  Here we will focus on abstract normal variables with mean 0 and standard deviation 1.  I am assuming a correlation of 0.65, but it will be interesting to vary that.
 
@@ -20,8 +21,10 @@ Xmean <- 0
 Ymean <- 0
 Xsd <- 1
 Ysd <- 1
-XYcor <- 0.65
-#XYcor <- 0.4
+#XYcor <- 0.65
+XYcor <- 0.4
+#XYcor <- 0.2
+#XYcor <- 0.0
 
 # Derived variables
 XYmean <- c(Xmean, Ymean)
@@ -34,18 +37,19 @@ require(MASS)
 set.seed(2)
  
 # Don't make sample too large here, car scatterplot can be slow
-myDraws <- mvrnorm(1e4, mu=XYmean, Sigma=XYcov)
-myDraws <- data.frame(myDraws)
-colnames(myDraws) <- c("X", "Y")
+examplePopSize <- 1e5
+myDrawsExample <- mvrnorm(examplePopSize, mu=XYmean, Sigma=XYcov)
+myDrawsExample <- data.frame(myDrawsExample)
+colnames(myDrawsExample) <- c("X", "Y")
 
 #check the mean, sd, and cor
-apply(myDraws, 2, mean)
-apply(myDraws, 2, sd)
-cor(myDraws)
+apply(myDrawsExample, 2, mean)
+apply(myDrawsExample, 2, sd)
+cor(myDrawsExample)
 
 # Plot the distribution
 require(car)
-scatterplot(Y ~ X, data=myDraws, ellipse=TRUE, levels=c(0.5, 0.95, 0.99, 0.999, 0.9999))
+scatterplot(Y ~ X, data=myDrawsExample, ellipse=TRUE, levels=c(0.5, 0.95, 0.99, 0.999, 0.9999))
 ```
 
 Simulate Multiple Populations
@@ -173,6 +177,62 @@ Clearly this simulation model has many assumptions.  The two that particularly c
 2. That the sample population is large enough.  I saw consistent changes when increasing popSize.  I finally chose 1e5 as a compromise.
 
 I think it best to only really consider the results in the X range where XOfLargestY has at least one value (and possibly ignore apparent extreme outliers).
+
+
+Berkson's Paradox
+-----------------
+
+[This Less Wrong comment](http://lesswrong.com/lw/km6/why_the_tails_come_apart/b5r2) notes the relevance of [Berkson's Paradox](http://en.wikipedia.org/wiki/Berkson's_paradox)
+
+Though not strictly applicable here (X and Y are not independent) it does raise the question of what correlations look like if we look at selected portions of the population.
+
+Use the single example population created above.  Look at > 2SD for X, Y, and both.
+
+Notice how results change for different correlations.  As correlations become small the sample with both >2SD becomes smaller.
+
+Overall it looks like truncating the distributions decreases the measured correlations with the largest effect being if both X and Y are truncated.
+
+```{r}
+myDrawsSampleY2SD <- myDrawsExample[myDrawsExample$Y > 2,]
+
+#check the mean, sd, and cor
+apply(myDrawsSampleY2SD, 2, mean)
+apply(myDrawsSampleY2SD, 2, sd)
+cor(myDrawsSampleY2SD)
+
+# Plot the distribution
+require(car)
+scatterplot(Y ~ X, data=myDrawsSampleY2SD, ellipse=TRUE, levels=c(0.5, 0.95))
+title("Sample with Y > 2SD")
+```
+
+```{r}
+myDrawsSampleX2SD <- myDrawsExample[myDrawsExample$X > 2,]
+
+#check the mean, sd, and cor
+apply(myDrawsSampleX2SD, 2, mean)
+apply(myDrawsSampleX2SD, 2, sd)
+cor(myDrawsSampleX2SD)
+
+# Plot the distribution
+require(car)
+scatterplot(Y ~ X, data=myDrawsSampleX2SD, ellipse=TRUE, levels=c(0.5, 0.95))
+title("Sample with X > 2SD")
+```
+
+```{r}
+myDrawsSampleXY2SD <- myDrawsExample[(myDrawsExample$X > 2) & (myDrawsExample$Y > 2),]
+
+#check the mean, sd, and cor
+apply(myDrawsSampleXY2SD, 2, mean)
+apply(myDrawsSampleXY2SD, 2, sd)
+cor(myDrawsSampleXY2SD)
+
+# Plot the distribution
+require(car)
+scatterplot(Y ~ X, data=myDrawsSampleXY2SD, ellipse=TRUE, levels=c(0.5, 0.95))
+title("Sample with both X and Y > 2SD")
+```
 
 
 Other Notes
