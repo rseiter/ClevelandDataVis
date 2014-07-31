@@ -230,6 +230,23 @@ title(paste("Sample with X > 2SD,  N =", nrow(myDrawsSampleX2SD)))
 ```
 
 ```{r}
+myDrawsSampleXorY2SD <- myDrawsExample[(myDrawsExample$X > 2) | (myDrawsExample$Y > 2),]
+
+#check the mean, sd, and cor
+apply(myDrawsSampleXorY2SD, 2, mean)
+apply(myDrawsSampleXorY2SD, 2, sd)
+cor(myDrawsSampleXorY2SD)
+
+# Plot the distribution
+require(car)
+scatterplot(Y ~ X, data=myDrawsSampleXorY2SD, ellipse=TRUE,
+            levels=c(0.5, 0.95, 0.99, 0.999, 0.9999))
+title(paste("Sample with either X or Y > 2SD,  N =", nrow(myDrawsSampleXorY2SD)))
+```
+
+Correlation is large and negative at `r cor(myDrawsSampleXorY2SD)[1,2]`
+
+```{r}
 myDrawsSampleXY2SD <- myDrawsExample[(myDrawsExample$X > 2) & (myDrawsExample$Y > 2),]
 
 #check the mean, sd, and cor
@@ -245,6 +262,25 @@ title(paste("Sample with both X and Y > 2SD,  N =", nrow(myDrawsSampleXY2SD)))
 ```
 
 Compare the correlation for this group of `r cor(myDrawsSampleXY2SD)[1,2]` to the correlation for the original data of `r cor(myDrawsExample)[1,2]`
+
+And lastly look above a diagonal line.
+
+```{r}
+myDrawsSampleXYsum <- myDrawsExample[(myDrawsExample$Y + myDrawsExample$X) > 2,]
+
+#check the mean, sd, and cor
+apply(myDrawsSampleXYsum, 2, mean)
+apply(myDrawsSampleXYsum, 2, sd)
+cor(myDrawsSampleXYsum)
+
+# Plot the distribution
+require(car)
+scatterplot(Y ~ X, data=myDrawsSampleXYsum, ellipse=TRUE,
+            levels=c(0.5, 0.95, 0.99, 0.999, 0.9999))
+title(paste("Sample with (X + Y) > 2,  N =", nrow(myDrawsSampleXYsum)))
+```
+
+Correlation is large and negative at `r cor(myDrawsSampleXYsum)[1,2]`
 
 
 Pear Shaped Scatterplot?
