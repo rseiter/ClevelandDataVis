@@ -8,9 +8,11 @@ output: html_document
 Based on idea described in my comment at http://infoproc.blogspot.com/2014/07/success-ability-and-all-that.html  
 Also see the [original LessWrong post](http://lesswrong.com/lw/km6/why_the_tails_come_apart/)
 
-Given a contributing factor X and a related outcome variable Y (with correlation r).  Calculate likelihood that a given X will have the largest Y.  An example case might be height as X and basketball ability as Y.  Here we will focus on abstract normal variables with mean 0 and standard deviation 1.  I am assuming a correlation of 0.65, but it will be interesting to vary that.
+Given a contributing factor X and a related outcome variable Y (with correlation r).  Calculate likelihood that a given X will have the largest Y.  An example case might be height as X and basketball ability as Y.  Here we will focus on abstract normal variables with mean 0 and standard deviation 1.  I have tried various correlations, but have primarily been using 0.4 or 0.65.  Correlation for this simulation printed below.
 
 Ideally this would be computed exactly.  This analysis uses a simulation instead.
+
+Also see the discussion of thresholded subsamples and their effect on correlations near the end.
 
 First we generate a single set of data to give a sense of what we will see.
 
@@ -49,7 +51,9 @@ cor(myDrawsExample)
 
 # Plot the distribution
 require(car)
-scatterplot(Y ~ X, data=myDrawsExample, ellipse=TRUE, levels=c(0.5, 0.95, 0.99, 0.999, 0.9999))
+scatterplot(Y ~ X, data=myDrawsExample, ellipse=TRUE,
+            levels=c(0.5, 0.95, 0.99, 0.999, 0.9999))
+title(paste("Example Distribution with Correlation =", XYcor))
 ```
 
 Simulate Multiple Populations
@@ -57,15 +61,16 @@ Simulate Multiple Populations
 
 ```{r simulation}
 Sys.time()
-# These values take about 15 minutes
-# numRuns <- 1e4
-# popSize <- 1e5
-numRuns <- 1e4
-popSize <- 1e5
-
-# Quick version for debugging
-# numRuns <- 1e2
-# popSize <- 1e4
+quick <- FALSE
+if (quick) {
+  # Quick version for debugging
+  numRuns <- 1e2
+  popSize <- 1e4  
+} else {
+  # These values take about 15 minutes
+  numRuns <- 1e4
+  popSize <- 1e5  
+}
 
 # Also record X for a top portion of Y
 topProp <- 0.001 # Try 0.1%
@@ -109,8 +114,8 @@ I'm not sure about these calculations (especially the attempt to normalize to a 
 obs_dvals <- density(XOfLargestY)
 dvals <- dnorm(obs_dvals$x,mean=0,sd=1)
 prob <- data.frame(x = obs_dvals$x,
-                    y = obs_dvals$y / dvals / popSize # Attempt to normalize this to prob.
-                    )
+                   y = obs_dvals$y / dvals / popSize # Attempt to normalize this to prob
+                   )
 
 xyplot(y ~ x, prob, type="l")
 xyplot(log10(y) ~ x, prob, type="l")
@@ -138,7 +143,7 @@ How likely is it that any given person at level X will be in the top `r topProp*
 obs_dvals1 <- density(XOfTopPropY)
 dvals1 <- dnorm(obs_dvals1$x,mean=0,sd=1)
 prob1 <- data.frame(x = obs_dvals1$x,
-                    y = obs_dvals1$y / dvals1 / popSize * topN # Attempt to normalize this to prob.
+                    y = obs_dvals1$y / dvals1 / popSize * topN # Attempt to normalize this to prob
                     )
 
 xyplot(y ~ x, prob1, type="l")
@@ -163,10 +168,12 @@ Note limiting of X axis.  I think this is the valid range for inference.
 plot(prob$x, log10(prob$y), xlim=c(min(XOfLargestY), max(XOfLargestY)),
      ylim=c(min(log10(prob1$y)),max(log10(prob1$y))),
      col="red",
-     main=paste("Compare Per-Person Likelihood of Largest and Top", topProp*100, "% of Y"),
+     main=paste("Compare Per-Person Likelihood of Largest and Top",
+                topProp*100, "% of Y"),
      xlab="X", ylab="log10(probability)", type="l")
 lines(prob1$x, log10(prob1$y))
-legend("topleft", legend=c("Largest", paste("Top", topProp*100, "%")), lty=1, col=c("red", "black"))
+legend("topleft", legend=c("Largest", paste("Top", topProp*100, "%")),
+       lty=1, col=c("red", "black"))
 ```
 
 Comments
@@ -190,7 +197,7 @@ Use the single example population created above.  Look at > 2SD for X, Y, and bo
 
 Notice how results change for different correlations.  As correlations become small the sample with both >2SD becomes smaller.
 
-Overall it looks like truncating the distributions decreases the measured correlations with the largest effect being if both X and Y are truncated.
+Overall it looks like truncating the distributions decreases the measured correlations with the largest effect being if both X and Y are truncated.  Compare the correlations below with the correlation of `r XYcor` for the full distribution.
 
 ```{r}
 myDrawsSampleY2SD <- myDrawsExample[myDrawsExample$Y > 2,]
@@ -202,8 +209,9 @@ cor(myDrawsSampleY2SD)
 
 # Plot the distribution
 require(car)
-scatterplot(Y ~ X, data=myDrawsSampleY2SD, ellipse=TRUE, levels=c(0.5, 0.95))
-title("Sample with Y > 2SD")
+scatterplot(Y ~ X, data=myDrawsSampleY2SD, ellipse=TRUE,
+            levels=c(0.5, 0.95, 0.99, 0.999, 0.9999))
+title(paste("Sample with Y > 2SD,  N =", nrow(myDrawsSampleY2SD)))
 ```
 
 ```{r}
@@ -216,8 +224,9 @@ cor(myDrawsSampleX2SD)
 
 # Plot the distribution
 require(car)
-scatterplot(Y ~ X, data=myDrawsSampleX2SD, ellipse=TRUE, levels=c(0.5, 0.95))
-title("Sample with X > 2SD")
+scatterplot(Y ~ X, data=myDrawsSampleX2SD, ellipse=TRUE,
+            levels=c(0.5, 0.95, 0.99, 0.999, 0.9999))
+title(paste("Sample with X > 2SD,  N =", nrow(myDrawsSampleX2SD)))
 ```
 
 ```{r}
@@ -230,12 +239,44 @@ cor(myDrawsSampleXY2SD)
 
 # Plot the distribution
 require(car)
-scatterplot(Y ~ X, data=myDrawsSampleXY2SD, ellipse=TRUE, levels=c(0.5, 0.95))
-title("Sample with both X and Y > 2SD")
+scatterplot(Y ~ X, data=myDrawsSampleXY2SD, ellipse=TRUE,
+            levels=c(0.5, 0.95, 0.99, 0.999, 0.9999))
+title(paste("Sample with both X and Y > 2SD,  N =", nrow(myDrawsSampleXY2SD)))
 ```
+
+Compare the correlation for this group of `r cor(myDrawsSampleXY2SD)[1,2]` to the correlation for the original data of `r cor(myDrawsExample)[1,2]`
+
+
+Pear Shaped Scatterplot?
+------------------------
+
+There is a popular meme that IQ is correlated with accomplishment, but above IQ 120 (say) that correlation disappears.
+
+A pear shaped scatterplot (combination of elliptical moderate correlation at lower levels and circular no correlation above a threshold) has been proposed as a way of thinking about this.  See [IQ, Creativity and the Twisted Pear](http://www.megasociety.org/noesis/149/iq&pear.html) by Grady Towers.
+
+I believe the decreased correlation observed for thresholded subsamples above is a more parsimonious explanation for the popular observation of decreased correlation above a threshold (compared to no actual correlation in part of the distribution) and that the pear shaped scatterplot does not actually represent reality.  (As an aside, if my conclusion is correct I find it ironic that the IQ/Pear article appeared in the newsletter for a high IQ society.)
+
+See also the density simulations above for an explanation of how the bulk of high achievers in Y being not the highest X is consistent with high X still giving increasing returns in Y without a threshold effect.
+
+Additional data/analysis/comments welcomed.
+
+This reference has a relevant discussion: [Understanding Correlation: Factors that Affect the Size of r](http://eric.ed.gov/?id=EJ744793) and [PDF](http://www.psych.uncc.edu/pagoolka/jexpeduc2006p251.pdf).  For example: 
+
+> It is well known among statisticians that, other things being equal, the value of
+> r will be greater if there is more variability among the observations than if there
+> is less variability. However, many researchers are unaware of this fact (Glass &
+> Hopkins, 1996), and it is common for students in basic statistics courses (and
+> even some students in intermediate- and advanced-level courses) to have difficulty
+> comprehending this concept. Examples of this characteristic of r can be
+> found quite easily, and it is often termed *range restriction*, *restriction of range*,
+> or *truncated range* by authors of statistics and measurement textbooks...
+
+Which is then followed by an SAT and College GPA example.
 
 
 Other Notes
 -----------
 
 A relevant point by another commenter: [True or False: Half of All 7-Footers are in the NBA](http://www.truthaboutit.net/2012/05/true-or-false-half-of-all-7-footers-are-in-the-nba.html)
+
+Completed at `r Sys.time()`
