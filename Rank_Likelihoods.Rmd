@@ -174,7 +174,21 @@ plot(prob$x, log10(prob$y), xlim=c(min(XOfLargestY), max(XOfLargestY)),
 lines(prob1$x, log10(prob1$y))
 legend("topleft", legend=c("Largest", paste("Top", topProp*100, "%")),
        lty=1, col=c("red", "black"))
+
+mod <- lm(log10(y) ~ x, data=prob, subset=prob$x>min(XOfLargestY) & prob$x<max(XOfLargestY))
+abline(mod, col="red", lty=2)
+summary(mod)
+10 ^ coef(mod)[2]
+
+mod1 <- lm(log10(y) ~ x, data=prob1, subset=prob1$x>min(XOfLargestY) & prob1$x<max(XOfLargestY))
+abline(mod1, col="black", lty=2)
+summary(mod1)
+10 ^ coef(mod1)[2]
 ```
+
+Try fitting models to these curves (above).  Limit range and then fit log10(y) ~ x  
+10 raised to the power of the coefficient for x estimates the multiplicative factor of probability for a 1 SD increase in X.
+
 
 Comments
 --------
@@ -314,5 +328,7 @@ Other Notes
 -----------
 
 A relevant point by another commenter: [True or False: Half of All 7-Footers are in the NBA](http://www.truthaboutit.net/2012/05/true-or-false-half-of-all-7-footers-are-in-the-nba.html)
+
+Might be interesting to simulate correlation with an intermediate variable.  For example, g/IQ/success
 
 Completed at `r Sys.time()`
