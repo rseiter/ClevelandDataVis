@@ -23,8 +23,8 @@ Xmean <- 0
 Ymean <- 0
 Xsd <- 1
 Ysd <- 1
-#XYcor <- 0.65
-XYcor <- 0.4
+XYcor <- 0.65
+#XYcor <- 0.4 # Published version
 #XYcor <- 0.2
 #XYcor <- 0.0
 
@@ -62,12 +62,13 @@ Simulate Multiple Populations
 ```{r simulation}
 Sys.time()
 quick <- FALSE
+# quick <- TRUE
 if (quick) {
-  # Quick version for debugging
+  # Quick version for debugging - failing with new computer (and new R etc.)
   numRuns <- 1e2
   popSize <- 1e4  
 } else {
-  # These values take about 15 minutes
+  # These values take about 15 minutes with old computer, 6 minutes with new HP/Ryzen single core,
   numRuns <- 1e4
   popSize <- 1e5  
 }
@@ -79,8 +80,19 @@ topN <- popSize*topProp
 XOfLargestY <- 1:numRuns
 XOfTopPropY <- 1:(numRuns*topN)
 
-#make this reproducible
+#make this reproducible (is this still true running multicore?  See below)
 set.seed(2)
+
+# See https://cran.r-project.org/web/packages/doParallel/vignettes/gettingstartedParallel.pdf
+# https://stackoverflow.com/questions/20704235/function-not-found-in-r-doparallel-foreach-error-in-task-1-failed-cou
+# library(doParallel)
+# cl <- makeCluster(8)
+# registerDoParallel(cl)
+# getDoParWorkers()
+# mcoptions <- list(preschedule=FALSE, set.seed=2)
+#  
+# foreach (i=1:numRuns, .packages="MASS") %dopar% {
+#foreach (i=1:numRuns) %do% {
 for (i in 1:numRuns) {
   myDraws <- mvrnorm(popSize, mu=XYmean, Sigma=XYcov)
   myDraws <- data.frame(myDraws)
@@ -166,7 +178,7 @@ Note limiting of X axis.  I think this is the valid range for inference.
 ```{r}
 #plot(prob$x, log10(prob$y), xlim=c(min(XOfTopPropY), max(XOfTopPropY)),
 plot(prob$x, log10(prob$y), xlim=c(min(XOfLargestY), max(XOfLargestY)),
-     ylim=c(min(log10(prob1$y)),max(log10(prob1$y))),
+     ylim=c(min(log10(prob1$y),-10), min(log10(prob1$y),1)),
      col="red",
      main=paste("Compare Per-Person Likelihood of Largest and Top",
                 topProp*100, "% of Y"),
@@ -330,5 +342,11 @@ Other Notes
 A relevant point by another commenter: [True or False: Half of All 7-Footers are in the NBA](http://www.truthaboutit.net/2012/05/true-or-false-half-of-all-7-footers-are-in-the-nba.html)
 
 Might be interesting to simulate correlation with an intermediate variable.  For example, g/IQ/success
+
+Updated May 19, 2019.  Added runs since using new, faster computer which also has 8 cores.  Car scatterplot is giving warnings with newer versions or R and packages and looks much worse.  SHould debug.  
+See https://stackoverflow.com/questions/50023492/r-scatterplot-warning-messages-is-not-a-graphical-parameter
+
+Seeing pandoc error:  
+https://github.com/rstudio/rstudio/issues/4462  
 
 Completed at `r Sys.time()`

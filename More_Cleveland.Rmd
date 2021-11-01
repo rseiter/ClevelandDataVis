@@ -16,4 +16,6 @@ Solomon Messing's Blog
 Misc
 ----
 
+[Revisiting Cleveland’s The Elements of Graphing Data in ggplot2](http://www.win-vector.com/blog/2013/02/revisiting-clevelands-the-elements-of-graphing-data-in-ggplot2)
+
 [Most underused data visualization](http://stackoverflow.com/questions/2076370/most-underused-data-visualization) - not directly from Cleveland, but lots of neat plot types.

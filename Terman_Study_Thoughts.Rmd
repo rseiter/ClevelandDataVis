@@ -48,3 +48,7 @@ plot(density(studyIQL), xlab="IQ", main="Simulated Lognormal IQ Density for Term
 abline(v=mean(studyIQL))
 ```
 
+This [link](http://www.davidsongifted.org/db/Articles_id_10192.aspx) states that 26/1500 of Terman's subjects had IQs > 180. (250,000 screened?)
+
+May want to see [Children Above 180 IQ](https://www.worldcat.org/title/children-above-180-iq-stanford-binet-origin-and-development/oclc/2680258&referer=brief_results)  Also see [Hathitrust](http://catalog.hathitrust.org/Record/000382871) and [Google Books](http://books.google.com/books?id=h4J9AAAAMAAJ&dq=editions:OCLC313182987) and [Review](http://hiqnews.megafoundation.org/Children_Above_180_IQ.htm)
+
